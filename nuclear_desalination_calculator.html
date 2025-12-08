@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuclear Desalination Financing Calculator - MED System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 40px;
+        }
+
+        .section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            border: 2px solid #e9ecef;
+        }
+
+        .section h2 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .section h3 {
+            color: #2a5298;
+            margin: 20px 0 15px 0;
+            font-size: 1.3em;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .input-group .unit {
+            color: #6c757d;
+            font-size: 0.9em;
+            margin-left: 5px;
+        }
+
+        .results {
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+            border: 2px solid #00acc1;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .results h2 {
+            color: #006064;
+            border-bottom-color: #00acc1;
+        }
+
+        .result-item {
+            background: white;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 5px solid #00acc1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .result-item .label {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .result-item .value {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #006064;
+        }
+
+        .formula-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .formula-box code {
+            color: #856404;
+            font-size: 1.1em;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .info-box {
+            background: #d1ecf1;
+            border-left: 4px solid #0c5460;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .info-box strong {
+            color: #0c5460;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 1024px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌊 Nuclear Desalination Financing Calculator</h1>
+            <p>Multi-Effect Distillation (MED) System with Waste Heat Recovery</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Based on IAEA DEEP 5.1 Methodology</p>
+        </div>
+
+        <div class="content">
+            <!-- Input Section -->
+            <div class="section">
+                <h2>📊 Plant Configuration</h2>
+                
+                <div class="input-group">
+                    <label>Reactor Thermal Power Output <span class="unit">(MWth)</span></label>
+                    <input type="number" id="reactorPower" value="3000" min="100" step="100">
+                </div>
+
+                <div class="input-group">
+                    <label>Waste Heat Utilization Factor <span class="unit">(%)</span></label>
+                    <input type="number" id="wasteHeatFactor" value="67" min="50" max="75" step="1">
+                    <div class="info-box">
+                        <strong>Note:</strong> Typically 67% of reactor thermal power is lost through cooling towers. This represents the recoverable waste heat.
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>MED System Efficiency (GOR) <span class="unit">(Gain Output Ratio)</span></label>
+                    <input type="number" id="medEfficiency" value="12" min="8" max="20" step="0.5">
+                    <div class="info-box">
+                        <strong>GOR:</strong> Ratio of distillate produced to steam consumed. Higher values indicate better efficiency. Typical range: 8-15 for MED systems.
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Number of MED Effects</label>
+                    <input type="number" id="numEffects" value="8" min="4" max="16" step="1">
+                </div>
+
+                <div class="input-group">
+                    <label>Top Brine Temperature <span class="unit">(°C)</span></label>
+                    <input type="number" id="topBrineTemp" value="70" min="50" max="90" step="5">
+                </div>
+
+                <div class="input-group">
+                    <label>Plant Availability Factor <span class="unit">(%)</span></label>
+                    <input type="number" id="availability" value="90" min="80" max="95" step="1">
+                </div>
+
+                <h3>💰 Economic Parameters</h3>
+
+                <div class="input-group">
+                    <label>Water Sale Price <span class="unit">($/m³)</span></label>
+                    <input type="number" id="waterPrice" value="0.50" min="0.10" step="0.05">
+                </div>
+
+                <div class="input-group">
+                    <label>MED System Capital Cost <span class="unit">($/m³/day capacity)</span></label>
+                    <input type="number" id="medCapitalCost" value="1500" min="1000" step="100">
+                </div>
+
+                <div class="input-group">
+                    <label>Retrofit Cost Multiplier</label>
+                    <input type="number" id="retrofitMultiplier" value="1.2" min="1.0" max="2.0" step="0.1">
+                    <div class="info-box">
+                        <strong>Note:</strong> Additional cost factor for retrofitting existing nuclear plant infrastructure.
+                    </div>
+                </div>
+
+                <h3>🕳️ Earthgrid Boring Technology</h3>
+
+                <div class="input-group">
+                    <label>Waste Disposal Tunnel Length <span class="unit">(km)</span></label>
+                    <input type="number" id="wasteTunnelLength" value="5" min="1" step="0.5">
+                </div>
+
+                <div class="input-group">
+                    <label>Fuel Transport Tunnel Length <span class="unit">(km)</span></label>
+                    <input type="number" id="fuelTunnelLength" value="2" min="0.5" step="0.5">
+                </div>
+
+                <div class="input-group">
+                    <label>Boring Cost per Kilometer <span class="unit">($M/km)</span></label>
+                    <input type="number" id="boringCostPerKm" value="50" min="20" step="5">
+                </div>
+
+                <div class="input-group">
+                    <label>Nuclear Plant Purchase Price <span class="unit">($M)</span></label>
+                    <input type="number" id="plantPurchasePrice" value="500" min="100" step="50">
+                </div>
+
+                <button class="btn" onclick="calculate()">🔄 Calculate Desalination Economics</button>
+            </div>
+
+            <!-- Results Section -->
+            <div class="section">
+                <h2>📈 Calculation Results</h2>
+
+                <div class="formula-box">
+                    <h3>Daily Fresh Water Production Formula:</h3>
+                    <code>
+                        Daily Water (m³/day) = (Waste Heat (MW) × 1000 × 24 × 3600 × GOR) / (Latent Heat × 1000)<br><br>
+                        Where:<br>
+                        • Waste Heat = Reactor Power (MWth) × Waste Heat Factor (%) / 100<br>
+                        • 1000 = Conversion factor (MW to kJ/s: 1 MW = 1000 kJ/s)<br>
+                        • 24 = Hours per day<br>
+                        • 3600 = Seconds per hour<br>
+                        • GOR = Gain Output Ratio (MED Efficiency)<br>
+                        • Latent Heat = 2326 kJ/kg (at 70°C)<br>
+                        • 1000 = kg per m³ (water density)
+                    </code>
+                </div>
+
+                <div class="results" id="results">
+                    <h2>💧 Water Production</h2>
+                    <div class="result-item">
+                        <span class="label">Waste Heat Available:</span>
+                        <span class="value" id="wasteHeat">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Daily Fresh Water Production:</span>
+                        <span class="value" id="dailyWater">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Annual Water Production:</span>
+                        <span class="value" id="annualWater">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Water per MWth per day:</span>
+                        <span class="value" id="waterPerMW">-</span>
+                    </div>
+
+                    <h2 style="margin-top: 30px;">💰 Financial Analysis</h2>
+                    <div class="result-item">
+                        <span class="label">Annual Water Revenue:</span>
+                        <span class="value" id="annualRevenue">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">MED System Capital Cost:</span>
+                        <span class="value" id="medCapital">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Total Retrofit Cost:</span>
+                        <span class="value" id="retrofitCost">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Earthgrid Boring Cost:</span>
+                        <span class="value" id="boringCost">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Total Project Cost:</span>
+                        <span class="value" id="totalCost">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Payback Period:</span>
+                        <span class="value" id="paybackPeriod">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">20-Year NPV (10% discount):</span>
+                        <span class="value" id="npv">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Cost per m³ of Water:</span>
+                        <span class="value" id="costPerCubicMeter">-</span>
+                    </div>
+
+                    <h2 style="margin-top: 30px;">⚡ Energy Metrics</h2>
+                    <div class="result-item">
+                        <span class="label">Thermal Energy per m³:</span>
+                        <span class="value" id="energyPerCubicMeter">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Specific Energy Consumption:</span>
+                        <span class="value" id="specificEnergy">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" style="margin: 0 40px 40px 40px;">
+            <h2>📋 Financing Proposal Summary</h2>
+            <div id="proposalSummary" style="padding: 20px; background: white; border-radius: 10px; margin-top: 20px;">
+                <p style="color: #6c757d;">Click "Calculate" to generate proposal summary...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Constants
+        const LATENT_HEAT_KJ_KG = 2326; // kJ/kg at ~70°C
+        const HOURS_PER_DAY = 24;
+        const DAYS_PER_YEAR = 365;
+        const SECONDS_PER_HOUR = 3600;
+        const MJ_TO_KWH = 0.277778; // Conversion factor
+
+        function calculate() {
+            // Get input values
+            const reactorPower = parseFloat(document.getElementById('reactorPower').value) || 3000;
+            const wasteHeatFactor = parseFloat(document.getElementById('wasteHeatFactor').value) || 67;
+            const medEfficiency = parseFloat(document.getElementById('medEfficiency').value) || 12;
+            const numEffects = parseFloat(document.getElementById('numEffects').value) || 8;
+            const topBrineTemp = parseFloat(document.getElementById('topBrineTemp').value) || 70;
+            const availability = parseFloat(document.getElementById('availability').value) || 90;
+            const waterPrice = parseFloat(document.getElementById('waterPrice').value) || 0.50;
+            const medCapitalCost = parseFloat(document.getElementById('medCapitalCost').value) || 1500;
+            const retrofitMultiplier = parseFloat(document.getElementById('retrofitMultiplier').value) || 1.2;
+            const wasteTunnelLength = parseFloat(document.getElementById('wasteTunnelLength').value) || 5;
+            const fuelTunnelLength = parseFloat(document.getElementById('fuelTunnelLength').value) || 2;
+            const boringCostPerKm = parseFloat(document.getElementById('boringCostPerKm').value) || 50;
+            const plantPurchasePrice = parseFloat(document.getElementById('plantPurchasePrice').value) || 500;
+
+            // Calculate waste heat available (MWth)
+            const wasteHeatMW = reactorPower * (wasteHeatFactor / 100);
+            
+            // Calculate waste heat in kW
+            const wasteHeatKW = wasteHeatMW * 1000;
+            
+            // Calculate daily energy available for desalination (kWh/day)
+            // Using the MED formula: Water production = (Thermal Energy × GOR) / Latent Heat
+            const dailyEnergyKWh = wasteHeatKW * HOURS_PER_DAY;
+            
+            // Calculate daily fresh water production (m³/day)
+            // Formula: Daily Water = (Waste Heat (MW) × 1000 kJ/s/MW × 24 h × 3600 s/h × GOR) / (Latent Heat kJ/kg × 1000 kg/m³)
+            // Simplified: Daily Water = (Waste Heat (MW) × 24 × 3600 × GOR × 1000) / (Latent Heat × 1000)
+            // Further simplified: Daily Water = (Waste Heat (MW) × 24 × 3600 × GOR) / Latent Heat
+            // Where: 1 MW = 1000 kJ/s, so MW × 24 × 3600 × 1000 = kJ/day
+            const dailyWaterProduction = (wasteHeatMW * 1000 * HOURS_PER_DAY * SECONDS_PER_HOUR * medEfficiency) / (LATENT_HEAT_KJ_KG * 1000);
+            
+            // Apply availability factor
+            const dailyWaterProductionAdjusted = dailyWaterProduction * (availability / 100);
+            
+            // Annual water production
+            const annualWaterProduction = dailyWaterProductionAdjusted * DAYS_PER_YEAR;
+            
+            // Water per MWth per day
+            const waterPerMWPerDay = dailyWaterProductionAdjusted / reactorPower;
+
+            // Financial calculations
+            const annualRevenue = annualWaterProduction * waterPrice;
+            
+            // MED system capital cost
+            const medSystemCapitalCost = dailyWaterProductionAdjusted * medCapitalCost;
+            const totalRetrofitCost = medSystemCapitalCost * retrofitMultiplier;
+            
+            // Earthgrid boring costs
+            const totalTunnelLength = wasteTunnelLength + fuelTunnelLength;
+            const boringCost = totalTunnelLength * boringCostPerKm;
+            
+            // Total project cost
+            const totalProjectCost = plantPurchasePrice + totalRetrofitCost + boringCost;
+            
+            // Payback period (years)
+            const paybackPeriod = totalProjectCost / annualRevenue;
+            
+            // Calculate NPV over 20 years with 10% discount rate
+            const discountRate = 0.10;
+            let npv = -totalProjectCost; // Initial investment
+            for (let year = 1; year <= 20; year++) {
+                npv += annualRevenue / Math.pow(1 + discountRate, year);
+            }
+            
+            // Cost per cubic meter (assuming 20-year depreciation)
+            const annualDepreciation = totalProjectCost / 20;
+            const annualOandM = totalProjectCost * 0.05; // 5% of capital cost for O&M
+            const costPerCubicMeter = (annualDepreciation + annualOandM) / annualWaterProduction;
+            
+            // Energy metrics
+            const energyPerCubicMeter = (wasteHeatMW * HOURS_PER_DAY * 3.6) / dailyWaterProductionAdjusted; // MJ/m³
+            const specificEnergy = energyPerCubicMeter / medEfficiency; // MJ/m³ (net)
+
+            // Update results display
+            document.getElementById('wasteHeat').textContent = formatNumber(wasteHeatMW) + ' MWth';
+            document.getElementById('dailyWater').textContent = formatNumber(dailyWaterProductionAdjusted) + ' m³/day';
+            document.getElementById('annualWater').textContent = formatNumber(annualWaterProduction) + ' m³/year';
+            document.getElementById('waterPerMW').textContent = formatNumber(waterPerMWPerDay) + ' m³/(MWth·day)';
+            
+            document.getElementById('annualRevenue').textContent = formatCurrency(annualRevenue);
+            document.getElementById('medCapital').textContent = formatCurrency(medSystemCapitalCost);
+            document.getElementById('retrofitCost').textContent = formatCurrency(totalRetrofitCost);
+            document.getElementById('boringCost').textContent = formatCurrency(boringCost);
+            document.getElementById('totalCost').textContent = formatCurrency(totalProjectCost);
+            document.getElementById('paybackPeriod').textContent = formatNumber(paybackPeriod) + ' years';
+            document.getElementById('npv').textContent = formatCurrency(npv);
+            document.getElementById('costPerCubicMeter').textContent = formatCurrency(costPerCubicMeter);
+            
+            document.getElementById('energyPerCubicMeter').textContent = formatNumber(energyPerCubicMeter) + ' MJ/m³';
+            document.getElementById('specificEnergy').textContent = formatNumber(specificEnergy) + ' MJ/m³';
+
+            // Generate proposal summary
+            generateProposalSummary({
+                reactorPower,
+                wasteHeatMW,
+                dailyWaterProductionAdjusted,
+                annualWaterProduction,
+                annualRevenue,
+                totalProjectCost,
+                paybackPeriod,
+                npv,
+                costPerCubicMeter,
+                medEfficiency,
+                numEffects,
+                topBrineTemp
+            });
+        }
+
+        function formatNumber(num) {
+            if (num >= 1000000) {
+                return (num / 1000000).toFixed(2) + 'M';
+            } else if (num >= 1000) {
+                return (num / 1000).toFixed(2) + 'K';
+            }
+            return num.toFixed(2);
+        }
+
+        function formatCurrency(num) {
+            if (num >= 1000000000) {
+                return '$' + (num / 1000000000).toFixed(2) + 'B';
+            } else if (num >= 1000000) {
+                return '$' + (num / 1000000).toFixed(2) + 'M';
+            } else if (num >= 1000) {
+                return '$' + (num / 1000).toFixed(2) + 'K';
+            }
+            return '$' + num.toFixed(2);
+        }
+
+        function generateProposalSummary(data) {
+            const summary = `
+                <h3 style="color: #1e3c72; margin-bottom: 15px;">Executive Summary</h3>
+                <p style="margin-bottom: 15px; line-height: 1.8;">
+                    This proposal outlines the conversion of an existing coastal nuclear power plant into a 
+                    <span class="highlight">cogeneration facility</span> producing both electricity and fresh water through 
+                    Multi-Effect Distillation (MED) technology. By capturing <span class="highlight">${(data.wasteHeatMW/data.reactorPower*100).toFixed(1)}%</span> 
+                    of the reactor's thermal output currently lost through cooling towers, the facility will produce 
+                    <span class="highlight">${formatNumber(data.dailyWaterProductionAdjusted)} m³/day</span> of fresh water 
+                    (${formatNumber(data.annualWaterProduction)} m³/year).
+                </p>
+
+                <h3 style="color: #1e3c72; margin: 25px 0 15px 0;">Technical Specifications</h3>
+                <ul style="line-height: 2; margin-left: 20px;">
+                    <li><strong>Reactor Thermal Power:</strong> ${formatNumber(data.reactorPower)} MWth</li>
+                    <li><strong>Waste Heat Recovered:</strong> ${formatNumber(data.wasteHeatMW)} MWth</li>
+                    <li><strong>MED System:</strong> ${data.numEffects}-effect system with GOR of ${data.medEfficiency}</li>
+                    <li><strong>Top Brine Temperature:</strong> ${data.topBrineTemp}°C</li>
+                    <li><strong>Daily Production:</strong> ${formatNumber(data.dailyWaterProductionAdjusted)} m³/day</li>
+                </ul>
+
+                <h3 style="color: #1e3c72; margin: 25px 0 15px 0;">Financial Highlights</h3>
+                <ul style="line-height: 2; margin-left: 20px;">
+                    <li><strong>Total Project Investment:</strong> ${formatCurrency(data.totalProjectCost)}</li>
+                    <li><strong>Annual Water Revenue:</strong> ${formatCurrency(data.annualRevenue)}</li>
+                    <li><strong>Payback Period:</strong> ${formatNumber(data.paybackPeriod)} years</li>
+                    <li><strong>20-Year NPV (10%):</strong> ${formatCurrency(data.npv)}</li>
+                    <li><strong>Production Cost:</strong> ${formatCurrency(data.costPerCubicMeter)}/m³</li>
+                </ul>
+
+                <h3 style="color: #1e3c72; margin: 25px 0 15px 0;">Infrastructure Components</h3>
+                <ul style="line-height: 2; margin-left: 20px;">
+                    <li><strong>MED Desalination System:</strong> State-of-the-art multi-effect distillation units</li>
+                    <li><strong>Earthgrid Boring Technology:</strong> Deep underground waste disposal and fuel transport tunnels</li>
+                    <li><strong>Heat Exchange Systems:</strong> Integration with existing reactor cooling infrastructure</li>
+                    <li><strong>Water Treatment & Distribution:</strong> Purification and delivery systems</li>
+                </ul>
+
+                <h3 style="color: #1e3c72; margin: 25px 0 15px 0;">Revenue Model</h3>
+                <p style="line-height: 1.8; margin-bottom: 15px;">
+                    Revenue from the sale of desalinated water will fund:
+                </p>
+                <ul style="line-height: 2; margin-left: 20px;">
+                    <li>Initial plant purchase and retrofit costs</li>
+                    <li>Earthgrid boring infrastructure for waste disposal</li>
+                    <li>Fuel transport tunnel construction</li>
+                    <li>Ongoing operations and maintenance</li>
+                </ul>
+
+                <div style="background: #d4edda; border-left: 4px solid #28a745; padding: 15px; margin-top: 20px; border-radius: 5px;">
+                    <strong style="color: #155724;">Investment Opportunity:</strong> This project represents a sustainable solution 
+                    to water scarcity while maximizing the utilization of existing nuclear infrastructure. The integration of 
+                    MED desalination with nuclear waste heat recovery creates a dual revenue stream and significantly improves 
+                    the economic viability of the facility.
+                </div>
+            `;
+            
+            document.getElementById('proposalSummary').innerHTML = summary;
+        }
+
+        // Calculate on page load with default values
+        window.onload = function() {
+            calculate();
+        };
+    </script>
+</body>
+</html>
