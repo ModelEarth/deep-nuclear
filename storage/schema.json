@@ -1,0 +1,139 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "Site": {
+      "type": "object",
+      "required": ["id", "name", "country", "siteType", "status"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the site (lowercase, no spaces)"
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name of the nuclear site"
+        },
+        "country": {
+          "type": "string",
+          "description": "Country where the site is located"
+        },
+        "region": {
+          "type": "string",
+          "description": "State/province/region within the country"
+        },
+        "coordinates": {
+          "type": "object",
+          "properties": {
+            "lat": { "type": "number" },
+            "lon": { "type": "number" }
+          }
+        },
+        "siteType": {
+          "type": "string",
+          "enum": ["uranium_tailings", "nuclear_power_plant", "nuclear_test_site", "waste_storage", "uranium_mine", "enrichment_facility"]
+        },
+        "issueType": {
+          "type": "string",
+          "enum": ["contamination", "accident", "disaster", "ongoing_operations", "decommissioning", "health_impacts"]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["ongoing", "resolved", "monitoring", "decommissioned", "abandoned"]
+        },
+        "timeline": {
+          "type": "object",
+          "properties": {
+            "startYear": { "type": "number" },
+            "endYear": { "type": "number" }
+          }
+        },
+        "files": {
+          "type": "object",
+          "properties": {
+            "timeline": { "type": "string" },
+            "report": { "type": "string" },
+            "mediaFolder": { "type": "string" }
+          }
+        },
+        "media": {
+          "type": "object",
+          "properties": {
+            "coverImage": { "type": "string" },
+            "externalPhotoUrl": { "type": "string" }
+          }
+        },
+        "description": {
+          "type": "string",
+          "description": "Brief summary of the site and its issues"
+        },
+        "metadata": {
+          "type": "object",
+          "properties": {
+            "createdAt": { "type": "string", "format": "date-time" },
+            "updatedAt": { "type": "string", "format": "date-time" },
+            "order": { "type": "number" }
+          }
+        }
+      }
+    },
+    "TimelineEvent": {
+      "type": "object",
+      "required": ["year", "category", "title", "status"],
+      "properties": {
+        "year": {
+          "type": "number",
+          "description": "Year the event occurred"
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "Scientific Study",
+            "Peer-Reviewed Study",
+            "International Recognition",
+            "Health Survey",
+            "NGO Report",
+            "Environmental Report",
+            "Industrial Accident",
+            "Legal Action",
+            "Investigative Report",
+            "Government Statement",
+            "Policy / Regulation",
+            "Company Report",
+            "Independent Study",
+            "Government Program",
+            "Health Research",
+            "Public Health Report",
+            "Legal & Rights Analysis",
+            "Water Quality Study",
+            "Regulatory Documentation"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "description": "Short title of the event"
+        },
+        "location": {
+          "type": "string",
+          "description": "Specific location where event occurred"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Ongoing risk", "Claimed improvement", "Policy regression", "Resolved"]
+        },
+        "summary": {
+          "type": "string",
+          "description": "Detailed description of the event"
+        },
+        "source": {
+          "type": "string",
+          "description": "Source of the information"
+        },
+        "link": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to source material"
+        }
+      }
+    }
+  }
+}

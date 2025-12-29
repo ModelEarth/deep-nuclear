@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Sites - Deep Nuclear Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <h1>Deep <span>Nuclear</span> Admin</h1>
+      <ul>
+        <li><a href="../index.html">Dashboard</a></li>
+        <li><a href="sites.html" class="active">Sites</a></li>
+        <li><a href="timeline.html">Timeline</a></li>
+        <li><a href="reports.html">Reports</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Manage Sites</h2>
+        <button class="btn btn-primary" onclick="openSiteModal()">+ Add New Site</button>
+      </div>
+
+      <div id="sitesContainer">
+        <p style="text-align: center; color: #6b7280; padding: 2rem;">Loading sites...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add/Edit Site Modal -->
+  <div id="siteModal" class="modal">
+    <div class="modal-content" style="max-width: 800px;">
+      <div class="modal-header">
+        <h2 id="modalTitle">Add New Site</h2>
+        <button class="modal-close" onclick="closeSiteModal()">&times;</button>
+      </div>
+
+      <form id="siteForm" onsubmit="saveSite(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Site ID *</label>
+            <input type="text" id="siteId" required pattern="[a-z0-9-]+" placeholder="e.g., fukushima">
+            <small style="color: #6b7280;">Lowercase, no spaces (use hyphens)</small>
+          </div>
+
+          <div class="form-group">
+            <label>Site Name *</label>
+            <input type="text" id="siteName" required placeholder="e.g., Fukushima Daiichi">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Country *</label>
+            <input type="text" id="country" required placeholder="e.g., Japan">
+          </div>
+
+          <div class="form-group">
+            <label>Region</label>
+            <input type="text" id="region" placeholder="e.g., Fukushima Prefecture">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Latitude</label>
+            <input type="number" step="any" id="lat" placeholder="e.g., 37.4213">
+          </div>
+
+          <div class="form-group">
+            <label>Longitude</label>
+            <input type="number" step="any" id="lon" placeholder="e.g., 141.0327">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Site Type *</label>
+            <select id="siteType" required>
+              <option value="">Select type...</option>
+              <option value="uranium_tailings">Uranium Tailings</option>
+              <option value="nuclear_power_plant">Nuclear Power Plant</option>
+              <option value="nuclear_test_site">Nuclear Test Site</option>
+              <option value="waste_storage">Waste Storage</option>
+              <option value="uranium_mine">Uranium Mine</option>
+              <option value="enrichment_facility">Enrichment Facility</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Issue Type</label>
+            <select id="issueType">
+              <option value="">Select issue...</option>
+              <option value="contamination">Contamination</option>
+              <option value="accident">Accident</option>
+              <option value="disaster">Disaster</option>
+              <option value="ongoing_operations">Ongoing Operations</option>
+              <option value="decommissioning">Decommissioning</option>
+              <option value="health_impacts">Health Impacts</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Status *</label>
+            <select id="status" required>
+              <option value="">Select status...</option>
+              <option value="ongoing">Ongoing</option>
+              <option value="resolved">Resolved</option>
+              <option value="monitoring">Monitoring</option>
+              <option value="decommissioned">Decommissioned</option>
+              <option value="abandoned">Abandoned</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Order</label>
+            <input type="number" id="order" placeholder="Display order">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Start Year</label>
+            <input type="number" id="startYear" placeholder="e.g., 2011">
+          </div>
+
+          <div class="form-group">
+            <label>End Year</label>
+            <input type="number" id="endYear" placeholder="e.g., 2025">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Description *</label>
+          <textarea id="description" required rows="4" placeholder="Brief summary of the site and its issues..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>External Photo URL</label>
+          <input type="url" id="externalPhotoUrl" placeholder="https://...">
+        </div>
+
+        <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 2rem;">
+          <button type="button" class="btn btn-secondary" onclick="closeSiteModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Site</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/sites.js"></script>
+</body>
+</html>

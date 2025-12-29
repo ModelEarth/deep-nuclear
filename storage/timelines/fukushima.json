@@ -1,0 +1,172 @@
+[
+  {
+    "year": 1967,
+    "category": "Policy / Regulation",
+    "title": "Fukushima Daiichi Construction Begins",
+    "location": "Ōkuma and Futaba, Fukushima Prefecture, Japan",
+    "status": "Resolved",
+    "summary": "Tokyo Electric Power Company (TEPCO) begins construction of the Fukushima Daiichi Nuclear Power Plant. The site eventually houses six boiling water reactors, with the first four reactors (Units 1-4) designed by General Electric.",
+    "source": "TEPCO Historical Records",
+    "link": "https://www.tepco.co.jp/en/corpinfo/illustrated/power-station/fukushima-daiichi/index-e.html"
+  },
+  {
+    "year": 1971,
+    "category": "Company Report",
+    "title": "Fukushima Daiichi Unit 1 Begins Commercial Operation",
+    "location": "Fukushima Daiichi Nuclear Power Plant",
+    "status": "Resolved",
+    "summary": "Unit 1, a 460 MW boiling water reactor, begins commercial operation. It was the first of six reactors at the site and became one of the oldest operating nuclear reactors in Japan before the 2011 disaster.",
+    "source": "TEPCO Operations Log",
+    "link": "https://www.world-nuclear.org/information-library/country-profiles/countries-g-n/japan-nuclear-power.aspx"
+  },
+  {
+    "year": 2002,
+    "category": "Company Report",
+    "title": "TEPCO Admits to Falsifying Safety Records",
+    "location": "TEPCO Headquarters, Tokyo",
+    "status": "Claimed improvement",
+    "summary": "TEPCO admits to systematically falsifying safety inspection records at its nuclear power plants, including Fukushima Daiichi, for more than two decades. Revelations lead to temporary shutdown of all TEPCO reactors and management resignations.",
+    "source": "Japanese Nuclear Regulatory Authority",
+    "link": "https://www.japantimes.co.jp/news/2002/08/30/national/tepco-admits-falsifying-nuke-plant-data/"
+  },
+  {
+    "year": 2008,
+    "category": "Scientific Study",
+    "title": "Tsunami Risk Assessment Ignored",
+    "location": "Fukushima Daiichi Nuclear Power Plant",
+    "status": "Policy regression",
+    "summary": "Internal TEPCO study estimates potential for tsunami waves up to 15.7 meters high at Fukushima Daiichi, based on historical earthquake data. TEPCO management dismisses the findings and takes no action to raise sea walls or relocate backup generators.",
+    "source": "Japanese Parliamentary Investigation Commission",
+    "link": "https://www.nirs.org/wp-content/uploads/fukushima/naiic_report.pdf"
+  },
+  {
+    "year": 2011,
+    "category": "Industrial Accident",
+    "title": "The Great East Japan Earthquake and Tsunami",
+    "location": "Pacific Ocean off the coast of Tōhoku",
+    "status": "Ongoing risk",
+    "summary": "On March 11, 2011, a magnitude 9.0 earthquake strikes off Japan's coast, triggering a massive tsunami. Waves reach heights of 14-15 meters, overwhelming Fukushima Daiichi's 10-meter sea wall and flooding backup power systems.",
+    "source": "USGS Earthquake Records",
+    "link": "https://earthquake.usgs.gov/earthquakes/eventpage/official20110311054624120_30"
+  },
+  {
+    "year": 2011,
+    "category": "Industrial Accident",
+    "title": "Triple Meltdown at Fukushima Daiichi",
+    "location": "Fukushima Daiichi Nuclear Power Plant, Units 1, 2, and 3",
+    "status": "Ongoing risk",
+    "summary": "Loss of cooling systems leads to fuel meltdowns in reactors 1, 2, and 3 over the course of several days. Hydrogen explosions destroy reactor buildings. The disaster is classified as Level 7 on the International Nuclear Event Scale, matching Chernobyl.",
+    "source": "IAEA Mission Report",
+    "link": "https://www.iaea.org/newscenter/focus/fukushima"
+  },
+  {
+    "year": 2011,
+    "category": "Government Statement",
+    "title": "20-km Evacuation Zone Declared",
+    "location": "Fukushima Prefecture",
+    "status": "Ongoing risk",
+    "summary": "Japanese government orders evacuation of all residents within 20 kilometers of the plant. Eventually, more than 150,000 people are displaced. Many areas remain uninhabitable more than a decade later.",
+    "source": "Japanese Prime Minister's Office",
+    "link": "https://japan.kantei.go.jp/kan/topics/201103/iaea_houkokusho_e.html"
+  },
+  {
+    "year": 2013,
+    "category": "Environmental Report",
+    "title": "Contaminated Water Storage Tank Leaks",
+    "location": "Fukushima Daiichi Nuclear Power Plant",
+    "status": "Ongoing risk",
+    "summary": "TEPCO reveals that approximately 300 tons of highly radioactive water leaked from storage tanks. The contaminated water contains strontium-90 and other dangerous isotopes. Ongoing water contamination becomes a persistent challenge.",
+    "source": "TEPCO Press Release",
+    "link": "https://www.tepco.co.jp/en/press/corp-com/release/2013/1229853_5130.html"
+  },
+  {
+    "year": 2015,
+    "category": "Health Survey",
+    "title": "Increased Thyroid Cancer in Fukushima Children",
+    "location": "Fukushima Prefecture",
+    "status": "Ongoing risk",
+    "summary": "Fukushima Prefecture health survey finds dramatically elevated rates of thyroid cancer among children exposed to radiation. By 2015, 137 children are diagnosed or suspected of having thyroid cancer, far exceeding normal incidence rates.",
+    "source": "Fukushima Medical University",
+    "link": "https://www.fmu.ac.jp/radiationhealth/results/"
+  },
+  {
+    "year": 2016,
+    "category": "Legal Action",
+    "title": "Former TEPCO Executives Indicted",
+    "location": "Tokyo District Court",
+    "status": "Claimed improvement",
+    "summary": "Three former TEPCO executives are indicted on criminal charges of professional negligence resulting in death and injury. Prosecutors allege executives ignored tsunami warnings and failed to implement safety measures that could have prevented the disaster.",
+    "source": "Tokyo District Court Records",
+    "link": "https://www.reuters.com/article/us-japan-fukushima-trial-idUSKCN0ZG0EO"
+  },
+  {
+    "year": 2018,
+    "category": "Peer-Reviewed Study",
+    "title": "Widespread Radioactive Contamination Mapped",
+    "location": "Fukushima Prefecture and surrounding regions",
+    "status": "Ongoing risk",
+    "summary": "Comprehensive scientific mapping shows cesium-137 and cesium-134 contamination extends far beyond evacuation zones, affecting forests, agricultural land, and water systems across northern Japan. Decontamination efforts prove largely ineffective in forest areas.",
+    "source": "Nature Scientific Reports",
+    "link": "https://www.nature.com/articles/s41598-018-22420-y"
+  },
+  {
+    "year": 2019,
+    "category": "Legal Action",
+    "title": "Former TEPCO Executives Acquitted",
+    "location": "Tokyo District Court",
+    "status": "Policy regression",
+    "summary": "Tokyo District Court acquits all three former TEPCO executives of criminal negligence charges, ruling that the disaster was unforeseeable despite evidence of ignored warnings. Decision sparks outrage among victims and activists.",
+    "source": "Tokyo District Court Ruling",
+    "link": "https://www.bbc.com/news/world-asia-49715334"
+  },
+  {
+    "year": 2020,
+    "category": "Government Program",
+    "title": "Selective Lifting of Evacuation Orders",
+    "location": "Parts of Fukushima Prefecture",
+    "status": "Claimed improvement",
+    "summary": "Japanese government begins lifting evacuation orders in select areas despite ongoing contamination concerns. Many former residents refuse to return due to health fears, destroyed communities, and lack of economic opportunities.",
+    "source": "Reconstruction Agency of Japan",
+    "link": "https://www.reconstruction.go.jp/english/"
+  },
+  {
+    "year": 2021,
+    "category": "Policy / Regulation",
+    "title": "Decision to Release Treated Water into Pacific Ocean",
+    "location": "Fukushima Daiichi / Japanese Government",
+    "status": "Policy regression",
+    "summary": "Japanese government approves TEPCO's plan to release more than 1 million tons of treated but still radioactive water into the Pacific Ocean starting in 2023. Decision faces fierce opposition from fishing communities, neighboring countries, and environmental groups.",
+    "source": "Japanese Ministry of Economy, Trade and Industry",
+    "link": "https://www.meti.go.jp/english/earthquake/nuclear/decommissioning/index.html"
+  },
+  {
+    "year": 2023,
+    "category": "Environmental Report",
+    "title": "Discharge of Radioactive Water Begins",
+    "location": "Fukushima Daiichi Nuclear Power Plant",
+    "status": "Ongoing risk",
+    "summary": "TEPCO begins releasing treated radioactive water containing tritium into the Pacific Ocean despite protests from Pacific Island nations, China, South Korea, and local fishing communities. Plan involves releasing water over 30+ years.",
+    "source": "TEPCO Operations Update",
+    "link": "https://www.tepco.co.jp/en/hd/decommission/progress/watermanagement/index-e.html"
+  },
+  {
+    "year": 2024,
+    "category": "Company Report",
+    "title": "Decommissioning Timeline Extended Again",
+    "location": "Fukushima Daiichi Nuclear Power Plant",
+    "status": "Ongoing risk",
+    "summary": "TEPCO announces further delays to decommissioning schedule. Removal of melted fuel debris, originally planned for 2021, is pushed back indefinitely. Complete decommissioning now estimated to take 50+ years at minimum, with costs exceeding $200 billion USD.",
+    "source": "TEPCO Decommissioning Report",
+    "link": "https://www.tepco.co.jp/en/hd/decommission/index-e.html"
+  },
+  {
+    "year": 2025,
+    "category": "Health Research",
+    "title": "Long-term Health Effects Study Update",
+    "location": "Fukushima Prefecture",
+    "status": "Ongoing risk",
+    "summary": "Latest results from ongoing Fukushima Health Management Survey show continued elevated rates of thyroid abnormalities in children and young adults exposed to radiation. Over 300 cases of thyroid cancer diagnosed, though government attributes increases to intensive screening.",
+    "source": "Fukushima Medical University Health Survey",
+    "link": "https://www.fmu.ac.jp/radiationhealth/"
+  }
+]

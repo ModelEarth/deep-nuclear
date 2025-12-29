@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report Editor - Deep Nuclear Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* Medium-like Editor Styles */
+    .editor-wrapper {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .editor-title-input {
+      font-size: 2.75rem;
+      font-weight: 700;
+      border: none;
+      outline: none;
+      width: 100%;
+      padding: 0;
+      margin-bottom: 1.5rem;
+      font-family: 'Georgia', serif;
+      line-height: 1.2;
+      color: #111827;
+    }
+
+    .editor-title-input::placeholder {
+      color: #d1d5db;
+    }
+
+    .editor-subtitle-input {
+      font-size: 1.5rem;
+      font-weight: 400;
+      border: none;
+      outline: none;
+      width: 100%;
+      padding: 0;
+      margin-bottom: 2rem;
+      font-family: 'Georgia', serif;
+      color: #6b7280;
+    }
+
+    .editor-subtitle-input::placeholder {
+      color: #e5e7eb;
+    }
+
+    .editor-content-area {
+      min-height: 500px;
+      font-size: 1.25rem;
+      line-height: 1.8;
+      font-family: 'Georgia', serif;
+      color: #374151;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      outline: none;
+      border: none;
+      padding: 1rem 0;
+    }
+
+    .editor-content-area:empty:before {
+      content: attr(data-placeholder);
+      color: #d1d5db;
+    }
+
+    .editor-toolbar {
+      position: sticky;
+      top: 70px;
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 1rem;
+      margin: 0 -2rem 2rem -2rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      z-index: 50;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .editor-toolbar button {
+      padding: 0.5rem 1rem;
+      border: 1px solid #d1d5db;
+      background: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.875rem;
+      transition: all 0.2s;
+    }
+
+    .editor-toolbar button:hover {
+      background: #f3f4f6;
+      border-color: #9ca3af;
+    }
+
+    .preview-mode {
+      max-width: 740px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .preview-mode h1 {
+      font-size: 2.75rem;
+      font-weight: 700;
+      font-family: 'Georgia', serif;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .preview-mode h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      font-family: 'Georgia', serif;
+      margin: 2rem 0 1rem;
+    }
+
+    .preview-mode h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      font-family: 'Georgia', serif;
+      margin: 1.5rem 0 0.75rem;
+    }
+
+    .preview-mode p {
+      font-size: 1.25rem;
+      line-height: 1.8;
+      font-family: 'Georgia', serif;
+      color: #374151;
+      margin-bottom: 1.5rem;
+    }
+
+    .preview-mode img {
+      max-width: 100%;
+      height: auto;
+      margin: 2rem 0;
+      border-radius: 4px;
+    }
+
+    .preview-mode blockquote {
+      border-left: 3px solid #2563eb;
+      padding-left: 1.5rem;
+      margin: 1.5rem 0;
+      font-style: italic;
+      color: #4b5563;
+    }
+
+    .preview-mode code {
+      background: #f3f4f6;
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+      font-family: monospace;
+      font-size: 0.9em;
+    }
+
+    .preview-mode ul, .preview-mode ol {
+      margin: 1rem 0 1.5rem 2rem;
+      font-size: 1.25rem;
+      line-height: 1.8;
+    }
+
+    .preview-mode a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    .preview-mode a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <h1>Deep <span>Nuclear</span> Admin</h1>
+      <ul>
+        <li><a href="../index.html">Dashboard</a></li>
+        <li><a href="sites.html">Sites</a></li>
+        <li><a href="timeline.html">Timeline</a></li>
+        <li><a href="reports.html" class="active">Reports</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container" style="max-width: 900px;">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <h2 class="card-title">Report Editor</h2>
+          <div class="form-group" style="margin-top: 1rem; margin-bottom: 0;">
+            <select id="siteSelector" onchange="loadReport()" style="max-width: 300px;">
+              <option value="">Select a site...</option>
+            </select>
+          </div>
+        </div>
+        <div style="display: flex; gap: 0.5rem;">
+          <button class="btn btn-secondary" onclick="togglePreview()" id="previewBtn">Preview</button>
+          <button class="btn btn-primary" onclick="saveReport()" id="saveBtn" disabled>Save Report</button>
+        </div>
+      </div>
+
+      <div id="editorSection" style="display: none;">
+        <div class="editor-toolbar">
+          <button onclick="insertMarkdown('## ', '')">H2</button>
+          <button onclick="insertMarkdown('### ', '')">H3</button>
+          <button onclick="insertMarkdown('**', '**')">Bold</button>
+          <button onclick="insertMarkdown('*', '*')">Italic</button>
+          <button onclick="insertMarkdown('[', '](url)')">Link</button>
+          <button onclick="insertMarkdown('- ', '')">List</button>
+          <button onclick="insertMarkdown('> ', '')">Quote</button>
+          <button onclick="insertMarkdown('`', '`')">Code</button>
+          <button onclick="insertMarkdown('\n---\n', '')">Divider</button>
+          <button onclick="insertImage()">+ Image</button>
+        </div>
+
+        <div class="editor-wrapper">
+          <input
+            type="text"
+            id="reportTitle"
+            class="editor-title-input"
+            placeholder="Report Title"
+          />
+
+          <div
+            id="reportContent"
+            class="editor-content-area"
+            contenteditable="true"
+            data-placeholder="Tell the story of this nuclear site. Use markdown formatting for headers (## Header), bold (**text**), links ([text](url)), etc."
+          ></div>
+        </div>
+      </div>
+
+      <div id="previewSection" style="display: none;">
+        <div class="preview-mode" id="previewContent"></div>
+      </div>
+
+      <div id="placeholderSection">
+        <p style="text-align: center; color: #6b7280; padding: 4rem 2rem;">
+          Select a site to edit its report
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="../js/reports.js"></script>
+</body>
+</html>

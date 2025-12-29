@@ -1,0 +1,202 @@
+[
+  {
+    "year": 1977,
+    "category": "Company Report",
+    "title": "Chernobyl Nuclear Power Plant Construction Begins",
+    "location": "Pripyat, Ukrainian SSR, Soviet Union",
+    "status": "Resolved",
+    "summary": "Construction begins on the Chernobyl Nuclear Power Plant, eventually comprising four RBMK-1000 reactors. The plant is located near the city of Pripyat and about 100 km north of Kyiv.",
+    "source": "Soviet Nuclear Energy Ministry Records",
+    "link": "https://world-nuclear.org/information-library/safety-and-security/safety-of-plants/chernobyl-accident.aspx"
+  },
+  {
+    "year": 1983,
+    "category": "Regulatory Documentation",
+    "title": "Safety Concerns About RBMK Reactor Design Documented",
+    "location": "Soviet nuclear regulatory agencies",
+    "status": "Policy regression",
+    "summary": "Soviet nuclear engineers document serious safety flaws in the RBMK reactor design, including positive void coefficient and lack of proper containment structure. Concerns are suppressed and not addressed systematically across the reactor fleet.",
+    "source": "Post-Soviet Nuclear Safety Reviews",
+    "link": "https://www.world-nuclear.org/information-library/safety-and-security/safety-of-plants/appendices/rbmk-reactors.aspx"
+  },
+  {
+    "year": 1986,
+    "category": "Industrial Accident",
+    "title": "Chernobyl Reactor 4 Explodes",
+    "location": "Chernobyl Nuclear Power Plant, Reactor 4",
+    "status": "Ongoing risk",
+    "summary": "On April 26, 1986, at 1:23 AM, Reactor 4 explodes during a safety test gone catastrophically wrong. The explosion and subsequent fire release massive amounts of radioactive material into the atmosphere. It is the worst nuclear disaster in history, rated Level 7 on the International Nuclear Event Scale.",
+    "source": "IAEA Chernobyl Report",
+    "link": "https://www.iaea.org/newscenter/focus/chernobyl"
+  },
+  {
+    "year": 1986,
+    "category": "Government Statement",
+    "title": "Delayed Evacuation of Pripyat",
+    "location": "Pripyat, Ukrainian SSR",
+    "status": "Ongoing risk",
+    "summary": "Soviet authorities delay evacuation of Pripyat for 36 hours after the explosion, exposing residents to dangerous radiation levels. On April 27, over 49,000 residents are evacuated with only a few hours notice, told they would return in three days. The city remains abandoned to this day.",
+    "source": "Soviet Government Documents",
+    "link": "https://www.chernobylgallery.com/chernobyl-disaster/timeline/"
+  },
+  {
+    "year": 1986,
+    "category": "Government Program",
+    "title": "Liquidators Begin Cleanup Operations",
+    "location": "Chernobyl Exclusion Zone",
+    "status": "Ongoing risk",
+    "summary": "An estimated 600,000 'liquidators'—soldiers, firefighters, miners, and civilian workers—are mobilized for cleanup operations. Many work in extremely high radiation with inadequate protection. Liquidators suffer elevated rates of cancer, radiation sickness, and early death.",
+    "source": "Chernobyl Forum Report",
+    "link": "https://www.iaea.org/sites/default/files/chernobyl.pdf"
+  },
+  {
+    "year": 1986,
+    "category": "Government Program",
+    "title": "Sarcophagus Construction Begins",
+    "location": "Chernobyl Reactor 4",
+    "status": "Claimed improvement",
+    "summary": "Construction begins on a concrete and steel 'sarcophagus' to contain the destroyed reactor. Built under extreme radiation conditions by liquidators working in short shifts, the structure is completed by November 1986. However, it is designed as a temporary measure and begins deteriorating almost immediately.",
+    "source": "Chernobyl Shelter Implementation Plan",
+    "link": "https://mrtw.chernobyl.gov.ua/en"
+  },
+  {
+    "year": 1987,
+    "category": "Health Survey",
+    "title": "Radiation Exposure Assessment Begins",
+    "location": "Ukraine, Belarus, Russia",
+    "status": "Ongoing risk",
+    "summary": "International agencies begin assessing radiation exposure. Over 5 million people in Ukraine, Belarus, and Russia are exposed to varying levels of radiation. Highest exposures occur in liquidators and residents of highly contaminated areas. Iodine-131 exposure leads to thyroid cancers, particularly in children.",
+    "source": "WHO Chernobyl Health Assessment",
+    "link": "https://www.who.int/news-room/questions-and-answers/item/radiation-the-chernobyl-accident"
+  },
+  {
+    "year": 1991,
+    "category": "Government Statement",
+    "title": "Soviet Union Dissolves; Ukraine Inherits Chernobyl",
+    "location": "Ukraine",
+    "status": "Ongoing risk",
+    "summary": "With the dissolution of the Soviet Union, Ukraine inherits the Chernobyl site and responsibility for its management. The newly independent nation faces severe economic challenges while managing one of the world's most dangerous nuclear sites.",
+    "source": "Ukrainian Government Records",
+    "link": "https://www.chernobylgallery.com/chernobyl-disaster/"
+  },
+  {
+    "year": 1996,
+    "category": "Peer-Reviewed Study",
+    "title": "Dramatic Increase in Childhood Thyroid Cancer Documented",
+    "location": "Belarus, Ukraine, Russia",
+    "status": "Ongoing risk",
+    "summary": "Scientific studies document a dramatic increase in childhood thyroid cancer in areas contaminated by Chernobyl fallout, particularly in Belarus. Cases increase from near-zero pre-accident to thousands by the mid-1990s, with a clear correlation to iodine-131 exposure.",
+    "source": "Multiple peer-reviewed journals",
+    "link": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2851060/"
+  },
+  {
+    "year": 2000,
+    "category": "Policy / Regulation",
+    "title": "Final Reactor Shutdown",
+    "location": "Chernobyl Nuclear Power Plant, Reactor 3",
+    "status": "Claimed improvement",
+    "summary": "The last operating reactor at Chernobyl (Reactor 3) is shut down on December 15, 2000. The shutdown comes after years of international pressure and financial assistance. Reactors 1, 2, and 4 had been shut down earlier (4 due to the explosion, 1 and 2 for safety concerns).",
+    "source": "IAEA Records",
+    "link": "https://www.iaea.org/newscenter/news/chernobyl-reactor-no-3-shut-down"
+  },
+  {
+    "year": 2005,
+    "category": "Peer-Reviewed Study",
+    "title": "Chernobyl Forum Estimates Health Impacts",
+    "location": "International scientific assessment",
+    "status": "Ongoing risk",
+    "summary": "The Chernobyl Forum, comprising multiple UN agencies and the governments of affected countries, estimates up to 4,000 additional cancer deaths among the most exposed populations. However, this conservative estimate is disputed by independent researchers who suggest far higher numbers.",
+    "source": "Chernobyl Forum",
+    "link": "https://www.iaea.org/sites/default/files/chernobyl.pdf"
+  },
+  {
+    "year": 2006,
+    "category": "Independent Study",
+    "title": "Independent Assessment Challenges Official Death Toll",
+    "location": "International",
+    "status": "Ongoing risk",
+    "summary": "Independent scientific assessment by Greenpeace and others estimates up to 93,000 cancer deaths attributable to Chernobyl, far exceeding official UN estimates. The wide discrepancy highlights ongoing disputes about the disaster's true health toll.",
+    "source": "Greenpeace / Independent Research",
+    "link": "https://www.greenpeace.org/international/press-release/8102/greenpeace-challenges-un-chernobyl-death-toll/"
+  },
+  {
+    "year": 2011,
+    "category": "Environmental Report",
+    "title": "25-Year Environmental Impact Assessment",
+    "location": "Chernobyl Exclusion Zone",
+    "status": "Ongoing risk",
+    "summary": "Environmental studies on the 25th anniversary document persistent radioactive contamination in soil, water, and vegetation. Some areas will remain dangerously contaminated for thousands of years. However, wildlife populations have rebounded in the absence of human activity, creating a controversial 'radioactive nature reserve.'",
+    "source": "Scientific journals and environmental organizations",
+    "link": "https://www.unep.org/news-and-stories/story/chernobyl-25-years-later"
+  },
+  {
+    "year": 2016,
+    "category": "Government Program",
+    "title": "New Safe Confinement Completed",
+    "location": "Chernobyl Reactor 4",
+    "status": "Claimed improvement",
+    "summary": "The New Safe Confinement (NSC), a massive arched structure, is slid into place over the deteriorating sarcophagus. Built at a cost of €1.5 billion with international funding, it is designed to contain radiation for 100 years. The structure is the largest movable land-based structure ever built.",
+    "source": "Chernobyl Shelter Fund / EBRD",
+    "link": "https://www.ebrd.com/what-we-do/sectors/nuclear-safety/chernobyl-new-safe-confinement.html"
+  },
+  {
+    "year": 2019,
+    "category": "Investigative Report",
+    "title": "HBO Miniseries Raises Global Awareness",
+    "location": "Global media",
+    "status": "Ongoing risk",
+    "summary": "HBO's critically acclaimed miniseries 'Chernobyl' dramatizes the disaster and its aftermath, bringing renewed global attention to the human cost of nuclear accidents. The series highlights the Soviet culture of secrecy, the heroism of liquidators, and the long-term consequences of the disaster.",
+    "source": "HBO / Media coverage",
+    "link": "https://www.hbo.com/chernobyl"
+  },
+  {
+    "year": 2020,
+    "category": "Environmental Report",
+    "title": "Forest Fire Spreads Radioactive Contamination",
+    "location": "Chernobyl Exclusion Zone",
+    "status": "Ongoing risk",
+    "summary": "Major forest fires in the Exclusion Zone burn thousands of hectares and spread radioactive particles previously trapped in vegetation and soil. Smoke carrying cesium-137 and other isotopes reaches Kyiv and beyond, demonstrating how contamination remains mobile and dangerous decades later.",
+    "source": "Environmental monitoring agencies",
+    "link": "https://www.bbc.com/news/world-europe-52311718"
+  },
+  {
+    "year": 2022,
+    "category": "Legal Action",
+    "title": "Russian Military Occupation of Chernobyl Site",
+    "location": "Chernobyl Exclusion Zone",
+    "status": "Ongoing risk",
+    "summary": "During Russia's 2022 invasion of Ukraine, Russian forces seize control of the Chernobyl site for several weeks. Soldiers dig trenches in highly contaminated areas, likely exposing themselves to dangerous radiation. The occupation raises fears of damage to containment structures and potential radioactive releases.",
+    "source": "IAEA / Ukrainian authorities",
+    "link": "https://www.iaea.org/newscenter/pressreleases/update-42-iaea-director-general-statement-on-situation-in-ukraine"
+  },
+  {
+    "year": 2022,
+    "category": "Health Research",
+    "title": "Long-term Genetic Effects Study Published",
+    "location": "Scientific research",
+    "status": "Ongoing risk",
+    "summary": "New genetic research examines potential heritable effects in children of exposed liquidators and residents. While results are mixed, studies continue to investigate possible transgenerational genetic damage from radiation exposure.",
+    "source": "Peer-reviewed scientific journals",
+    "link": "https://www.science.org/content/article/chernobyl-s-legacy-found-germline-mutation-rates"
+  },
+  {
+    "year": 2024,
+    "category": "Government Program",
+    "title": "Decommissioning Continues with No Clear Endpoint",
+    "location": "Chernobyl Nuclear Power Plant",
+    "status": "Ongoing risk",
+    "summary": "Nearly 40 years after the disaster, decommissioning work continues with no clear timeline for completion. The destroyed reactor core contains an estimated 200 tons of highly radioactive material. Ukraine estimates complete decommissioning could take until 2065 or beyond, at a cost of billions of dollars.",
+    "source": "Ukrainian State Agency for Exclusion Zone Management",
+    "link": "https://dazv.gov.ua/en/"
+  },
+  {
+    "year": 2025,
+    "category": "Public Health Report",
+    "title": "Ongoing Health Monitoring in Affected Populations",
+    "location": "Ukraine, Belarus, Russia",
+    "status": "Ongoing risk",
+    "summary": "Health registries continue to track elevated cancer rates, cardiovascular disease, and other health impacts in exposed populations. Thyroid cancer cases now number in the thousands, and other cancers show elevated rates. The full health toll of Chernobyl remains uncertain and contested.",
+    "source": "WHO / National health ministries",
+    "link": "https://www.who.int/news-room/questions-and-answers/item/radiation-the-chernobyl-accident"
+  }
+]

@@ -1,0 +1,333 @@
+[
+    {
+      "year": 2001,
+      "category": "Scientific Study",
+      "title": "Preliminary Japanese Radiation Checks",
+      "location": "Jadugoda, East Singhbhum, Jharkhand",
+      "status": "Ongoing risk",
+      "summary": "Early fieldwork by Hiroaki Koide's team from Kyoto University measures gamma radiation and collects soil/water samples around Jadugoda uranium mines, finding elevated levels near mines and tailings ponds compared to background reference areas.",
+      "source": "Preliminary investigation report (Koide, 2001)",
+      "link": "https://www.rri.kyoto-u.ac.jp/NSRG/genpatu/india/report-E.pdf"
+    },
+    {
+      "year": 2004,
+      "category": "Peer-Reviewed Study",
+      "title": "Koide Contamination Study Published",
+      "location": "Jadugoda, East Singhbhum, Jharkhand",
+      "status": "Ongoing risk",
+      "summary": "Full peer-reviewed paper 'Radioactive contamination around Jadugoda uranium mine in India' published. Reports village doses near tailings ponds approximately 10 times higher than international public exposure limits (10 mSv/year vs. 1 mSv/year WHO guidance). Contamination around ponds is 10–100 times higher than reference locations.",
+      "source": "Koide Radioactive Contamination Study",
+      "link": "https://www.rri.kyoto-u.ac.jp/NSRG/genpatu/india/JADFINAL.pdf"
+    },
+    {
+      "year": 2004,
+      "category": "International Recognition",
+      "title": "IAEA/INIS Database Index",
+      "location": "Global / IAEA",
+      "status": "Ongoing risk",
+      "summary": "International Atomic Energy Agency's INIS (International Nuclear Information System) database indexes Koide's Jadugoda contamination study, making the issue visible to global nuclear regulators and international scientific community.",
+      "source": "INIS Entry",
+      "link": "https://inis.iaea.org/records/k84h7-dmn14"
+    },
+    {
+      "year": 2004,
+      "category": "Health Survey",
+      "title": "Local Health Data Collection Begins",
+      "location": "Villages within 2.5 km of Jadugoda uranium complex",
+      "status": "Ongoing risk",
+      "summary": "Indian Doctors for Peace and Development (IDPD), JOAR and partner organizations begin house-to-house health data collection in villages within 2.5 km of Jadugoda uranium mines. Survey of 2,118 households in study villages compared against 1,094 in reference villages 30–35 km away.",
+      "source": "IPPNW/IDPD Health Survey",
+      "link": "https://www.ippnw.org/wp-content/uploads/2020/07/JadugodaHealthSurvey.pdf"
+    },
+    {
+      "year": 2005,
+      "category": "NGO Report",
+      "title": "Black Magic of Uranium Narrative Framework",
+      "location": "Jadugoda and surrounding Adivasi villages",
+      "status": "Ongoing risk",
+      "summary": "Compiled version of IDPD/IPPNW health survey circulates under the title 'Black Magic of Uranium at Jadugoda: Study on health status of indigenous people around Jadugoda uranium mines in India'. This framing positions uranium harm as systemic injustice against tribal/Adivasi communities.",
+      "source": "LAKA Database / Black Magic of Uranium Report",
+      "link": "https://www.laka.org/docu/catalogus/publicatie/4.03.5.10/04_black-magic-of-uranium-at-jadugoda-study-on-healt"
+    },
+    {
+      "year": 2005,
+      "category": "Environmental Report",
+      "title": "Half Life: Radioactive Waste in India Report",
+      "location": "Pan-India nuclear sites including Jadugoda",
+      "status": "Ongoing risk",
+      "summary": "Broader environmental report 'Half Life – Radioactive Waste in India' incorporates Jadugoda case alongside other uranium and nuclear waste sites. Positions Jadugoda within India's larger nuclear waste management failures and environmental justice discourse.",
+      "source": "Toxics Link / Half Life Report",
+      "link": "https://www.boell.de/sites/default/files/Halflife_Report_Complete_LowRes_mail.pdf"
+    },
+    {
+      "year": 2006,
+      "category": "Industrial Accident",
+      "title": "First Major Tailings Pipeline Rupture",
+      "location": "Jadugoda uranium complex, multiple villages",
+      "status": "Ongoing risk",
+      "summary": "Historical records document pipeline ruptures in 1981, 1990s, and 2006. UCIL infrastructure failures become systematic pattern, with radioactive slurry entering homes, fields and local waterways.",
+      "source": "Monthly Review Online / Multiple NGO reports",
+      "link": "https://mronline.org/2023/11/17/jaduguda-uranium-mining-cluster/"
+    },
+    {
+      "year": 2007,
+      "category": "Peer-Reviewed Health Study",
+      "title": "IPPNW Health Survey Results Published",
+      "location": "Villages within 2.5 km of Jadugoda uranium complex",
+      "status": "Ongoing risk",
+      "summary": "Completed IPPNW/IDPD epidemiological health survey published. Finds significantly higher incidence of congenital deformities (birth defects), primary sterility (infertility), cancer, early deaths before age 62, and high pulmonary tuberculosis prevalence in proximity villages compared with reference villages 30–35 km away.",
+      "source": "Dr. Shakeel ur Rahman / IPPNW Health Survey",
+      "link": "https://www.ippnw.org/wp-content/uploads/2020/07/JadugodaHealthSurvey.pdf"
+    },
+    {
+      "year": 2008,
+      "category": "Industrial Accident",
+      "title": "Major Tailings Pipeline Rupture—Dungridih Village",
+      "location": "Dungridih village, Jadugoda cluster",
+      "status": "Ongoing risk",
+      "summary": "On 21 February 2008, a new tailings pipeline near Jadugoda bursts, spilling uranium mill tailings into Dungridih village and nearby areas. Radioactive sludge reaches homes, local creeks and farmland. Activists demand UCIL supply clean water until contamination is addressed.",
+      "source": "Down to Earth / JOAR / NGO reports",
+      "link": "https://www.downtoearth.org.in/environment/uranium-mine-waste-imperils-villages-in-jaduguda-4306"
+    },
+    {
+      "year": 2009,
+      "category": "Water Quality Study",
+      "title": "Alpha Radiation Measurements in Subarnarekha River",
+      "location": "Subarnarekha River basin, groundwater zones",
+      "status": "Ongoing risk",
+      "summary": "Scientific study measures elevated alpha particle radiation in Subarnarekha River water and groundwater wells in areas near Jadugoda uranium mine zone. Confirms contamination pathway from tailings ponds into drinking water sources.",
+      "source": "Accscience Journal / Environmental Study",
+      "link": "https://accscience.com/journal/AJWEP/7/1/10.3233/AJW-2010-7_1_10"
+    },
+    {
+      "year": 2010,
+      "category": "Industrial Accident",
+      "title": "Third Major Pipeline Rupture",
+      "location": "Jadugoda uranium complex",
+      "status": "Ongoing risk",
+      "summary": "Another tailings pipeline rupture documented in 2010. Part of ongoing pattern of infrastructure failures documented as occurring in 2006, 2008, 2010, 2011, and 2014. Pattern indicates systematic maintenance and design inadequacies in UCIL waste management systems.",
+      "source": "Multiple NGO documentation / Monthly Review Online",
+      "link": "https://mronline.org/2023/11/17/jaduguda-uranium-mining-cluster/"
+    },
+    {
+      "year": 2011,
+      "category": "Industrial Accident",
+      "title": "Fourth Major Pipeline Rupture",
+      "location": "Jadugoda uranium complex",
+      "status": "Ongoing risk",
+      "summary": "Another significant pipeline rupture occurs in 2011. Continues established pattern of UCIL infrastructure failures releasing radioactive slurry into environment. Each incident reinforces concerns about inadequate tailings management and worker/community protection.",
+      "source": "NGO records / Monthly Review Online",
+      "link": "https://mronline.org/2023/11/17/jaduguda-uranium-mining-cluster/"
+    },
+    {
+      "year": 2013,
+      "category": "Water Quality Study",
+      "title": "Uranium in Drinking Water—Dose Risk Study",
+      "location": "Jadugoda area drinking water sources",
+      "status": "Ongoing risk",
+      "summary": "Scientific study using laser-induced fluorimetry measures uranium in drinking water near Jadugoda mining site. Estimates age-dependent dose and health risk from chronic ingestion for nearby residents, confirming long-term contamination pathway and health exposure.",
+      "source": "PubMed / Biomedical Research",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/23525912/"
+    },
+    {
+      "year": 2014,
+      "category": "Legal Action",
+      "title": "Fifth Major Pipeline Rupture & Jharkhand High Court Takes Notice",
+      "location": "Jadugoda complex / Jharkhand High Court",
+      "status": "Ongoing risk",
+      "summary": "Final documented pipeline rupture in 2014 triggers substantial public concern. Following media reports of radioactive waste crisis, Jharkhand High Court takes suo moto (independent) cognizance of the situation, recognizing it as 'alarming' and threatening residents' 'right to life'. Court directs government to show cause.",
+      "source": "Jharkhand High Court Records / Times of India",
+      "link": "https://www.courtkutchehry.com/judgements/484592/pdf/"
+    },
+    {
+      "year": 2015,
+      "category": "Investigative Report",
+      "title": "DIANUKE Radioactive Accident Alert",
+      "location": "Jadugoda uranium complex",
+      "status": "Ongoing risk",
+      "summary": "International disarmament organization DIANUKE publishes urgent alert documenting radioactive accident in Jadugoda uranium mines, with detailed record of pipeline ruptures in 2006, 2007, 2010, and another incident in early 2015. Calls international attention to chronic infrastructure failures.",
+      "source": "DIANUKE Urgent Alert",
+      "link": "https://www.dianuke.org/urgent-alert-radioactive-accident-in-jadugoda-uranium-mines/"
+    },
+    {
+      "year": 2015,
+      "category": "Investigative Report",
+      "title": "Times of India Reports: Radioactive Waste Crisis",
+      "location": "Jadugoda, East Singhbhum, Jharkhand",
+      "status": "Ongoing risk",
+      "summary": "Reports that radioactive waste from three UCIL-owned uranium mines puts approximately 50,000 people at risk, primarily tribal communities. Coverage triggers suo moto cognizance by the Jharkhand High Court.",
+      "source": "Times of India / Jharkhand High Court Records",
+      "link": "https://www.courtkutchehry.com/judgements/484592/pdf/"
+    },
+    {
+      "year": 2015,
+      "category": "Investigative Report",
+      "title": "India's Nuclear Industry Pours Its Wastes Into a River of Death and Disease",
+      "location": "Jadugoda, Subarnarekha River basin, Jharkhand",
+      "status": "Ongoing risk",
+      "summary": "Comprehensive investigative journalism documenting monsoon-season overflow of radiation storage ponds into the Subarnarekha River and groundwater. Finds contamination levels above WHO safety limits and widespread health impacts, including congenital deformities, cancer clusters, and infertility.",
+      "source": "Center for Public Integrity",
+      "link": "https://publicintegrity.org/national-security/indias-nuclear-industry-pours-its-wastes-into-a-river-of-death-and-disease/"
+    },
+    {
+      "year": 2015,
+      "category": "Government Statement",
+      "title": "UCIL/DAE Official Response & Denial",
+      "location": "Government of India / UCIL offices",
+      "status": "Claimed improvement",
+      "summary": "Following Times of India report, Department of Atomic Energy and UCIL issue official press release disputing radioactive waste crisis claims. Insist that uranium mining operations are within regulatory limits and do not pose health risk to population.",
+      "source": "DAE/UCIL Press Release",
+      "link": "https://dae.gov.in/press-release-from-uranium-corporation-of-india-ltd-on-times-of-india-news-report-dated-15th-december-2015/"
+    },
+    {
+      "year": 2016,
+      "category": "Policy / Regulation",
+      "title": "Jharkhand High Court Expert Committee Report & Recommendations",
+      "location": "Jadugoda, Jharkhand",
+      "status": "Claimed improvement",
+      "summary": "Court-appointed expert committee submits recommendations including stronger fencing and security around tailings ponds, regular pipeline inspection, improved truck covering, public radiation data, and health awareness camps. Court directs UCIL to comply within a fixed timeframe.",
+      "source": "Jharkhand High Court Judgement (2016) 07 JH CK 0119",
+      "link": "https://www.courtkutchehry.com/judgements/484592/pdf/"
+    },
+    {
+      "year": 2018,
+      "category": "Investigative Report",
+      "title": "Caravan Magazine Ground-Level Investigation",
+      "location": "Tilaitand, Chatikocha, Jadugoda, Jharkhand",
+      "status": "Ongoing risk",
+      "summary": "Ground investigation finds continuing monsoon tailings overflow, dust storms carrying radioactive particles, and inadequate water management despite UCIL provisions. All three tailings ponds remain full, and UCIL extends the first pond as a 'fourth-stage' without clear design standards.",
+      "source": "Caravan Magazine",
+      "link": "https://caravanmagazine.in/vantage/jadugoda-uranium-mining-endorsed-courts-government-ucil-expands-operations"
+    },
+    {
+      "year": 2018,
+      "category": "Investigative Report",
+      "title": "India Uranium Mines Radiate Disaster",
+      "location": "Jadugoda, Bhatin, Chatikocha villages, Subarnarekha River basin",
+      "status": "Ongoing risk",
+      "summary": "Documents ongoing health impacts including congenital conditions in children, infertility, and TB-like illnesses. Confirms contaminated water from tailings ponds reaching tributaries of the Subarnarekha River and reiterates High Court concern that 50,000 people are at risk.",
+      "source": "Beyond Nuclear International / India Water Portal",
+      "link": "https://beyondnuclearinternational.org/2018/06/09/india-uranium-mines-radiate-disaster/"
+    },
+    {
+      "year": 2018,
+      "category": "Government / UCIL Statement",
+      "title": "UCIL Water Supply Initiative for Affected Villages",
+      "location": "Chatikocha village, East Singhbhum",
+      "status": "Claimed improvement",
+      "summary": "Following community mobilization, UCIL begins supplying treated water to communities outside company colonies using tankers. Supply is irregular and does not address contamination at the source, leaving many Adivasi communities dependent on unsafe water.",
+      "source": "UCIL / Community Records (JOSH/TVS)",
+      "link": "https://mronline.org/2023/11/17/jaduguda-uranium-mining-cluster/"
+    },
+    {
+      "year": 2019,
+      "category": "Regulatory Documentation",
+      "title": "Government Regulatory Reports—AERB/DAE Annual Reports",
+      "location": "Government regulatory reporting",
+      "status": "Claimed improvement",
+      "summary": "AERB (Atomic Energy Regulatory Board) and Department of Atomic Energy publish annual reports for 2019–2020 covering UCIL operations, uranium production, and claimed safety improvements. Reports emphasize monitoring systems and compliance but do not acknowledge independent health and contamination findings.",
+      "source": "AERB Annual Reports 2019–2020 / DAE Annual Report 2019–20",
+      "link": "https://aerb.gov.in/images/PDF/Annual_report/ar2019/chap3aerbannualreport2019.pdf"
+    },
+    {
+      "year": 2022,
+      "category": "Peer-Reviewed Study",
+      "title": "Uranium in Groundwater Comprehensive Reviews",
+      "location": "Pan-India uranium mining areas including Jadugoda",
+      "status": "Ongoing risk",
+      "summary": "Multiple peer-reviewed works on uranium in groundwater, radioactive releases from nuclear sector, and water quality assessments include detailed Indian case studies. Reviews confirm that uranium mining and milling are major contributors to environmental uranium loads and long-term exposure risks.",
+      "source": "ScienceDirect/Elsevier & NIH/PubMed Central",
+      "link": "https://www.sciencedirect.com/science/article/pii/S277288382200022X"
+    },
+    {
+      "year": 2022,
+      "category": "Company Report",
+      "title": "UCIL Environmental Statement 2022",
+      "location": "UCIL operations documentation",
+      "status": "Claimed improvement",
+      "summary": "UCIL publishes Environmental Statement as of March 31, 2022. Company documentation of effluent treatment, water reclamation, and monitoring activities. Despite claims of compliance, independent studies continue to document contamination.",
+      "source": "UCIL Environmental Statement",
+      "link": "https://ucil.gov.in/public/uploads/environment_statement/Environmental%20Statement%20as%20on%2031-3-2022.pdf"
+    },
+    {
+      "year": 2023,
+      "category": "Investigative Report",
+      "title": "Environmental Injustice in India: Jadugoda Uranium Mining Cluster",
+      "location": "Jadugoda cluster; six mines and two processing plants, East Singhbhum",
+      "status": "Ongoing risk",
+      "summary": "Synthesizes five decades of uranium mining impacts, including pipeline ruptures, worker exposure without dosimeters, radium contamination of drinking water, fish mutations, congenital deformities in livestock, and inadequate rehabilitation. Highlights systemic denial by UCIL, AERB, and central government.",
+      "source": "Monthly Review Online",
+      "link": "https://mronline.org/2023/11/17/jaduguda-uranium-mining-cluster/"
+    },
+    {
+      "year": 2024,
+      "category": "Independent Study",
+      "title": "Water Quality and Heavy Metal Contamination in the Subarnarekha River",
+      "location": "Lower stretch of Subarnarekha River, West Bengal",
+      "status": "Ongoing risk",
+      "summary": "Geostatistical analysis classifies the river's water quality as moderate to very poor and finds toxic elements such as Pb, Cu, Ni, Cd, Fe, and Cr above safe limits. Establishes carcinogenic risk from chromium, lead, and cadmium and links contamination to anthropogenic sources, including upstream mining and processing.",
+      "source": "Peer-reviewed environmental science journal",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/38227078/"
+    },
+    {
+      "year": 2024,
+      "category": "Government Program",
+      "title": "Jal Jeevan Mission—Rural Water Supply Expansion",
+      "location": "Jharkhand and affected uranium mining villages",
+      "status": "Claimed improvement",
+      "summary": "Ministry of Jal Shakti's Jal Jeevan Mission continues rural water supply initiatives. Some uranium mining-affected villages in Jadugoda region may be covered under broader rural water supply program, though specific radioactive contamination challenges are not separately addressed.",
+      "source": "Ministry of Jal Shakti",
+      "link": "https://jaljeevanmission.gov.in"
+    },
+    {
+      "year": 2025,
+      "category": "Health Research",
+      "title": "Long-Term Uranium Exposure Health Study",
+      "location": "Jadugora uranium miners and their families",
+      "status": "Ongoing risk",
+      "summary": "Biomedical research article published documenting long-term uranium exposure effects on Jadugora miners. Associates high uranium in water and biological samples with symptoms including shortness of breath, anemia, and other hematologic/pulmonary health issues in occupational workers with chronic uranium contact.",
+      "source": "Biomedical Research Journal",
+      "link": "https://biomedres.us/pdfs/BJSTR.MS.ID.009601.pdf"
+    },
+    {
+      "year": 2025,
+      "category": "Public Health Report",
+      "title": "India Water Portal: Radiation Risks Health Impact",
+      "location": "Jadugoda and surrounding communities",
+      "status": "Ongoing risk",
+      "summary": "India Water Portal publishes 'Radiation Risks: Jadugoda's Uranium Mining Health Impact'. Explains ongoing community health effects and resident fear around unprotected tailings ponds. Residents describe chronic respiratory, skin, cancer, congenital and reproductive problems and psychological distress.",
+      "source": "India Water Portal",
+      "link": "https://www.indiawaterportal.org/groundwater/tainted-waters-uranium-mining-and-radiological-risks-in-jadugoda-of-jharkhand"
+    },
+    {
+      "year": 2025,
+      "category": "Policy / Regulation",
+      "title": "Exemption of Critical Minerals from EIA Public Consultation",
+      "location": "India (national policy affecting uranium sites, including Jadugoda)",
+      "status": "Policy regression",
+      "summary": "Ministry of Environment, Forest and Climate Change exempts mining of critical, strategic, and atomic minerals from public consultation requirements under the EIA framework. Justified on national security grounds, the change removes a key avenue for affected communities to formally raise health and environmental concerns.",
+      "source": "Ministry of Environment, Forest and Climate Change",
+      "link": "https://www.hhrjournal.org/2025/10/22/india-continues-to-ignore-indigenous-rights-as-uranium-mining-expands/"
+    },
+    {
+      "year": 2025,
+      "category": "Policy / Regulation",
+      "title": "National Critical Minerals Mission 2025 & Private Sector Uranium Mining Authorization",
+      "location": "India (national uranium sector policy)",
+      "status": "Claimed improvement",
+      "summary": "India announces plans to end the state monopoly on uranium mining, allowing private companies to mine, import, and process uranium under the National Critical Minerals Mission 2025. Policy aims to reduce import dependence and expand nuclear energy, but introduces no new environmental or health safeguards specific to sites like Jadugoda.",
+      "source": "Union Budget 2025-26 / media reports",
+      "link": "https://rnamedia.in/defence/indias-nuclear-expansion-plan-budget-2025-private-sector-uranium-mining/7572"
+    },
+    {
+      "year": 2025,
+      "category": "Legal & Rights Analysis",
+      "title": "India Continues to Ignore Indigenous Rights as Uranium Mining Expands",
+      "location": "Jadugoda, Jharkhand; national uranium mining policy context",
+      "status": "Ongoing risk",
+      "summary": "Human rights analysis reports public doses averaging 2–3 mSv annually, above WHO's 1 mSv recommendation. Highlights the lack of continuous public radiation monitoring, unpublished BARC health surveys, and repeated denial of information requests on national security grounds, as well as failures to implement indigenous consent requirements.",
+      "source": "Health and Human Rights Journal",
+      "link": "https://www.hhrjournal.org/2025/10/22/india-continues-to-ignore-indigenous-rights-as-uranium-mining-expands/"
+    }
+  ]
+  

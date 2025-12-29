@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Static Site Generator - Deep Nuclear Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <h1>Deep <span>Nuclear</span> Admin</h1>
+      <ul>
+        <li><a href="../index.html">Dashboard</a></li>
+        <li><a href="sites.html">Sites</a></li>
+        <li><a href="timeline.html">Timeline</a></li>
+        <li><a href="reports.html">Reports</a></li>
+        <li><a href="generator.html" class="active">Generate Site</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Static Site Generator</h2>
+        <button class="btn btn-primary" onclick="generateAllSites()" id="generateBtn">Generate All Sites</button>
+      </div>
+
+      <div style="background: #f9fafb; padding: 1.5rem; border-radius: 6px; margin-bottom: 2rem;">
+        <h3 style="margin: 0 0 1rem 0; font-size: 1.125rem;">How it works:</h3>
+        <ol style="margin: 0; padding-left: 1.5rem; color: #4b5563; line-height: 1.8;">
+          <li>Click "Generate All Sites" to create beautiful newspaper-style HTML pages for each site</li>
+          <li>Each site gets its own HTML file with timeline data and styling</li>
+          <li>Download the generated files and place them in your <code>public-site/sites/</code> folder</li>
+          <li>Share these static HTML files directly - no server required!</li>
+        </ol>
+      </div>
+
+      <div id="generationStatus">
+        <p style="text-align: center; color: #6b7280; padding: 2rem;">Ready to generate sites</p>
+      </div>
+
+      <div id="generatedFiles" style="display: none;">
+        <h3 style="margin: 2rem 0 1rem 0; font-size: 1.25rem;">Generated Files:</h3>
+        <div id="filesList"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/generator.js"></script>
+</body>
+</html>

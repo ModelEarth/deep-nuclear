@@ -1,0 +1,98 @@
+[
+  {
+    "id": "jadugoda",
+    "name": "Jadugoda Uranium Tailings",
+    "country": "India",
+    "region": "East Singhbhum, Jharkhand",
+    "coordinates": {
+      "lat": 22.6560,
+      "lon": 86.3529
+    },
+    "siteType": "uranium_tailings",
+    "issueType": "contamination",
+    "status": "ongoing",
+    "timeline": {
+      "startYear": 2001,
+      "endYear": 2025
+    },
+    "files": {
+      "timeline": "storage/timelines/jadugoda.json",
+      "report": "storage/reports/jadugoda.md",
+      "mediaFolder": "storage/media/jadugoda"
+    },
+    "media": {
+      "coverImage": "storage/media/jadugoda/uranium.jpg",
+      "externalPhotoUrl": "https://inkstickmedia.com/in-photos-inside-indias-nuclear-graveyard"
+    },
+    "description": "Monsoon overflow, uranium tailings ponds uphill from villages, contamination of Subarnarekha River and groundwater; Adivasi communities downstream.",
+    "metadata": {
+      "createdAt": "2024-12-28T00:00:00Z",
+      "updatedAt": "2024-12-28T00:00:00Z",
+      "order": 1
+    }
+  },
+  {
+    "id": "fukushima",
+    "name": "Fukushima Daiichi Nuclear Disaster",
+    "country": "Japan",
+    "region": "Ōkuma and Futaba, Fukushima Prefecture",
+    "coordinates": {
+      "lat": 37.4213,
+      "lon": 141.0327
+    },
+    "siteType": "nuclear_power_plant",
+    "issueType": "disaster",
+    "status": "ongoing",
+    "timeline": {
+      "startYear": 1967,
+      "endYear": 2025
+    },
+    "files": {
+      "timeline": "storage/timelines/fukushima.json",
+      "report": "storage/reports/fukushima.md",
+      "mediaFolder": "storage/media/fukushima"
+    },
+    "media": {
+      "coverImage": "storage/media/fukushima/fukushima-plant.jpg",
+      "externalPhotoUrl": "https://www.tepco.co.jp/en/hd/decommission/index-e.html"
+    },
+    "description": "Triple reactor meltdown following 2011 earthquake and tsunami. Ongoing radioactive water releases into Pacific Ocean, mass evacuations, and decommissioning challenges. One of the worst nuclear disasters in history.",
+    "metadata": {
+      "createdAt": "2024-12-28T00:00:00Z",
+      "updatedAt": "2024-12-28T00:00:00Z",
+      "order": 2
+    }
+  },
+  {
+    "id": "chernobyl",
+    "name": "Chernobyl Nuclear Disaster",
+    "country": "Ukraine",
+    "region": "Pripyat, Kyiv Oblast",
+    "coordinates": {
+      "lat": 51.3887,
+      "lon": 30.0992
+    },
+    "siteType": "nuclear_power_plant",
+    "issueType": "disaster",
+    "status": "ongoing",
+    "timeline": {
+      "startYear": 1977,
+      "endYear": 2025
+    },
+    "files": {
+      "timeline": "storage/timelines/chernobyl.json",
+      "report": "storage/reports/chernobyl.md",
+      "mediaFolder": "storage/media/chernobyl"
+    },
+    "media": {
+      "coverImage": "storage/media/chernobyl/reactor-4.jpg",
+      "externalPhotoUrl": "https://www.iaea.org/newscenter/focus/chernobyl"
+    },
+    "description": "The worst nuclear disaster in history. Reactor 4 explosion in 1986 released massive radioactive contamination across Europe, displaced 350,000+ people, and continues to impact health and environment nearly 40 years later.",
+    "metadata": {
+      "createdAt": "2024-12-28T00:00:00Z",
+      "updatedAt": "2024-12-28T00:00:00Z",
+      "order": 3
+    }
+  }
+]
