@@ -385,6 +385,10 @@
                         <span class="label">Specific Energy Consumption:</span>
                         <span class="value" id="specificEnergy">-</span>
                     </div>
+                    
+                    <button class="btn" onclick="exportToCSV()" style="margin-top: 30px; background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
+                        📥 Export Results to CSV
+                    </button>
                 </div>
             </div>
         </div>
@@ -404,6 +408,9 @@
         const DAYS_PER_YEAR = 365;
         const SECONDS_PER_HOUR = 3600;
         const MJ_TO_KWH = 0.277778; // Conversion factor
+
+        // Global variable to store calculation results
+        let calculationResults = null;
 
         function calculate() {
             // Get input values
@@ -513,6 +520,39 @@
                 numEffects,
                 topBrineTemp
             });
+
+            // Store results for CSV export
+            calculationResults = {
+                // Input parameters
+                reactorPower,
+                wasteHeatFactor,
+                medEfficiency,
+                numEffects,
+                topBrineTemp,
+                availability,
+                waterPrice,
+                medCapitalCost,
+                retrofitMultiplier,
+                wasteTunnelLength,
+                fuelTunnelLength,
+                boringCostPerKm,
+                plantPurchasePrice,
+                // Calculated results
+                wasteHeatMW,
+                dailyWaterProductionAdjusted,
+                annualWaterProduction,
+                waterPerMWPerDay,
+                annualRevenue,
+                medSystemCapitalCost,
+                totalRetrofitCost,
+                boringCost,
+                totalProjectCost,
+                paybackPeriod,
+                npv,
+                costPerCubicMeter,
+                energyPerCubicMeter,
+                specificEnergy
+            };
         }
 
         function formatNumber(num) {
@@ -593,6 +633,89 @@
             `;
             
             document.getElementById('proposalSummary').innerHTML = summary;
+        }
+
+        function exportToCSV() {
+            if (!calculationResults) {
+                alert('Please run the calculation first before exporting.');
+                return;
+            }
+
+            // Prepare CSV data
+            const csvData = [];
+            
+            // Add header section
+            csvData.push('Nuclear Desalination Calculator - Calculation Results');
+            csvData.push('Generated: ' + new Date().toLocaleString());
+            csvData.push('');
+            
+            // Input Parameters Section
+            csvData.push('INPUT PARAMETERS');
+            csvData.push('Parameter,Value,Unit');
+            csvData.push(`Reactor Thermal Power Output,${calculationResults.reactorPower},MWth`);
+            csvData.push(`Waste Heat Utilization Factor,${calculationResults.wasteHeatFactor},%`);
+            csvData.push(`MED System Efficiency (GOR),${calculationResults.medEfficiency},`);
+            csvData.push(`Number of MED Effects,${calculationResults.numEffects},`);
+            csvData.push(`Top Brine Temperature,${calculationResults.topBrineTemp},°C`);
+            csvData.push(`Plant Availability Factor,${calculationResults.availability},%`);
+            csvData.push(`Water Sale Price,${calculationResults.waterPrice},$/m³`);
+            csvData.push(`MED System Capital Cost,${calculationResults.medCapitalCost},$/m³/day capacity`);
+            csvData.push(`Retrofit Cost Multiplier,${calculationResults.retrofitMultiplier},`);
+            csvData.push(`Waste Disposal Tunnel Length,${calculationResults.wasteTunnelLength},km`);
+            csvData.push(`Fuel Transport Tunnel Length,${calculationResults.fuelTunnelLength},km`);
+            csvData.push(`Boring Cost per Kilometer,${calculationResults.boringCostPerKm},$M/km`);
+            csvData.push(`Nuclear Plant Purchase Price,${calculationResults.plantPurchasePrice},$M`);
+            csvData.push('');
+            
+            // Water Production Section
+            csvData.push('WATER PRODUCTION RESULTS');
+            csvData.push('Metric,Value,Unit');
+            csvData.push(`Waste Heat Available,${calculationResults.wasteHeatMW.toFixed(2)},MWth`);
+            csvData.push(`Daily Fresh Water Production,${calculationResults.dailyWaterProductionAdjusted.toFixed(2)},m³/day`);
+            csvData.push(`Annual Water Production,${calculationResults.annualWaterProduction.toFixed(2)},m³/year`);
+            csvData.push(`Water per MWth per day,${calculationResults.waterPerMWPerDay.toFixed(4)},m³/(MWth·day)`);
+            csvData.push('');
+            
+            // Financial Analysis Section
+            csvData.push('FINANCIAL ANALYSIS');
+            csvData.push('Metric,Value,Unit');
+            csvData.push(`Annual Water Revenue,${calculationResults.annualRevenue.toFixed(2)},$`);
+            csvData.push(`MED System Capital Cost,${calculationResults.medSystemCapitalCost.toFixed(2)},$`);
+            csvData.push(`Total Retrofit Cost,${calculationResults.totalRetrofitCost.toFixed(2)},$`);
+            csvData.push(`Earthgrid Boring Cost,${calculationResults.boringCost.toFixed(2)},$`);
+            csvData.push(`Total Project Cost,${calculationResults.totalProjectCost.toFixed(2)},$`);
+            csvData.push(`Payback Period,${calculationResults.paybackPeriod.toFixed(2)},years`);
+            csvData.push(`20-Year NPV (10% discount),${calculationResults.npv.toFixed(2)},$`);
+            csvData.push(`Cost per m³ of Water,${calculationResults.costPerCubicMeter.toFixed(4)},$/m³`);
+            csvData.push('');
+            
+            // Energy Metrics Section
+            csvData.push('ENERGY METRICS');
+            csvData.push('Metric,Value,Unit');
+            csvData.push(`Thermal Energy per m³,${calculationResults.energyPerCubicMeter.toFixed(2)},MJ/m³`);
+            csvData.push(`Specific Energy Consumption,${calculationResults.specificEnergy.toFixed(2)},MJ/m³`);
+            
+            // Convert array to CSV string
+            const csvString = csvData.join('\n');
+            
+            // Create blob and download
+            const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            
+            // Generate filename with date and time (filesystem-safe format)
+            const now = new Date();
+            const dateStr = now.toISOString().split('T')[0]; // YYYY-MM-DD
+            const timeStr = now.toTimeString().split(' ')[0].replace(/:/g, '-'); // HH-MM-SS
+            const filename = `nuclear_desalination_results_${dateStr}_${timeStr}.csv`;
+            
+            link.setAttribute('href', url);
+            link.setAttribute('download', filename);
+            link.style.visibility = 'hidden';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
 
         // Calculate on page load with default values

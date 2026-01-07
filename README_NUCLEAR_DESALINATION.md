@@ -85,6 +85,7 @@ This calculator modernizes the DEEP 5.1 Excel application into an interactive we
    - Tunnel lengths for waste disposal and fuel transport
    - Boring costs per kilometer
 5. Click "Calculate Desalination Economics" to view results
+6. Click "Export Results to CSV" to export the results as a CSV file
 
 ## Input Parameters
 
