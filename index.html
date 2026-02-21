@@ -2,42 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" pageContent="width=device-width, initial-scale=1.0">
     <title>Nuclear Desalination Financing Calculator - MED System</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-            color: #333;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
-        }
 
         .header {
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
             padding: 40px;
             text-align: center;
+            container-type: inline-size;
         }
 
         .header h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
+            color: #fff;
         }
 
         .header p {
@@ -45,7 +25,7 @@
             opacity: 0.9;
         }
 
-        .content {
+        .pageContent {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
@@ -56,14 +36,14 @@
             background: #f8f9fa;
             border-radius: 15px;
             padding: 30px;
-            border: 2px solid #e9ecef;
+            border: 1px solid #e9ecef;
         }
 
         .section h2 {
             color: #1e3c72;
             margin-bottom: 20px;
             font-size: 1.8em;
-            border-bottom: 3px solid #667eea;
+            border-bottom: 1px solid #667eea;
             padding-bottom: 10px;
         }
 
@@ -71,6 +51,12 @@
             color: #2a5298;
             margin: 20px 0 15px 0;
             font-size: 1.3em;
+        }
+
+        .title-icon {
+            font-size: 1.05em;
+            vertical-align: text-bottom;
+            margin-right: 6px;
         }
 
         .input-group {
@@ -88,7 +74,7 @@
         .input-group select {
             width: 100%;
             padding: 12px;
-            border: 2px solid #dee2e6;
+            border: 1px solid #dee2e6;
             border-radius: 8px;
             font-size: 1em;
             transition: border-color 0.3s;
@@ -108,7 +94,7 @@
 
         .results {
             background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
-            border: 2px solid #00acc1;
+            border: 1px solid #00acc1;
             border-radius: 15px;
             padding: 30px;
             margin-top: 30px;
@@ -124,9 +110,9 @@
             padding: 15px;
             margin: 15px 0;
             border-radius: 10px;
-            border-left: 5px solid #00acc1;
+            border-left: 2px solid #00acc1;
             display: flex;
-            justify-content: space-between;
+            justify-pageContent: space-between;
             align-items: center;
         }
 
@@ -143,7 +129,7 @@
 
         .formula-box {
             background: #fff3cd;
-            border: 2px solid #ffc107;
+            border: 1px solid #ffc107;
             border-radius: 10px;
             padding: 20px;
             margin: 20px 0;
@@ -180,7 +166,7 @@
 
         .info-box {
             background: #d1ecf1;
-            border-left: 4px solid #0c5460;
+            border-left: 2px solid #0c5460;
             padding: 15px;
             margin: 15px 0;
             border-radius: 5px;
@@ -197,8 +183,20 @@
         }
 
         @media (max-width: 1024px) {
-            .content {
+            .pageContent {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        @container (max-width: 640px) {
+            .header {
+                padding: 14px 12px;
+            }
+
+            .header h1 {
+                font-size: 1.3em;
+                margin-bottom: 4px;
+                line-height: 1.2;
             }
         }
 
@@ -208,9 +206,113 @@
             border-radius: 4px;
             font-weight: bold;
         }
+
+        .dark .header {
+            background: linear-gradient(135deg, #10203a 0%, #1a315c 100%);
+        }
+
+        .dark .section {
+            background: #1a1f2b;
+            border-color: #2f3a4d;
+            color: #d9e2f2;
+        }
+
+        .dark .section h2 {
+            color: #9fc1ff;
+            border-bottom-color: #4c7ec9;
+        }
+
+        .dark .section h3 {
+            color: #b7d1ff;
+        }
+
+        .dark .input-group label {
+            color: #d0d9e8;
+        }
+
+        .dark .input-group .unit {
+            color: #a9b4c8;
+        }
+
+        .dark .input-group input,
+        .dark .input-group select {
+            background: #0f1726;
+            color: #e7eefc;
+            border-color: #3c4a62;
+        }
+
+        .dark .input-group input:focus,
+        .dark .input-group select:focus {
+            border-color: #79a9ff;
+            box-shadow: 0 0 0 1px rgba(121, 169, 255, 0.2);
+        }
+
+        .dark .info-box {
+            background: #1d2d3b;
+            border-left: 2px solid #4fb3d4;
+            color: #cfe5f0;
+        }
+
+        .dark .info-box strong {
+            color: #8bd8f3;
+        }
+
+        .dark .formula-box {
+            background: #2a2412;
+            border-color: #8f7124;
+        }
+
+        .dark .formula-box code {
+            color: #ffe08c;
+        }
+
+        .dark .results {
+            background: linear-gradient(135deg, #0e2a33 0%, #133641 100%);
+            border-color: #2f8ea0;
+        }
+
+        .dark .results h2 {
+            color: #8fe8f4;
+            border-bottom-color: #2f8ea0;
+        }
+
+        .dark .result-item {
+            background: #12202f;
+            border-left-color: #3aaec1;
+        }
+
+        .dark .result-item .label {
+            color: #c8d5e8;
+        }
+
+        .dark .result-item .value {
+            color: #9beaf3;
+        }
+
+        .dark .highlight {
+            background: #4d3f16;
+            color: #ffe9aa;
+        }
+
+        .dark #proposalSummary {
+            background: #111a2b !important;
+            color: #d9e2f2;
+        }
+
+        .dark #proposalSummary h3 {
+            color: #9fc1ff !important;
+        }
+
+        .dark #proposalSummary p,
+        .dark #proposalSummary li {
+            color: #d0d9e8;
+        }
     </style>
 </head>
 <body>
+    <link type="text/css" rel="stylesheet" href="/localsite/css/base.css" id="/localsite/css/base.css" />
+    <script type="text/javascript" src="/localsite/js/localsite.js?showheader=true&showsearch=true"></script>
+
     <div class="container">
         <div class="header">
             <h1>🌊 Nuclear Desalination Financing Calculator</h1>
@@ -221,12 +323,12 @@
         <div style="margin: 10px 40px 0px 40px">
             <a href="projects">Project Timelines</a> | <a href="../community/projects/nuclear/">Underground SMRs</a> 
         </div>
-        <div class="content">
+        <div class="pageContent">
             
 
             <!-- Input Section -->
             <div class="section">
-                <h2>📊 Plant Configuration</h2>
+                <h2><span class="material-icons title-icon">tune</span>Plant Configuration</h2>
                 
                 <div class="input-group">
                     <label>Reactor Thermal Power Output <span class="unit">(MWth)</span></label>
@@ -264,7 +366,7 @@
                     <input type="number" id="availability" value="90" min="80" max="95" step="1">
                 </div>
 
-                <h3>💰 Economic Parameters</h3>
+                <h3><span class="material-icons title-icon">paid</span>Economic Parameters</h3>
 
                 <div class="input-group">
                     <label>Water Sale Price <span class="unit">($/m³)</span></label>
@@ -284,7 +386,7 @@
                     </div>
                 </div>
 
-                <h3>🕳️ Earthgrid Boring Technology</h3>
+                <h3><span class="material-icons title-icon">construction</span>Earthgrid Boring Technology</h3>
 
                 <div class="input-group">
                     <label>Waste Disposal Tunnel Length <span class="unit">(km)</span></label>
@@ -306,12 +408,12 @@
                     <input type="number" id="plantPurchasePrice" value="500" min="100" step="50">
                 </div>
 
-                <button class="btn" onclick="calculate()">🔄 Calculate Desalination Economics</button>
+                <button class="btn" onclick="calculate()"><span class="material-icons title-icon">autorenew</span>Calculate Desalination Economics</button>
             </div>
 
             <!-- Results Section -->
             <div class="section">
-                <h2>📈 Calculation Results</h2>
+                <h2><span class="material-icons title-icon">trending_up</span>Calculation Results</h2>
 
                 <div class="formula-box">
                     <h3>Daily Fresh Water Production Formula:</h3>
@@ -329,7 +431,7 @@
                 </div>
 
                 <div class="results" id="results">
-                    <h2>💧 Water Production</h2>
+                    <h2><span class="material-icons title-icon">water_drop</span>Water Production</h2>
                     <div class="result-item">
                         <span class="label">Waste Heat Available:</span>
                         <span class="value" id="wasteHeat">-</span>
@@ -347,7 +449,7 @@
                         <span class="value" id="waterPerMW">-</span>
                     </div>
 
-                    <h2 style="margin-top: 30px;">💰 Financial Analysis</h2>
+                    <h2 style="margin-top: 30px;"><span class="material-icons title-icon">paid</span>Financial Analysis</h2>
                     <div class="result-item">
                         <span class="label">Annual Water Revenue:</span>
                         <span class="value" id="annualRevenue">-</span>
@@ -381,7 +483,7 @@
                         <span class="value" id="costPerCubicMeter">-</span>
                     </div>
 
-                    <h2 style="margin-top: 30px;">⚡ Energy Metrics</h2>
+                    <h2 style="margin-top: 30px;"><span class="material-icons title-icon">bolt</span>Energy Metrics</h2>
                     <div class="result-item">
                         <span class="label">Thermal Energy per m³:</span>
                         <span class="value" id="energyPerCubicMeter">-</span>
@@ -392,14 +494,14 @@
                     </div>
                     
                     <button class="btn" onclick="exportToCSV()" style="margin-top: 30px; background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
-                        📥 Export Results to CSV
+                        <span class="material-icons title-icon">download</span>Export Results to CSV
                     </button>
                 </div>
             </div>
         </div>
 
         <div class="section" style="margin: 0 40px 40px 40px;">
-            <h2>📋 Financing Proposal Summary</h2>
+            <h2><span class="material-icons title-icon">description</span>Financing Proposal Summary</h2>
             <div id="proposalSummary" style="padding: 20px; background: white; border-radius: 10px; margin-top: 20px;">
                 <p style="color: #6c757d;">Click "Calculate" to generate proposal summary...</p>
             </div>
@@ -493,22 +595,22 @@
             const specificEnergy = energyPerCubicMeter / medEfficiency; // MJ/m³ (net)
 
             // Update results display
-            document.getElementById('wasteHeat').textContent = formatNumber(wasteHeatMW) + ' MWth';
-            document.getElementById('dailyWater').textContent = formatNumber(dailyWaterProductionAdjusted) + ' m³/day';
-            document.getElementById('annualWater').textContent = formatNumber(annualWaterProduction) + ' m³/year';
-            document.getElementById('waterPerMW').textContent = formatNumber(waterPerMWPerDay) + ' m³/(MWth·day)';
+            document.getElementById('wasteHeat').textpageContent = formatNumber(wasteHeatMW) + ' MWth';
+            document.getElementById('dailyWater').textpageContent = formatNumber(dailyWaterProductionAdjusted) + ' m³/day';
+            document.getElementById('annualWater').textpageContent = formatNumber(annualWaterProduction) + ' m³/year';
+            document.getElementById('waterPerMW').textpageContent = formatNumber(waterPerMWPerDay) + ' m³/(MWth·day)';
             
-            document.getElementById('annualRevenue').textContent = formatCurrency(annualRevenue);
-            document.getElementById('medCapital').textContent = formatCurrency(medSystemCapitalCost);
-            document.getElementById('retrofitCost').textContent = formatCurrency(totalRetrofitCost);
-            document.getElementById('boringCost').textContent = formatCurrency(boringCost);
-            document.getElementById('totalCost').textContent = formatCurrency(totalProjectCost);
-            document.getElementById('paybackPeriod').textContent = formatNumber(paybackPeriod) + ' years';
-            document.getElementById('npv').textContent = formatCurrency(npv);
-            document.getElementById('costPerCubicMeter').textContent = formatCurrency(costPerCubicMeter);
+            document.getElementById('annualRevenue').textpageContent = formatCurrency(annualRevenue);
+            document.getElementById('medCapital').textpageContent = formatCurrency(medSystemCapitalCost);
+            document.getElementById('retrofitCost').textpageContent = formatCurrency(totalRetrofitCost);
+            document.getElementById('boringCost').textpageContent = formatCurrency(boringCost);
+            document.getElementById('totalCost').textpageContent = formatCurrency(totalProjectCost);
+            document.getElementById('paybackPeriod').textpageContent = formatNumber(paybackPeriod) + ' years';
+            document.getElementById('npv').textpageContent = formatCurrency(npv);
+            document.getElementById('costPerCubicMeter').textpageContent = formatCurrency(costPerCubicMeter);
             
-            document.getElementById('energyPerCubicMeter').textContent = formatNumber(energyPerCubicMeter) + ' MJ/m³';
-            document.getElementById('specificEnergy').textContent = formatNumber(specificEnergy) + ' MJ/m³';
+            document.getElementById('energyPerCubicMeter').textpageContent = formatNumber(energyPerCubicMeter) + ' MJ/m³';
+            document.getElementById('specificEnergy').textpageContent = formatNumber(specificEnergy) + ' MJ/m³';
 
             // Generate proposal summary
             generateProposalSummary({
@@ -629,7 +731,7 @@
                     <li>Ongoing operations and maintenance</li>
                 </ul>
 
-                <div style="background: #d4edda; border-left: 4px solid #28a745; padding: 15px; margin-top: 20px; border-radius: 5px;">
+                <div style="background: #d4edda; border-left: 2px solid #28a745; padding: 15px; margin-top: 20px; border-radius: 5px;">
                     <strong style="color: #155724;">Investment Opportunity:</strong> This project represents a sustainable solution 
                     to water scarcity while maximizing the utilization of existing nuclear infrastructure. The integration of 
                     MED desalination with nuclear waste heat recovery creates a dual revenue stream and significantly improves 
