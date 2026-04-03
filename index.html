@@ -25,6 +25,10 @@
             --warning: #b7791f;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
             color: var(--ink-1);
@@ -34,9 +38,114 @@
                 linear-gradient(180deg, var(--bg-2) 0%, var(--bg-1) 48%, #f3f8f7 100%);
         }
 
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr);
+            gap: 24px;
+            max-width: 1760px;
+            margin: 0 auto;
+            padding: 20px 18px 34px;
+            align-items: start;
+        }
+
+        .left-rail {
+            position: relative;
+            width: 280px;
+            align-self: start;
+            z-index: 12;
+            transition: width 0.24s ease;
+        }
+
+        .left-rail.compact {
+            width: 94px;
+        }
+
+        .rail-shell {
+            display: grid;
+            gap: 12px;
+            padding: 16px 14px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.82);
+            border: 1px solid rgba(19, 42, 43, 0.08);
+            box-shadow: var(--card-shadow);
+            backdrop-filter: blur(18px);
+        }
+
+        .rail-shell.rail-fixed {
+            position: fixed;
+            top: 18px;
+            left: var(--rail-fixed-left, 18px);
+            width: var(--rail-fixed-width, 280px);
+            z-index: 30;
+        }
+
+        .rail-nav {
+            display: grid;
+            gap: 6px;
+        }
+
+        .rail-link,
+        .rail-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            padding: 14px 16px;
+            border: 0;
+            border-radius: 999px;
+            background: transparent;
+            color: var(--ink-1);
+            text-decoration: none;
+            text-align: left;
+            font: inherit;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            cursor: pointer;
+            transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+        }
+
+        .rail-link:hover,
+        .rail-toggle:hover,
+        .rail-link:focus-visible,
+        .rail-toggle:focus-visible {
+            background: rgba(15, 113, 115, 0.1);
+            color: var(--accent-1);
+            outline: none;
+        }
+
+        .rail-link.active {
+            background: linear-gradient(135deg, rgba(15, 113, 115, 0.16), rgba(20, 91, 146, 0.12));
+            color: var(--accent-1);
+            transform: translateX(2px);
+        }
+
+        .rail-link .material-icons,
+        .rail-toggle .material-icons {
+            font-size: 30px;
+            flex: 0 0 30px;
+        }
+
+        .rail-label,
+        .rail-toggle-text {
+            white-space: nowrap;
+        }
+
+        .left-rail.compact .rail-label,
+        .left-rail.compact .rail-toggle-text {
+            display: none;
+        }
+
+        .left-rail.compact .rail-link,
+        .left-rail.compact .rail-toggle {
+            justify-content: center;
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+
         .dashboard-shell {
             max-width: 1500px;
-            margin: 0 auto;
+            min-width: 0;
         }
 
         .hero {
@@ -183,6 +292,10 @@
 
         .footer-attribution strong {
             color: var(--ink-1);
+        }
+
+        .nav-target {
+            scroll-margin-top: 18px;
         }
 
         .panel-shell {
@@ -375,6 +488,14 @@
             color: var(--ink-1);
         }
 
+        .subpanel h2.section-title {
+            margin: 0 0 8px;
+            font-size: clamp(1.45rem, 2.8cqw, 2.05rem);
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            color: var(--ink-1);
+        }
+
         .subpanel p.section-copy {
             margin: 0 0 18px;
             color: var(--ink-2);
@@ -415,6 +536,12 @@
             color: var(--ink-1);
             font: inherit;
             transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .input-group > input,
+        .input-group > select {
+            width: 110px;
+            justify-self: end;
         }
 
         .input-group input:focus,
@@ -894,6 +1021,7 @@
                 linear-gradient(135deg, #0a3437 0%, #0d5a5d 42%, #8c461f 100%);
         }
 
+        .dark .rail-shell,
         .dark .page-links a,
         .dark .restore-chip,
         .dark .panel-shell,
@@ -916,6 +1044,20 @@
         .dark .panel-note,
         .dark .mini-btn {
             background: rgba(90, 190, 182, 0.12);
+            color: #7ed9d3;
+        }
+
+        .dark .rail-link,
+        .dark .rail-toggle {
+            color: #edf6f7;
+        }
+
+        .dark .rail-link:hover,
+        .dark .rail-toggle:hover,
+        .dark .rail-link:focus-visible,
+        .dark .rail-toggle:focus-visible,
+        .dark .rail-link.active {
+            background: rgba(90, 190, 182, 0.14);
             color: #7ed9d3;
         }
 
@@ -1052,14 +1194,27 @@
         }
 
         @container (max-width: 780px) {
+            .panel-summary-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
             .energy-row {
                 grid-template-columns: 1fr;
             }
         }
 
-        @container (max-width: 760px) {
+        @container (max-width: 500px) {
+            .panel-summary-grid {
+                grid-template-columns: 1fr;
+            }
+
             .input-group {
                 grid-template-columns: 1fr;
+            }
+
+            .input-group > input,
+            .input-group > select {
+                width: 100%;
             }
 
             .collapse-teaser {
@@ -1079,8 +1234,30 @@
     <link type="text/css" rel="stylesheet" href="/localsite/css/base.css" id="/localsite/css/base.css" />
     <script type="text/javascript" src="/localsite/js/localsite.js?showheader=true&showsearch=true"></script>
 
-    <div class="dashboard-shell contentpadding">
-        <div class="hero">
+    <div class="dashboard-layout">
+        <aside id="leftRail" class="left-rail">
+            <div class="rail-shell">
+                <nav class="rail-nav" aria-label="Section navigation">
+                    <a class="rail-link" href="#studio" data-nav-target="studio"><span class="material-icons">auto_awesome</span><span class="rail-label">Studio</span></a>
+                    <a class="rail-link" href="#benefits" data-nav-target="benefits"><span class="material-icons">business_center</span><span class="rail-label">Benefits</span></a>
+                    <a class="rail-link" href="#specs" data-nav-target="specs"><span class="material-icons">tune</span><span class="rail-label">Specs</span></a>
+                    <a class="rail-link" href="#products" data-nav-target="products"><span class="material-icons">inventory_2</span><span class="rail-label">Products</span></a>
+                    <a class="rail-link" href="#energyMix" data-nav-target="energyMix"><span class="material-icons">bolt</span><span class="rail-label">Energy Mix</span></a>
+                    <a class="rail-link" href="#contributors" data-nav-target="contributors"><span class="material-icons">groups_3</span><span class="rail-label">Contributors</span></a>
+                    <a class="rail-link" href="#deployment" data-nav-target="deployment"><span class="material-icons">construction</span><span class="rail-label">Deployment</span></a>
+                    <a class="rail-link" href="#scorecard" data-nav-target="scorecard"><span class="material-icons">leaderboard</span><span class="rail-label">Scorecard</span></a>
+                    <a class="rail-link" href="#DeepNuclear" data-nav-target="DeepNuclear"><span class="material-icons">view_in_ar</span><span class="rail-label">Deep Nuclear</span></a>
+                    <a class="rail-link" href="#waterPanel" data-nav-target="waterPanel"><span class="material-icons">water_drop</span><span class="rail-label">Water Output</span></a>
+                </nav>
+                <button type="button" class="rail-toggle" id="leftRailToggle" aria-label="Collapse navigation" aria-pressed="false">
+                    <span class="material-icons">left_panel_close</span>
+                    <span class="rail-toggle-text">Collapse</span>
+                </button>
+            </div>
+        </aside>
+
+        <div class="dashboard-shell contentpadding">
+        <div id="studio" class="hero nav-target">
             <div class="eyebrow"><span class="material-icons">water_drop</span>Water + energy sponsor studio</div>
             <h1>Corporate upside from financing&nbsp;pure&nbsp;water and resilient&nbsp;community&nbsp;energy</h1>
             <p>
@@ -1115,7 +1292,7 @@
         <div id="panelRestores" class="restore-bar"></div>
 
         <div class="dashboard-stack">
-            <section id="corporatePanel" class="panel-shell expanded">
+            <section id="benefits" class="panel-shell expanded nav-target">
                 <div class="panel-head">
                     <div class="panel-kicker"><span class="material-icons">business_center</span>Top calculator</div>
                     <h2>Corporate Benefit Calculator</h2>
@@ -1155,7 +1332,7 @@
 
                 <div class="panel-body stack">
                     <div class="panel-grid">
-                        <div class="subpanel">
+                        <div id="specs" class="subpanel nav-target">
                             <h3>Community and sponsor assumptions</h3>
                             <p class="section-copy">
                                 Start with community scale, water quality improvement, sponsor penetration, and internal operating exposure.
@@ -1227,39 +1404,47 @@
                             </div>
                         </div>
 
-                        <div class="results-shell">
-                            <h3>Sponsor benefit stack</h3>
-                            <div class="metric-list">
-                                <div class="metric-row">
-                                    <span class="label">Incremental category revenue</span>
-                                    <span class="value" id="corpRevenueLift">$0</span>
+                        <div class="stack">
+                            <div class="results-shell">
+                                <h3>Sponsor benefit stack</h3>
+                                <div class="metric-list">
+                                    <div class="metric-row">
+                                        <span class="label">Incremental category revenue</span>
+                                        <span class="value" id="corpRevenueLift">$0</span>
+                                    </div>
+                                    <div class="metric-row">
+                                        <span class="label">Operating profit uplift</span>
+                                        <span class="value" id="corpMarginLift">$0</span>
+                                    </div>
+                                    <div class="metric-row">
+                                        <span class="label">Process-water value</span>
+                                        <span class="value" id="corpProcessValue">$0</span>
+                                    </div>
+                                    <div class="metric-row">
+                                        <span class="label">Retail uptime / cold-chain value</span>
+                                        <span class="value" id="corpRetailValue">$0</span>
+                                    </div>
+                                    <div class="metric-row">
+                                        <span class="label">Brand-trust and market-development value</span>
+                                        <span class="value" id="corpBrandValue">$0</span>
+                                    </div>
+                                    <div class="metric-row">
+                                        <span class="label">Carbon / compliance value</span>
+                                        <span class="value" id="corpCarbonValue">$0</span>
+                                    </div>
                                 </div>
-                                <div class="metric-row">
-                                    <span class="label">Operating profit uplift</span>
-                                    <span class="value" id="corpMarginLift">$0</span>
-                                </div>
-                                <div class="metric-row">
-                                    <span class="label">Process-water value</span>
-                                    <span class="value" id="corpProcessValue">$0</span>
-                                </div>
-                                <div class="metric-row">
-                                    <span class="label">Retail uptime / cold-chain value</span>
-                                    <span class="value" id="corpRetailValue">$0</span>
-                                </div>
-                                <div class="metric-row">
-                                    <span class="label">Brand-trust and market-development value</span>
-                                    <span class="value" id="corpBrandValue">$0</span>
-                                </div>
-                                <div class="metric-row">
-                                    <span class="label">Carbon / compliance value</span>
-                                    <span class="value" id="corpCarbonValue">$0</span>
-                                </div>
+                            </div>
+
+                            <div class="results-shell">
+                                <h3>Sponsor narrative</h3>
+                                <div id="corporateNarrative" class="metric-list"></div>
                             </div>
                         </div>
                     </div>
 
                     <div class="panel-grid">
-                        <div class="subpanel">
+                        <div id="products" class="subpanel nav-target">
+                            <h2 class="section-title">Products</h2>
                             <h3>Product areas and operating leverage</h3>
                             <p class="section-copy">
                                 Choose the product families that matter to the sponsor, then estimate where water availability creates direct demand lift or manufacturing savings.
@@ -1339,71 +1524,64 @@
                         </div>
                     </div>
 
-                    <div class="panel-grid">
-                        <div class="subpanel">
-                            <h3>Blended energy portfolio</h3>
-                            <p class="section-copy">
-                                Go broader than nuclear: mix renewables, thermal recovery, flexible backup, and advanced generation to see how resilient energy changes corporate value.
-                            </p>
+                    <div id="energyMix" class="subpanel nav-target">
+                        <h3>Blended energy portfolio</h3>
+                        <p class="section-copy">
+                            Go broader than nuclear: mix renewables, thermal recovery, flexible backup, and advanced generation to see how resilient energy changes corporate value.
+                        </p>
 
-                            <div class="energy-grid">
-                                <div class="energy-row">
-                                    <label for="energySolar">Solar PV <span class="unit">(MW)</span></label>
-                                    <input type="number" id="energySolar" value="120" min="0" step="5">
-                                    <div class="energy-meta">Capacity factor 24%<br>Capex $0.95M/MW</div>
-                                </div>
-                                <div class="energy-row">
-                                    <label for="energyWind">Onshore wind <span class="unit">(MW)</span></label>
-                                    <input type="number" id="energyWind" value="95" min="0" step="5">
-                                    <div class="energy-meta">Capacity factor 37%<br>Capex $1.45M/MW</div>
-                                </div>
-                                <div class="energy-row">
-                                    <label for="energyGeothermal">Geothermal <span class="unit">(MW)</span></label>
-                                    <input type="number" id="energyGeothermal" value="35" min="0" step="5">
-                                    <div class="energy-meta">Capacity factor 90%<br>Capex $4.8M/MW</div>
-                                </div>
-                                <div class="energy-row">
-                                    <label for="energyHydro">Small hydro <span class="unit">(MW)</span></label>
-                                    <input type="number" id="energyHydro" value="25" min="0" step="5">
-                                    <div class="energy-meta">Capacity factor 52%<br>Capex $3.4M/MW</div>
-                                </div>
-                                <div class="energy-row">
-                                    <label for="energyNuclear">SMR / nuclear retrofit <span class="unit">(MW)</span></label>
-                                    <input type="number" id="energyNuclear" value="40" min="0" step="5">
-                                    <div class="energy-meta">Capacity factor 92%<br>Capex $6.8M/MW</div>
-                                </div>
-                                <div class="energy-row">
-                                    <label for="energyWasteHeat">Industrial waste-heat recovery <span class="unit">(MW)</span></label>
-                                    <input type="number" id="energyWasteHeat" value="28" min="0" step="2">
-                                    <div class="energy-meta">Capacity factor 61%<br>Capex $1.2M/MW</div>
-                                </div>
-                                <div class="energy-row">
-                                    <label for="energyWasteToEnergy">Waste-to-energy / biogas <span class="unit">(MW)</span></label>
-                                    <input type="number" id="energyWasteToEnergy" value="18" min="0" step="2">
-                                    <div class="energy-meta">Capacity factor 74%<br>Capex $5.0M/MW</div>
-                                </div>
-                                <div class="energy-row">
-                                    <label for="energyGasBackup">Flexible gas backup <span class="unit">(MW)</span></label>
-                                    <input type="number" id="energyGasBackup" value="22" min="0" step="2">
-                                    <div class="energy-meta">Capacity factor 18%<br>Capex $1.1M/MW</div>
-                                </div>
+                        <div class="energy-grid">
+                            <div class="energy-row">
+                                <label for="energySolar">Solar PV <span class="unit">(MW)</span></label>
+                                <input type="number" id="energySolar" value="120" min="0" step="5">
+                                <div class="energy-meta">Capacity factor 24%<br>Capex $0.95M/MW</div>
                             </div>
-
-                            <div class="action-row">
-                                <button type="button" class="btn" id="calculateCorporateBtn"><span class="material-icons">calculate</span>Calculate corporate benefits</button>
+                            <div class="energy-row">
+                                <label for="energyWind">Onshore wind <span class="unit">(MW)</span></label>
+                                <input type="number" id="energyWind" value="95" min="0" step="5">
+                                <div class="energy-meta">Capacity factor 37%<br>Capex $1.45M/MW</div>
+                            </div>
+                            <div class="energy-row">
+                                <label for="energyGeothermal">Geothermal <span class="unit">(MW)</span></label>
+                                <input type="number" id="energyGeothermal" value="35" min="0" step="5">
+                                <div class="energy-meta">Capacity factor 90%<br>Capex $4.8M/MW</div>
+                            </div>
+                            <div class="energy-row">
+                                <label for="energyHydro">Small hydro <span class="unit">(MW)</span></label>
+                                <input type="number" id="energyHydro" value="25" min="0" step="5">
+                                <div class="energy-meta">Capacity factor 52%<br>Capex $3.4M/MW</div>
+                            </div>
+                            <div class="energy-row">
+                                <label for="energyNuclear">SMR / nuclear retrofit <span class="unit">(MW)</span></label>
+                                <input type="number" id="energyNuclear" value="40" min="0" step="5">
+                                <div class="energy-meta">Capacity factor 92%<br>Capex $6.8M/MW</div>
+                            </div>
+                            <div class="energy-row">
+                                <label for="energyWasteHeat">Industrial waste-heat recovery <span class="unit">(MW)</span></label>
+                                <input type="number" id="energyWasteHeat" value="28" min="0" step="2">
+                                <div class="energy-meta">Capacity factor 61%<br>Capex $1.2M/MW</div>
+                            </div>
+                            <div class="energy-row">
+                                <label for="energyWasteToEnergy">Waste-to-energy / biogas <span class="unit">(MW)</span></label>
+                                <input type="number" id="energyWasteToEnergy" value="18" min="0" step="2">
+                                <div class="energy-meta">Capacity factor 74%<br>Capex $5.0M/MW</div>
+                            </div>
+                            <div class="energy-row">
+                                <label for="energyGasBackup">Flexible gas backup <span class="unit">(MW)</span></label>
+                                <input type="number" id="energyGasBackup" value="22" min="0" step="2">
+                                <div class="energy-meta">Capacity factor 18%<br>Capex $1.1M/MW</div>
                             </div>
                         </div>
 
-                        <div class="results-shell">
-                            <h3>Sponsor narrative</h3>
-                            <div id="corporateNarrative" class="metric-list"></div>
+                        <div class="action-row">
+                            <button type="button" class="btn" id="calculateCorporateBtn"><span class="material-icons">calculate</span>Calculate corporate benefits</button>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section id="fundingPanel" class="panel-shell expanded">
-                <div class="panel-head">
+            <section id="fundingPanel" class="panel-shell expanded nav-target">
+                <div id="contributors" class="panel-head nav-target">
                     <div class="panel-kicker"><span class="material-icons">account_balance</span>Capital stack</div>
                     <h2>Blended Contributions Panel</h2>
                     <p>
@@ -1472,7 +1650,7 @@
                                 </div>
                             </div>
 
-                            <div class="subpanel">
+                            <div id="deployment" class="subpanel nav-target">
                                 <h3>Deployment-stage contributions</h3>
                                 <p class="section-copy">
                                     Deployment uses the broader water-plus-energy project capex from the corporate calculator and allocates that budget by the shares below.
@@ -1536,7 +1714,7 @@
                 </div>
             </section>
 
-            <section id="governancePanel" class="panel-shell expanded">
+            <section id="governancePanel" class="panel-shell expanded nav-target">
                 <div class="panel-head">
                     <div class="panel-kicker"><span class="material-icons">workspace_premium</span>Mayor incentive lens</div>
                     <h2>Local-Officials Scorecard</h2>
@@ -1575,7 +1753,7 @@
 
                 <div class="panel-body">
                     <div class="stack">
-                        <div class="subpanel">
+                        <div id="scorecard" class="subpanel nav-target">
                             <h3>Performance Indicators</h3>
                             <p class="section-copy">Move each slider to reflect how strongly a mayor is currently delivering against these documented or well-supported indicator clusters. The scorecard is cached in your browser and restored on reload.</p>
                             <div id="performanceIndicatorGrid" class="scorecard-grid"></div>
@@ -1622,9 +1800,9 @@
                 </div>
             </section>
 
-            <section id="nuclearPanel" class="panel-shell expanded">
+            <section id="DeepNuclear" class="panel-shell expanded nav-target">
                 <div class="panel-head">
-                    <div class="panel-kicker"><span class="material-icons">nuclear</span>Reference scenario</div>
+                    <div class="panel-kicker"><span class="material-icons">view_in_ar</span>Reference scenario</div>
                     <h2>DEEP Nuclear</h2>
                     <p>
                         This section contains the DEEP-based reference scenario and the full thermal, water-output, and finance model. A separate compact water panel below keeps the headline output and payback metrics visible without repeating the full input set.
@@ -1800,7 +1978,7 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
                 
             </section>
 
-            <section id="waterPanel" class="panel-shell collapsed">
+            <section id="waterPanel" class="panel-shell collapsed nav-target">
                 <div class="panel-head">
                     <h2>Water Output Calculator</h2>
                     <p>
@@ -1840,6 +2018,7 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             International Atomic Energy Agency (IAEA)
         </div>
     </div>
+    </div>
 
     <script>
         const LATENT_HEAT_KJ_KG = 2326;
@@ -1848,6 +2027,9 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
         const SECONDS_PER_HOUR = 3600;
         const HOURS_PER_YEAR = HOURS_PER_DAY * DAYS_PER_YEAR;
         const PERFORMANCE_SCORECARD_STORAGE_KEY = 'deepNuclearPerformanceScorecardV1';
+        const LEFT_RAIL_STORAGE_KEY = 'deepNuclearRailCompactV1';
+        let lastLeftRailScrollY = 0;
+        let leftRailClickPinUntil = 0;
 
         const performanceIndicators = [
             { id: 'gdpIndustrialOutput', label: 'GDP and industrial output', description: 'Classic growth signals: output expansion, industrial value added, and tax-base growth.', defaultValue: 74 },
@@ -2603,6 +2785,162 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             `).join('');
         }
 
+        function setLeftRailCompact(compact) {
+            const rail = document.getElementById('leftRail');
+            const toggle = document.getElementById('leftRailToggle');
+            if (!rail || !toggle) return;
+
+            rail.classList.toggle('compact', compact);
+            toggle.setAttribute('aria-pressed', compact ? 'true' : 'false');
+            toggle.setAttribute('aria-label', compact ? 'Expand navigation' : 'Collapse navigation');
+
+            const icon = toggle.querySelector('.material-icons');
+            const label = toggle.querySelector('.rail-toggle-text');
+            if (icon) icon.textContent = compact ? 'left_panel_open' : 'left_panel_close';
+            if (label) label.textContent = compact ? 'Expand' : 'Collapse';
+
+            try {
+                window.localStorage?.setItem(LEFT_RAIL_STORAGE_KEY, compact ? '1' : '0');
+            } catch (error) {
+                // Ignore storage failures so the rail still works in private contexts.
+            }
+
+            syncLeftRailShellPosition();
+        }
+
+        function updateLeftRailActive() {
+            const links = Array.from(document.querySelectorAll('.rail-link[data-nav-target]'));
+            if (!links.length) return;
+
+            let activeId = links[0].getAttribute('data-nav-target');
+            links.forEach(link => {
+                const targetId = link.getAttribute('data-nav-target');
+                const target = document.getElementById(targetId);
+                if (!target) return;
+                const rect = target.getBoundingClientRect();
+                if (rect.top <= 180) activeId = targetId;
+            });
+
+            links.forEach(link => {
+                const isActive = link.getAttribute('data-nav-target') === activeId;
+                link.classList.toggle('active', isActive);
+                if (isActive) {
+                    link.setAttribute('aria-current', 'page');
+                } else {
+                    link.removeAttribute('aria-current');
+                }
+            });
+        }
+
+        function syncLeftRailShellPosition() {
+            const rail = document.getElementById('leftRail');
+            const shell = rail?.querySelector('.rail-shell');
+            if (!rail || !shell) return;
+
+            rail.style.minHeight = shell.offsetHeight + 'px';
+            const railRect = rail.getBoundingClientRect();
+            shell.style.setProperty('--rail-fixed-left', railRect.left + 'px');
+            shell.style.setProperty('--rail-fixed-width', railRect.width + 'px');
+        }
+
+        function queueLeftRailSync() {
+            syncLeftRailShellPosition();
+            requestAnimationFrame(function() {
+                syncLeftRailShellPosition();
+            });
+        }
+
+        function setLeftRailFixed(fixed) {
+            const rail = document.getElementById('leftRail');
+            const shell = rail?.querySelector('.rail-shell');
+            if (!rail || !shell) return;
+
+            if (fixed) {
+                syncLeftRailShellPosition();
+                shell.classList.add('rail-fixed');
+            } else {
+                shell.classList.remove('rail-fixed');
+            }
+        }
+
+        function updateLeftRailPosition() {
+            const currentScrollY = window.scrollY || window.pageYOffset || 0;
+            const scrollingUp = currentScrollY < lastLeftRailScrollY - 1;
+            const scrollingDown = currentScrollY > lastLeftRailScrollY + 1;
+            const pinnedByClick = currentScrollY > 120 && Date.now() < leftRailClickPinUntil;
+
+            if ((scrollingUp || pinnedByClick) && currentScrollY > 120) {
+                setLeftRailFixed(true);
+            } else if ((scrollingDown && !pinnedByClick) || currentScrollY <= 120) {
+                setLeftRailFixed(false);
+            }
+
+            lastLeftRailScrollY = currentScrollY;
+        }
+
+        function setupLeftRail() {
+            const rail = document.getElementById('leftRail');
+            const toggle = document.getElementById('leftRailToggle');
+            if (!rail || !toggle) return;
+
+            let compact = false;
+            try {
+                compact = window.localStorage?.getItem(LEFT_RAIL_STORAGE_KEY) === '1';
+            } catch (error) {
+                compact = false;
+            }
+            setLeftRailCompact(compact);
+            syncLeftRailShellPosition();
+            lastLeftRailScrollY = window.scrollY || window.pageYOffset || 0;
+
+            toggle.addEventListener('click', function() {
+                setLeftRailCompact(!rail.classList.contains('compact'));
+                leftRailClickPinUntil = Date.now() + 1200;
+                if ((window.scrollY || window.pageYOffset || 0) > 120) {
+                    setLeftRailFixed(true);
+                }
+                queueLeftRailSync();
+            });
+
+            rail.querySelectorAll('.rail-link[data-nav-target]').forEach(link => {
+                link.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-nav-target');
+                    const target = document.getElementById(targetId);
+                    if (target && target.classList.contains('panel-shell') && target.classList.contains('collapsed')) {
+                        setPanelCollapsed(targetId, false);
+                    }
+                    leftRailClickPinUntil = Date.now() + 1200;
+                    setLeftRailFixed(true);
+                    queueLeftRailSync();
+                    requestAnimationFrame(updateLeftRailActive);
+                });
+            });
+
+            rail.addEventListener('transitionrun', queueLeftRailSync);
+            rail.addEventListener('transitionend', queueLeftRailSync);
+
+            if (typeof ResizeObserver === 'function') {
+                const leftRailObserver = new ResizeObserver(function() {
+                    queueLeftRailSync();
+                });
+                leftRailObserver.observe(rail);
+                const shell = rail.querySelector('.rail-shell');
+                if (shell) leftRailObserver.observe(shell);
+            }
+
+            window.addEventListener('scroll', function() {
+                updateLeftRailActive();
+                updateLeftRailPosition();
+            }, { passive: true });
+            window.addEventListener('resize', function() {
+                syncLeftRailShellPosition();
+                updateLeftRailActive();
+                updateLeftRailPosition();
+            });
+            updateLeftRailActive();
+            updateLeftRailPosition();
+        }
+
         function hidePanel(panelId) {
             const panel = document.getElementById(panelId);
             if (!panel) return;
@@ -2637,10 +2975,10 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             if (typeof addPanelMenu !== 'function') return;
 
             const panels = [
-                { id: 'corporatePanel', label: 'Corporate Benefits', collapsed: false },
+                { id: 'benefits', label: 'Corporate Benefits', collapsed: false },
                 { id: 'fundingPanel', label: 'Blended Contributions', collapsed: false },
                 { id: 'governancePanel', label: 'Mayor Incentives', collapsed: false },
-                { id: 'nuclearPanel', label: 'Deep Nuclear', collapsed: false },
+                { id: 'DeepNuclear', label: 'Deep Nuclear', collapsed: false },
                 { id: 'waterPanel', label: 'Water Output Calculator', collapsed: true }
             ];
 
@@ -2765,6 +3103,7 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             renderPerformanceIndicators();
             setupEventHandlers();
             setupPanelMenus();
+            setupLeftRail();
             calculateCorporateBenefits();
             calculateFundingMix();
             calculateNuclear();
