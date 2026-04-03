@@ -203,6 +203,10 @@
             padding: 28px 76px 16px 28px;
         }
 
+        .panel-head + .panel-head {
+            padding-top: 0;
+        }
+
         .panel-kicker {
             display: inline-flex;
             align-items: center;
@@ -1618,36 +1622,13 @@
                 </div>
             </section>
 
-            <section id="nuclearPanel" class="panel-shell collapsed">
+            <section id="nuclearPanel" class="panel-shell expanded">
                 <div class="panel-head">
                     <div class="panel-kicker"><span class="material-icons">nuclear</span>Reference scenario</div>
-                    <h2>Water Output Calculator</h2>
+                    <h2>DEEP Nuclear</h2>
                     <p>
-                        This panel preserves the deeper reactor retrofit model. It is collapsed by default so the broader sponsor model stays on top, while a compact summary of water output and finance stays visible.
+                        This section contains the DEEP-based reference scenario and the full thermal, water-output, and finance model. A separate compact water panel below keeps the headline output and payback metrics visible without repeating the full input set.
                     </p>
-                </div>
-
-                <div class="panel-summary-grid">
-                    <div class="summary-card">
-                        <span class="label">Daily fresh water</span>
-                        <span class="value" id="nuclearSummaryDailyWater">-</span>
-                        <span class="detail">Waste-heat driven MED output from the reference nuclear scenario.</span>
-                    </div>
-                    <div class="summary-card">
-                        <span class="label">Annual water revenue</span>
-                        <span class="value" id="nuclearSummaryRevenue">-</span>
-                        <span class="detail">Reference water sale value using default placeholder pricing.</span>
-                    </div>
-                    <div class="summary-card">
-                        <span class="label">Total project cost</span>
-                        <span class="value" id="nuclearSummaryCost">-</span>
-                        <span class="detail">Plant purchase, retrofit scope, and tunnel boring combined.</span>
-                    </div>
-                    <div class="summary-card">
-                        <span class="label">Payback period</span>
-                        <span class="value" id="nuclearSummaryPayback">-</span>
-                        <span class="detail" id="nuclearSummaryHint">Expand to inspect the detailed thermal and finance assumptions.</span>
-                    </div>
                 </div>
 
                 <div class="panel-note-row">
@@ -1658,11 +1639,9 @@
                     <p id="nuclearCollapsedCopy">
                         The default deep-nuclear scenario is already calculated. Expand this panel for reactor power, MED settings, tunnel assumptions, and the detailed financing proposal summary.
                     </p>
-                    <button type="button" class="outline-btn" data-expand-panel="nuclearPanel"><span class="material-icons">open_in_full</span>Expand deep nuclear details</button>
                 </div>
 
                 <div class="panel-body">
-                    <h2>DEEP Nuclear</h2>
                     <div class="nuclear-layout">
                         <div class="subpanel">
                             <h3>Plant configuration</h3>
@@ -1818,6 +1797,41 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
                         </div>
                     </div>
                 </div>
+                
+            </section>
+
+            <section id="waterPanel" class="panel-shell collapsed">
+                <div class="panel-head">
+                    <h2>Water Output Calculator</h2>
+                    <p>
+                        This panel preserves the deeper reactor retrofit model. It is collapsed by default so the broader sponsor model stays on top, while a compact summary of water output and finance stays visible.
+                    </p>
+                </div>
+
+                <div class="panel-summary-grid">
+                    <div class="summary-card">
+                        <span class="label">Daily fresh water</span>
+                        <span class="value" id="nuclearSummaryDailyWater">-</span>
+                        <span class="detail">Waste-heat driven MED output from the reference nuclear scenario.</span>
+                    </div>
+                    <div class="summary-card">
+                        <span class="label">Annual water revenue</span>
+                        <span class="value" id="nuclearSummaryRevenue">-</span>
+                        <span class="detail">Reference water sale value using default placeholder pricing.</span>
+                    </div>
+                    <div class="summary-card">
+                        <span class="label">Total project cost</span>
+                        <span class="value" id="nuclearSummaryCost">-</span>
+                        <span class="detail">Plant purchase, retrofit scope, and tunnel boring combined.</span>
+                    </div>
+                    <div class="summary-card">
+                        <span class="label">Payback period</span>
+                        <span class="value" id="nuclearSummaryPayback">-</span>
+                        <span class="detail" id="nuclearSummaryHint">Expand to inspect the detailed thermal and finance assumptions.</span>
+                    </div>
+                </div>
+
+                
             </section>
         </div>
 
@@ -2626,7 +2640,8 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
                 { id: 'corporatePanel', label: 'Corporate Benefits', collapsed: false },
                 { id: 'fundingPanel', label: 'Blended Contributions', collapsed: false },
                 { id: 'governancePanel', label: 'Mayor Incentives', collapsed: false },
-                { id: 'nuclearPanel', label: 'Deep Nuclear', collapsed: true }
+                { id: 'nuclearPanel', label: 'Deep Nuclear', collapsed: false },
+                { id: 'waterPanel', label: 'Water Output Calculator', collapsed: true }
             ];
 
             panels.forEach(panelConfig => {
