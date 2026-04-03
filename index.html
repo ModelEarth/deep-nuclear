@@ -5,309 +5,984 @@
     <meta http-equiv="Content-Type" content="text/html;">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
-    <title>Nuclear Desalination Financing Calculator - MED System</title>
+    <title>Community Water + Energy Sponsor Calculator</title>
     <style>
+        :root {
+            --bg-1: #eef5f4;
+            --bg-2: #fcf7ef;
+            --ink-1: #132a2b;
+            --ink-2: #456061;
+            --panel: rgba(255, 255, 255, 0.84);
+            --line: rgba(19, 42, 43, 0.1);
+            --hero-1: #0d5c63;
+            --hero-2: #ea7b3c;
+            --accent-1: #0f7173;
+            --accent-2: #f2c14e;
+            --accent-3: #ef8354;
+            --card-shadow: 0 22px 50px rgba(16, 35, 39, 0.11);
+            --soft-shadow: 0 14px 28px rgba(16, 35, 39, 0.08);
+            --success: #0f9d58;
+            --warning: #b7791f;
+        }
 
-        .header {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: white;
-            padding: 40px;
-            text-align: center;
+        body {
+            margin: 0;
+            color: var(--ink-1);
+            background:
+                radial-gradient(circle at top left, rgba(255, 255, 255, 0.92), transparent 32%),
+                radial-gradient(circle at top right, rgba(242, 193, 78, 0.18), transparent 26%),
+                linear-gradient(180deg, var(--bg-2) 0%, var(--bg-1) 48%, #f3f8f7 100%);
+        }
+
+        .dashboard-shell {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 34px 22px 60px;
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            border-radius: 32px;
+            padding: 34px 34px 30px;
+            color: #fff;
+            box-shadow: var(--card-shadow);
+            background:
+                radial-gradient(circle at 18% 16%, rgba(255, 255, 255, 0.18), transparent 24%),
+                radial-gradient(circle at 88% 0%, rgba(255, 255, 255, 0.12), transparent 24%),
+                linear-gradient(135deg, var(--hero-1) 0%, #117174 42%, var(--hero-2) 100%);
             container-type: inline-size;
         }
 
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: auto -80px -100px auto;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            filter: blur(10px);
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 0 14px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.14);
+            font-size: 0.84rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            max-width: 980px;
+            margin: 0;
+            font-size: clamp(2.1rem, 4.8cqw, 4rem);
+            line-height: 1.02;
+            letter-spacing: -0.03em;
+        }
+
+        .hero p {
+            max-width: 860px;
+            margin: 16px 0 0;
+            font-size: 1.05rem;
+            line-height: 1.65;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px;
+            margin-top: 26px;
+        }
+
+        .hero-chip {
+            padding: 16px 18px;
+            border-radius: 20px;
+            background: rgba(12, 30, 31, 0.18);
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-chip .label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .hero-chip .value {
+            display: block;
+            font-size: 1.35rem;
+            font-weight: 700;
             color: #fff;
         }
 
-        .header p {
-            font-size: 1.1em;
-            opacity: 0.9;
+        .page-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 18px 2px 0;
         }
 
-        .pageContent {
+        .page-links a,
+        .restore-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: var(--soft-shadow);
+            color: var(--ink-1);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .restore-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .restore-bar:empty {
+            display: none;
+        }
+
+        .restore-chip {
+            border: 0;
+            cursor: pointer;
+            font: inherit;
+        }
+
+        .dashboard-stack {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            padding: 40px;
+            gap: 22px;
+            margin-top: 22px;
         }
 
-        .section {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 30px;
-            border: 1px solid #e9ecef;
+        .footer-attribution {
+            margin-top: 26px;
+            padding: 18px 22px;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.78);
+            border: 1px solid rgba(19, 42, 43, 0.1);
+            box-shadow: var(--soft-shadow);
+            color: var(--ink-2);
+            line-height: 1.7;
         }
 
-        .section h2 {
-            color: #1e3c72;
-            margin-bottom: 20px;
-            font-size: 1.8em;
-            border-bottom: 1px solid #667eea;
-            padding-bottom: 10px;
+        .footer-attribution strong {
+            color: var(--ink-1);
         }
 
-        .section h3 {
-            color: #2a5298;
-            margin: 20px 0 15px 0;
-            font-size: 1.3em;
+        .panel-shell {
+            position: relative;
+            border-radius: 28px;
+            background: var(--panel);
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            overflow: visible;
+            container-type: inline-size;
         }
 
-        .title-icon {
-            font-size: 1.05em;
-            vertical-align: text-bottom;
-            margin-right: 6px;
+        .panel-shell.panel-hidden {
+            display: none;
+        }
+
+        .panel-head {
+            padding: 28px 76px 16px 28px;
+        }
+
+        .panel-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            padding: 7px 12px;
+            border-radius: 999px;
+            background: rgba(15, 113, 115, 0.09);
+            color: var(--accent-1);
+            font-size: 0.84rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .panel-head h2 {
+            margin: 0;
+            font-size: clamp(1.6rem, 3.2cqw, 2.6rem);
+            line-height: 1.06;
+            letter-spacing: -0.03em;
+        }
+
+        .panel-head p {
+            max-width: 880px;
+            margin: 12px 0 0;
+            color: var(--ink-2);
+            line-height: 1.6;
+        }
+
+        .panel-summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 14px;
+            padding: 0 28px 18px;
+        }
+
+        .summary-card {
+            padding: 16px 18px;
+            border-radius: 20px;
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.82);
+            box-shadow: 0 10px 20px rgba(16, 35, 39, 0.05);
+        }
+
+        .summary-card .label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--ink-2);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .summary-card .value {
+            display: block;
+            font-size: 1.36rem;
+            font-weight: 700;
+            line-height: 1.18;
+        }
+
+        .summary-card .detail {
+            display: block;
+            margin-top: 8px;
+            font-size: 0.92rem;
+            color: var(--ink-2);
+            line-height: 1.45;
+        }
+
+        .panel-note-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+            padding: 0 28px 22px;
+        }
+
+        .panel-note,
+        .placeholder-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .panel-note {
+            background: rgba(15, 113, 115, 0.1);
+            color: var(--accent-1);
+        }
+
+        .placeholder-pill {
+            background: #fff4d6;
+            color: var(--warning);
+        }
+
+        .panel-body {
+            padding: 0 28px 28px;
+        }
+
+        .panel-shell.collapsed .panel-body {
+            display: none;
+        }
+
+        .collapse-teaser {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin: 0 28px 28px;
+            padding: 16px 18px;
+            border-radius: 20px;
+            background: rgba(15, 113, 115, 0.08);
+            border: 1px solid rgba(15, 113, 115, 0.14);
+        }
+
+        .collapse-teaser p {
+            margin: 0;
+            color: var(--ink-2);
+            line-height: 1.55;
+        }
+
+        .panel-shell.collapsed .collapse-teaser {
+            display: flex;
+        }
+
+        .outline-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(15, 113, 115, 0.18);
+            background: rgba(255, 255, 255, 0.78);
+            color: var(--ink-1);
+            cursor: pointer;
+            font: inherit;
+            font-weight: 700;
+        }
+
+        .panel-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(340px, 0.85fr);
+            gap: 20px;
+        }
+
+        .stack {
+            display: grid;
+            gap: 18px;
+        }
+
+        .subpanel {
+            padding: 22px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.82);
+            border: 1px solid var(--line);
+            box-shadow: 0 10px 24px rgba(16, 35, 39, 0.05);
+            container-type: inline-size;
+        }
+
+        .subpanel h3 {
+            margin: 0 0 8px;
+            font-size: 1.22rem;
+            color: var(--ink-1);
+        }
+
+        .subpanel p.section-copy {
+            margin: 0 0 18px;
+            color: var(--ink-2);
+            line-height: 1.55;
         }
 
         .input-group {
-            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: minmax(230px, 1.1fr) minmax(0, 1fr);
+            gap: 10px 16px;
+            align-items: center;
+            margin-bottom: 14px;
         }
 
         .input-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #495057;
+            margin: 0;
+            color: var(--ink-1);
+            font-weight: 700;
+            line-height: 1.35;
+        }
+
+        .unit,
+        .meta-inline {
+            color: var(--ink-2);
+            font-size: 0.9rem;
+            font-weight: 500;
         }
 
         .input-group input,
-        .input-group select {
+        .input-group select,
+        .select-trigger {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            font-size: 1em;
-            transition: border-color 0.3s;
+            box-sizing: border-box;
+            padding: 12px 14px;
+            border-radius: 14px;
+            border: 1px solid rgba(19, 42, 43, 0.12);
+            background: rgba(255, 255, 255, 0.98);
+            color: var(--ink-1);
+            font: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         .input-group input:focus,
-        .input-group select:focus {
+        .input-group select:focus,
+        .select-trigger:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: rgba(15, 113, 115, 0.55);
+            box-shadow: 0 0 0 3px rgba(15, 113, 115, 0.12);
         }
 
-        .input-group .unit {
-            color: #6c757d;
-            font-size: 0.9em;
-            margin-left: 5px;
+        .input-group .info-box,
+        .input-group .popup-anchor,
+        .input-group .energy-grid,
+        .input-group .inline-note {
+            grid-column: 1 / -1;
         }
 
-        .results {
-            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
-            border: 1px solid #00acc1;
-            border-radius: 15px;
-            padding: 30px;
-            margin-top: 30px;
-        }
-
-        .results h2 {
-            color: #006064;
-            border-bottom-color: #00acc1;
-        }
-
-        .result-item {
-            background: white;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 10px;
-            border-left: 2px solid #00acc1;
-            display: flex;
-            justify-pageContent: space-between;
-            align-items: center;
-        }
-
-        .result-item .label {
-            font-weight: 600;
-            color: #495057;
-        }
-
-        .result-item .value {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: #006064;
-        }
-
-        .formula-box {
-            background: #fff3cd;
-            border: 1px solid #ffc107;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            font-family: 'Courier New', monospace;
-        }
-
-        .formula-box code {
-            color: #856404;
-            font-size: 1.1em;
-        }
-
-        .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.1em;
-            border-radius: 8px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 20px;
-            font-weight: 600;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn:active {
-            transform: translateY(0);
+        .inline-note {
+            margin-top: -4px;
+            color: var(--ink-2);
+            font-size: 0.9rem;
+            line-height: 1.5;
         }
 
         .info-box {
-            background: #d1ecf1;
-            border-left: 2px solid #0c5460;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 5px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: rgba(15, 113, 115, 0.08);
+            color: var(--ink-2);
+            line-height: 1.55;
         }
 
         .info-box strong {
-            color: #0c5460;
+            color: var(--accent-1);
         }
 
-        .grid-2 {
+        .select-trigger {
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            cursor: pointer;
+            text-align: left;
+            background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(247, 251, 250, 0.98));
+        }
+
+        .popup-anchor {
+            position: relative;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 10px;
         }
 
-        @media (max-width: 1024px) {
-            .pageContent {
+        .check-popup {
+            position: static;
+            display: none;
+            padding: 14px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.98);
+            border: 1px solid rgba(19, 42, 43, 0.12);
+            box-shadow: 0 24px 40px rgba(16, 35, 39, 0.18);
+        }
+
+        .check-popup.open {
+            display: block;
+        }
+
+        .selector-help {
+            margin-top: 10px;
+            color: var(--ink-2);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .popup-topline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .popup-heading {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+
+        .popup-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .mini-btn {
+            border: 0;
+            border-radius: 999px;
+            padding: 7px 11px;
+            background: rgba(15, 113, 115, 0.09);
+            color: var(--accent-1);
+            cursor: pointer;
+            font: inherit;
+            font-size: 0.84rem;
+            font-weight: 700;
+        }
+
+        .layout-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 0;
+            border-radius: 999px;
+            padding: 7px 11px;
+            background: rgba(15, 113, 115, 0.1);
+            color: var(--accent-1);
+            cursor: pointer;
+            font: inherit;
+            font-size: 0.84rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .layout-toggle-btn .material-icons {
+            font-size: 18px;
+        }
+
+        .check-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            max-height: none;
+            overflow: visible;
+            padding-right: 4px;
+        }
+
+        .check-grid.columns-layout {
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            max-height: 360px;
+            overflow: auto;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 16px;
+            background: rgba(15, 113, 115, 0.05);
+        }
+
+        .check-item input {
+            width: auto;
+            margin-top: 2px;
+        }
+
+        .check-copy strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.96rem;
+        }
+
+        .check-copy span {
+            color: var(--ink-2);
+            font-size: 0.88rem;
+            line-height: 1.4;
+        }
+
+        .energy-grid {
+            display: grid;
+            gap: 10px;
+        }
+
+        .energy-row {
+            display: grid;
+            grid-template-columns: minmax(220px, 1.2fr) 110px minmax(120px, 0.8fr);
+            gap: 12px;
+            align-items: center;
+            padding: 12px 14px;
+            border-radius: 18px;
+            background: rgba(245, 248, 248, 0.96);
+            border: 1px solid rgba(19, 42, 43, 0.08);
+        }
+
+        .energy-row label {
+            font-size: 0.98rem;
+        }
+
+        .energy-row input {
+            margin: 0;
+        }
+
+        .energy-meta {
+            color: var(--ink-2);
+            font-size: 0.88rem;
+            line-height: 1.45;
+        }
+
+        .action-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 6px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: 0;
+            border-radius: 16px;
+            padding: 14px 18px;
+            background: linear-gradient(135deg, #0f7173 0%, #145b92 100%);
+            color: #fff;
+            cursor: pointer;
+            font: inherit;
+            font-size: 1rem;
+            font-weight: 700;
+            box-shadow: 0 18px 30px rgba(15, 113, 115, 0.2);
+        }
+
+        .btn.secondary {
+            background: linear-gradient(135deg, #ed8f45 0%, #c4602e 100%);
+            box-shadow: 0 18px 30px rgba(196, 96, 46, 0.2);
+        }
+
+        .results-panel {
+            display: grid;
+            gap: 18px;
+        }
+
+        .results-shell {
+            padding: 22px;
+            border-radius: 24px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(238, 247, 246, 0.95));
+            border: 1px solid rgba(19, 42, 43, 0.09);
+            box-shadow: 0 14px 26px rgba(16, 35, 39, 0.06);
+        }
+
+        .results-shell h3 {
+            margin: 0 0 14px;
+        }
+
+        .metric-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .metric-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 13px 14px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.86);
+            border: 1px solid rgba(19, 42, 43, 0.08);
+        }
+
+        .metric-row .label {
+            color: var(--ink-2);
+            font-weight: 600;
+        }
+
+        .metric-row .value {
+            font-size: 1.12rem;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .sector-breakdown {
+            display: grid;
+            gap: 10px;
+        }
+
+        .sector-card {
+            padding: 14px 15px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid rgba(19, 42, 43, 0.08);
+        }
+
+        .sector-card-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .sector-card strong {
+            font-size: 0.98rem;
+        }
+
+        .sector-card .micro {
+            color: var(--ink-2);
+            font-size: 0.88rem;
+            line-height: 1.45;
+        }
+
+        .formula-box {
+            padding: 18px;
+            border-radius: 20px;
+            background: #fff5d7;
+            border: 1px solid #e7cd7d;
+            color: #72520d;
+            line-height: 1.65;
+        }
+
+        .formula-box code {
+            display: block;
+            font-family: "Courier New", monospace;
+            font-size: 0.95rem;
+            white-space: pre-wrap;
+        }
+
+        .nuclear-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+            gap: 18px;
+        }
+
+        .results-stack {
+            display: grid;
+            gap: 16px;
+        }
+
+        .results-block {
+            padding: 20px;
+            border-radius: 22px;
+            background: linear-gradient(180deg, rgba(230, 247, 250, 0.96), rgba(245, 252, 253, 0.98));
+            border: 1px solid rgba(0, 172, 193, 0.18);
+        }
+
+        .results-block h3 {
+            margin: 0 0 14px;
+            color: #0c5f6f;
+        }
+
+        .proposal-summary {
+            margin-top: 18px;
+            padding: 22px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.86);
+            border: 1px solid var(--line);
+        }
+
+        .proposal-summary h3 {
+            color: #1e3c72;
+        }
+
+        .governance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .governance-card {
+            padding: 16px 17px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid rgba(19, 42, 43, 0.08);
+        }
+
+        .governance-card strong {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.98rem;
+            color: var(--ink-1);
+        }
+
+        .governance-card span {
+            color: var(--ink-2);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .governance-card.inference {
+            background: #fff7e8;
+            border-color: rgba(183, 121, 31, 0.18);
+        }
+
+        .governance-card.inference strong {
+            color: #8f5d10;
+        }
+
+        .sources-note {
+            margin-top: 16px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: rgba(15, 113, 115, 0.06);
+            color: var(--ink-2);
+            line-height: 1.6;
+        }
+
+        .sources-note a {
+            color: var(--accent-1);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .dark body {
+            background:
+                radial-gradient(circle at top left, rgba(51, 74, 90, 0.28), transparent 28%),
+                linear-gradient(180deg, #081418 0%, #0d1b21 50%, #13242a 100%);
+            color: #e0eef0;
+        }
+
+        .dark .hero {
+            background:
+                radial-gradient(circle at 18% 16%, rgba(255, 255, 255, 0.08), transparent 24%),
+                radial-gradient(circle at 88% 0%, rgba(255, 255, 255, 0.06), transparent 24%),
+                linear-gradient(135deg, #0a3437 0%, #0d5a5d 42%, #8c461f 100%);
+        }
+
+        .dark .page-links a,
+        .dark .restore-chip,
+        .dark .panel-shell,
+        .dark .summary-card,
+        .dark .subpanel,
+        .dark .results-shell,
+        .dark .sector-card,
+        .dark .metric-row,
+        .dark .energy-row,
+        .dark .proposal-summary,
+        .dark .collapse-teaser,
+        .dark .footer-attribution {
+            background: rgba(12, 21, 28, 0.9);
+            color: #e0eef0;
+            border-color: rgba(146, 177, 191, 0.14);
+            box-shadow: 0 18px 36px rgba(0, 0, 0, 0.22);
+        }
+
+        .dark .panel-kicker,
+        .dark .panel-note,
+        .dark .mini-btn {
+            background: rgba(90, 190, 182, 0.12);
+            color: #7ed9d3;
+        }
+
+        .dark .placeholder-pill {
+            background: rgba(137, 103, 20, 0.28);
+            color: #ffd98d;
+        }
+
+        .dark .panel-head p,
+        .dark .summary-card .label,
+        .dark .summary-card .detail,
+        .dark .unit,
+        .dark .meta-inline,
+        .dark .inline-note,
+        .dark .info-box,
+        .dark .energy-meta,
+        .dark .metric-row .label,
+        .dark .sector-card .micro,
+        .dark .collapse-teaser p,
+        .dark .check-copy span {
+            color: #b8ccd4;
+        }
+
+        .dark .input-group label,
+        .dark .subpanel h3,
+        .dark .results-shell h3,
+        .dark .panel-head h2,
+        .dark .check-copy strong,
+        .dark .sector-card strong,
+        .dark .footer-attribution strong {
+            color: #edf6f7;
+        }
+
+        .dark .input-group input,
+        .dark .input-group select,
+        .dark .select-trigger,
+        .dark .check-popup {
+            background: rgba(8, 16, 24, 0.98);
+            color: #eef9fa;
+            border-color: rgba(146, 177, 191, 0.18);
+        }
+
+        .dark .results-block {
+            background: linear-gradient(180deg, rgba(10, 42, 49, 0.96), rgba(9, 28, 34, 0.96));
+            border-color: rgba(64, 161, 179, 0.22);
+        }
+
+        .dark .results-block h3 {
+            color: #89ecf7;
+        }
+
+        .dark .formula-box {
+            background: rgba(80, 59, 10, 0.36);
+            border-color: rgba(231, 205, 125, 0.34);
+            color: #ffe9b1;
+        }
+
+        .dark .proposal-summary h3,
+        .dark .proposal-summary strong {
+            color: #bcd3ff;
+        }
+
+        .dark .hero-chip,
+        .dark .info-box,
+        .dark .check-item {
+            background: rgba(15, 31, 38, 0.88);
+        }
+
+        .dark .governance-card {
+            background: rgba(12, 21, 28, 0.9);
+            border-color: rgba(146, 177, 191, 0.14);
+        }
+
+        .dark .governance-card strong {
+            color: #edf6f7;
+        }
+
+        .dark .governance-card span,
+        .dark .sources-note {
+            color: #b8ccd4;
+        }
+
+        .dark .governance-card.inference {
+            background: rgba(92, 64, 13, 0.34);
+            border-color: rgba(255, 217, 141, 0.18);
+        }
+
+        .dark .governance-card.inference strong {
+            color: #ffd98d;
+        }
+
+        .dark .sources-note a {
+            color: #7ed9d3;
+        }
+
+        .dark .outline-btn {
+            background: rgba(9, 18, 23, 0.88);
+            color: #eef9fa;
+            border-color: rgba(126, 217, 211, 0.22);
+        }
+
+        .dark .layout-toggle-btn {
+            background: rgba(90, 190, 182, 0.12);
+            color: #7ed9d3;
+        }
+
+        .dark .selector-help {
+            color: #b8ccd4;
+        }
+
+        @container (max-width: 1080px) {
+            .panel-grid {
                 grid-template-columns: 1fr;
             }
         }
 
-        @container (max-width: 640px) {
-            .header {
-                padding: 14px 12px;
-            }
-
-            .header h1 {
-                font-size: 1.3em;
-                margin-bottom: 4px;
-                line-height: 1.2;
+        @container (max-width: 780px) {
+            .energy-row {
+                grid-template-columns: 1fr;
             }
         }
 
-        .highlight {
-            background: #fff3cd;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
+        @container (max-width: 760px) {
+            .input-group {
+                grid-template-columns: 1fr;
+            }
+
+            .collapse-teaser {
+                flex-direction: column;
+                align-items: stretch;
+            }
         }
 
-        .dark .header {
-            background: linear-gradient(135deg, #10203a 0%, #1a315c 100%);
-        }
-
-        .dark .section {
-            background: #1a1f2b;
-            border-color: #2f3a4d;
-            color: #d9e2f2;
-        }
-
-        .dark .section h2 {
-            color: #9fc1ff;
-            border-bottom-color: #4c7ec9;
-        }
-
-        .dark .section h3 {
-            color: #b7d1ff;
-        }
-
-        .dark .input-group label {
-            color: #d0d9e8;
-        }
-
-        .dark .input-group .unit {
-            color: #a9b4c8;
-        }
-
-        .dark .input-group input,
-        .dark .input-group select {
-            background: #0f1726;
-            color: #e7eefc;
-            border-color: #3c4a62;
-        }
-
-        .dark .input-group input:focus,
-        .dark .input-group select:focus {
-            border-color: #79a9ff;
-            box-shadow: 0 0 0 1px rgba(121, 169, 255, 0.2);
-        }
-
-        .dark .info-box {
-            background: #1d2d3b;
-            border-left: 2px solid #4fb3d4;
-            color: #cfe5f0;
-        }
-
-        .dark .info-box strong {
-            color: #8bd8f3;
-        }
-
-        .dark .formula-box {
-            background: #2a2412;
-            border-color: #8f7124;
-        }
-
-        .dark .formula-box code {
-            color: #ffe08c;
-        }
-
-        .dark .results {
-            background: linear-gradient(135deg, #0e2a33 0%, #133641 100%);
-            border-color: #2f8ea0;
-        }
-
-        .dark .results h2 {
-            color: #8fe8f4;
-            border-bottom-color: #2f8ea0;
-        }
-
-        .dark .result-item {
-            background: #12202f;
-            border-left-color: #3aaec1;
-        }
-
-        .dark .result-item .label {
-            color: #c8d5e8;
-        }
-
-        .dark .result-item .value {
-            color: #9beaf3;
-        }
-
-        .dark .highlight {
-            background: #4d3f16;
-            color: #ffe9aa;
-        }
-
-        .dark #proposalSummary {
-            background: #111a2b !important;
-            color: #d9e2f2;
-        }
-
-        .dark #proposalSummary h3 {
-            color: #9fc1ff !important;
-        }
-
-        .dark #proposalSummary p,
-        .dark #proposalSummary li {
-            color: #d0d9e8;
+        @container (max-width: 680px) {
+            .hero {
+                padding: 24px 20px 22px;
+            }
         }
     </style>
 </head>
@@ -315,324 +990,1321 @@
     <link type="text/css" rel="stylesheet" href="/localsite/css/base.css" id="/localsite/css/base.css" />
     <script type="text/javascript" src="/localsite/js/localsite.js?showheader=true&showsearch=true"></script>
 
-    <div class="container">
-        <div class="header">
-            <h1>🌊 Nuclear Desalination Financing Calculator</h1>
-            <p>Multi-Effect Distillation (MED) System <span style="white-space: nowrap;">with Waste Heat Recovery</span></p>
-            <p style="font-size: 0.9em; margin-top: 10px;">Based on IAEA DEEP 5.1 Methodology</p>
-        </div>
-
-        <div style="margin: 10px 40px 0px 40px">
-            <a href="projects">Project Timelines</a> | <a href="../community/projects/nuclear/">Underground SMRs</a> 
-        </div>
-        <div class="pageContent">
-            
-
-            <!-- Input Section -->
-            <div class="section">
-                <h2><span class="material-icons title-icon">tune</span>Plant Configuration</h2>
-                
-                <div class="input-group">
-                    <label>Reactor Thermal Power Output <span class="unit">(MWth)</span></label>
-                    <input type="number" id="reactorPower" value="3000" min="100" step="100">
+    <div class="dashboard-shell">
+        <div class="hero">
+            <div class="eyebrow"><span class="material-icons">water_drop</span>Water + energy sponsor studio</div>
+            <h1>Corporate upside from financing pure water and resilient community energy</h1>
+            <p>
+                Model how cleaner water, stronger local grids, and more reliable community infrastructure can expand product demand,
+                cut operating risk, and improve sponsor returns across categories from soaps and shampoos to food, pharma, and packaged goods.
+            </p>
+            <div class="hero-highlights">
+                <div class="hero-chip">
+                    <span class="label">Sponsor annual value</span>
+                    <span class="value" id="heroSponsorValue">$0</span>
                 </div>
-
-                <div class="input-group">
-                    <label>Waste Heat Utilization Factor <span class="unit">(%)</span></label>
-                    <input type="number" id="wasteHeatFactor" value="67" min="50" max="75" step="1">
-                    <div class="info-box">
-                        <strong>Note:</strong> Typically 67% of reactor thermal power is lost through cooling towers. This represents the recoverable waste heat.
-                    </div>
+                <div class="hero-chip">
+                    <span class="label">Pure water reach</span>
+                    <span class="value" id="heroWaterReach">0 households</span>
                 </div>
-
-                <div class="input-group">
-                    <label>MED System Efficiency (GOR) <span class="unit">(Gain Output Ratio)</span></label>
-                    <input type="number" id="medEfficiency" value="12" min="8" max="20" step="0.5">
-                    <div class="info-box">
-                        <strong>GOR:</strong> Ratio of distillate produced to steam consumed. Higher values indicate better efficiency. Typical range: 8-15 for MED systems.
-                    </div>
+                <div class="hero-chip">
+                    <span class="label">Energy portfolio</span>
+                    <span class="value" id="heroEnergyMix">0 MWh/yr</span>
                 </div>
-
-                <div class="input-group">
-                    <label>Number of MED Effects</label>
-                    <input type="number" id="numEffects" value="8" min="4" max="16" step="1">
-                </div>
-
-                <div class="input-group">
-                    <label>Top Brine Temperature <span class="unit">(°C)</span></label>
-                    <input type="number" id="topBrineTemp" value="70" min="50" max="90" step="5">
-                </div>
-
-                <div class="input-group">
-                    <label>Plant Availability Factor <span class="unit">(%)</span></label>
-                    <input type="number" id="availability" value="90" min="80" max="95" step="1">
-                </div>
-
-                <h3><span class="material-icons title-icon">paid</span>Economic Parameters</h3>
-
-                <div class="input-group">
-                    <label>Water Sale Price <span class="unit">($/m³)</span></label>
-                    <input type="number" id="waterPrice" value="0.50" min="0.10" step="0.05">
-                </div>
-
-                <div class="input-group">
-                    <label>MED System Capital Cost <span class="unit">($/m³/day capacity)</span></label>
-                    <input type="number" id="medCapitalCost" value="1500" min="1000" step="100">
-                </div>
-
-                <div class="input-group">
-                    <label>Retrofit Cost Multiplier</label>
-                    <input type="number" id="retrofitMultiplier" value="1.2" min="1.0" max="2.0" step="0.1">
-                    <div class="info-box">
-                        <strong>Note:</strong> Additional cost factor for retrofitting existing nuclear plant infrastructure.
-                    </div>
-                </div>
-
-                <h3><span class="material-icons title-icon">construction</span>Earthgrid Boring Technology</h3>
-
-                <div class="input-group">
-                    <label>Waste Disposal Tunnel Length <span class="unit">(km)</span></label>
-                    <input type="number" id="wasteTunnelLength" value="5" min="1" step="0.5">
-                </div>
-
-                <div class="input-group">
-                    <label>Fuel Transport Tunnel Length <span class="unit">(km)</span></label>
-                    <input type="number" id="fuelTunnelLength" value="2" min="0.5" step="0.5">
-                </div>
-
-                <div class="input-group">
-                    <label>Boring Cost per Kilometer <span class="unit">($M/km)</span></label>
-                    <input type="number" id="boringCostPerKm" value="50" min="20" step="5">
-                </div>
-
-                <div class="input-group">
-                    <label>Nuclear Plant Purchase Price <span class="unit">($M)</span></label>
-                    <input type="number" id="plantPurchasePrice" value="500" min="100" step="50">
-                </div>
-
-                <button class="btn" onclick="calculate()"><span class="material-icons title-icon">autorenew</span>Calculate Desalination Economics</button>
-            </div>
-
-            <!-- Results Section -->
-            <div class="section">
-                <h2><span class="material-icons title-icon">trending_up</span>Calculation Results</h2>
-
-                <div class="formula-box">
-                    <h3>Daily Fresh Water Production Formula:</h3>
-                    <code>
-                        Daily Water (m³/day) = (Waste Heat (MW) × 1000 × 24 × 3600 × GOR) / (Latent Heat × 1000)<br><br>
-                        Where:<br>
-                        • Waste Heat = Reactor Power (MWth) × Waste Heat Factor (%) / 100<br>
-                        • 1000 = Conversion factor (MW to kJ/s: 1 MW = 1000 kJ/s)<br>
-                        • 24 = Hours per day<br>
-                        • 3600 = Seconds per hour<br>
-                        • GOR = Gain Output Ratio (MED Efficiency)<br>
-                        • Latent Heat = 2326 kJ/kg (at 70°C)<br>
-                        • 1000 = kg per m³ (water density)
-                    </code>
-                </div>
-
-                <div class="results" id="results">
-                    <h2><span class="material-icons title-icon">water_drop</span>Water Production</h2>
-                    <div class="result-item">
-                        <span class="label">Waste Heat Available:</span>
-                        <span class="value" id="wasteHeat">-</span>
-                    </div>
-                    <div class="result-item">
-                        <span class="label">Daily Fresh Water Production:</span>
-                        <span class="value" id="dailyWater">-</span>
-                    </div>
-                    <div class="result-item">
-                        <span class="label">Annual Water Production:</span>
-                        <span class="value" id="annualWater">-</span>
-                    </div>
-                    <div class="result-item">
-                        <span class="label">Water per MWth per day:</span>
-                        <span class="value" id="waterPerMW">-</span>
-                    </div>
-
-                    <h2 style="margin-top: 30px;"><span class="material-icons title-icon">paid</span>Financial Analysis</h2>
-                    <div class="result-item">
-                        <span class="label">Annual Water Revenue:</span>
-                        <span class="value" id="annualRevenue">-</span>
-                    </div>
-                    <div class="result-item">
-                        <span class="label">MED System Capital Cost:</span>
-                        <span class="value" id="medCapital">-</span>
-                    </div>
-                    <div class="result-item">
-                        <span class="label">Total Retrofit Cost:</span>
-                        <span class="value" id="retrofitCost">-</span>
-                    </div>
-                    <div class="result-item">
-                        <span class="label">Earthgrid Boring Cost:</span>
-                        <span class="value" id="boringCost">-</span>
-                    </div>
-                    <div class="result-item">
-                        <span class="label">Total Project Cost:</span>
-                        <span class="value" id="totalCost">-</span>
-                    </div>
-                    <div class="result-item">
-                        <span class="label">Payback Period:</span>
-                        <span class="value" id="paybackPeriod">-</span>
-                    </div>
-                    <div class="result-item">
-                        <span class="label">20-Year NPV (10% discount):</span>
-                        <span class="value" id="npv">-</span>
-                    </div>
-                    <div class="result-item">
-                        <span class="label">Cost per m³ of Water:</span>
-                        <span class="value" id="costPerCubicMeter">-</span>
-                    </div>
-
-                    <h2 style="margin-top: 30px;"><span class="material-icons title-icon">bolt</span>Energy Metrics</h2>
-                    <div class="result-item">
-                        <span class="label">Thermal Energy per m³:</span>
-                        <span class="value" id="energyPerCubicMeter">-</span>
-                    </div>
-                    <div class="result-item">
-                        <span class="label">Specific Energy Consumption:</span>
-                        <span class="value" id="specificEnergy">-</span>
-                    </div>
-                    
-                    <button class="btn" onclick="exportToCSV()" style="margin-top: 30px; background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
-                        <span class="material-icons title-icon">download</span>Export Results to CSV
-                    </button>
+                <div class="hero-chip">
+                    <span class="label">Deep nuclear reference</span>
+                    <span class="value" id="heroNuclearRef">$0 annual revenue</span>
                 </div>
             </div>
         </div>
 
-        <div class="section" style="margin: 0 40px 40px 40px;">
-            <h2><span class="material-icons title-icon">description</span>Financing Proposal Summary</h2>
-            <div id="proposalSummary" style="padding: 20px; background: white; border-radius: 10px; margin-top: 20px;">
-                <p style="color: #6c757d;">Click "Calculate" to generate proposal summary...</p>
-            </div>
+        <div class="page-links">
+            <a href="projects"><span class="material-icons">timeline</span>Project timelines</a>
+            <a href="../grid/nuclear/"><span class="material-icons">bolt</span>Underground SMRs</a>
+        </div>
+
+        <div id="panelRestores" class="restore-bar"></div>
+
+        <div class="dashboard-stack">
+            <section id="corporatePanel" class="panel-shell expanded">
+                <div class="panel-head">
+                    <div class="panel-kicker"><span class="material-icons">business_center</span>Top calculator</div>
+                    <h2>Corporate Benefit Calculator</h2>
+                    <p>
+                        Estimate the business case for sponsors that help finance clean-water infrastructure plus a blended community energy stack.
+                        Product-sector uplift coefficients, capacity factors, and capex defaults below are placeholders and should be replaced with sponsor-specific data.
+                    </p>
+                </div>
+
+                <div class="panel-summary-grid">
+                    <div class="summary-card">
+                        <span class="label">Sponsor value / year</span>
+                        <span class="value" id="corpAnnualValue">$0</span>
+                        <span class="detail" id="corpAnnualValueDetail">Includes margin, retail uptime, process water, and brand effects.</span>
+                    </div>
+                    <div class="summary-card">
+                        <span class="label">10-year sponsor NPV</span>
+                        <span class="value" id="corpNpv">$0</span>
+                        <span class="detail" id="corpRoiDetail">ROI multiple: 0.0x</span>
+                    </div>
+                    <div class="summary-card">
+                        <span class="label">Households upgraded</span>
+                        <span class="value" id="corpHouseholds">0</span>
+                        <span class="detail" id="corpWaterDetail">0 L/person/day delivered.</span>
+                    </div>
+                    <div class="summary-card">
+                        <span class="label">Energy platform</span>
+                        <span class="value" id="corpEnergy">0 MWh/yr</span>
+                        <span class="detail" id="corpEnergyDetail">Low-carbon share: 0%</span>
+                    </div>
+                </div>
+
+                <div class="panel-note-row">
+                    <div class="panel-note"><span class="material-icons">tips_and_updates</span>Pick multiple product families in the popup to see which categories benefit most from cleaner water access.</div>
+                    <div class="placeholder-pill"><span class="material-icons">science</span>Placeholder market-lift and energy coefficients are preloaded so results appear immediately.</div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="panel-grid">
+                        <div class="stack">
+                            <div class="subpanel">
+                                <h3>Community and sponsor assumptions</h3>
+                                <p class="section-copy">
+                                    Start with community scale, water quality improvement, sponsor penetration, and internal operating exposure.
+                                </p>
+
+                                <div class="input-group">
+                                    <label for="populationServed">Population served <span class="unit">(people)</span></label>
+                                    <input type="number" id="populationServed" value="1200000" min="10000" step="10000">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="avgHouseholdSize">Average household size <span class="unit">(people/household)</span></label>
+                                    <input type="number" id="avgHouseholdSize" value="4.1" min="1.5" step="0.1">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="pureWaterCoverage">Pure-water service coverage <span class="unit">(%)</span></label>
+                                    <input type="number" id="pureWaterCoverage" value="82" min="10" max="100" step="1">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="dailyPureWaterOutput">Daily pure-water output <span class="unit">(m3/day)</span></label>
+                                    <input type="number" id="dailyPureWaterOutput" value="180000" min="1000" step="1000">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="targetLitersPerPerson">Target service level <span class="unit">(L/person/day)</span></label>
+                                    <input type="number" id="targetLitersPerPerson" value="110" min="20" step="5">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="hardnessReduction">Hardness / contamination reduction <span class="unit">(%)</span> <span class="meta-inline">Placeholder</span></label>
+                                    <input type="number" id="hardnessReduction" value="58" min="0" max="100" step="1">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="retailReach">Retail reach in served households <span class="unit">(%)</span> <span class="meta-inline">Placeholder</span></label>
+                                    <input type="number" id="retailReach" value="62" min="1" max="100" step="1">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="sponsorBrandShare">Sponsor category share <span class="unit">(%)</span> <span class="meta-inline">Placeholder</span></label>
+                                    <input type="number" id="sponsorBrandShare" value="18" min="1" max="100" step="1">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="communityIncomeLift">Income / basket-growth uplift <span class="unit">(%)</span> <span class="meta-inline">Placeholder</span></label>
+                                    <input type="number" id="communityIncomeLift" value="6" min="0" max="25" step="0.5">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="annualSponsorContribution">Annual sponsor financing contribution <span class="unit">($M/year)</span></label>
+                                    <input type="number" id="annualSponsorContribution" value="90" min="1" step="1">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="corporateDiscountRate">Sponsor discount rate <span class="unit">(%)</span> <span class="meta-inline">Placeholder</span></label>
+                                    <input type="number" id="corporateDiscountRate" value="10" min="1" max="30" step="0.5">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="corporateHorizon">Benefit horizon <span class="unit">(years)</span> <span class="meta-inline">Placeholder</span></label>
+                                    <input type="number" id="corporateHorizon" value="10" min="3" max="30" step="1">
+                                </div>
+
+                                <div class="info-box">
+                                    <strong>Why these fields matter:</strong> pure-water coverage changes product efficacy and willingness to buy more premium formulations;
+                                    energy reliability stabilizes retail refrigeration, pumps, warehousing, and sponsor-owned process lines.
+                                </div>
+                            </div>
+
+                            <div class="subpanel">
+                                <h3>Product areas and operating leverage</h3>
+                                <p class="section-copy">
+                                    Choose the product families that matter to the sponsor, then estimate where water availability creates direct demand lift or manufacturing savings.
+                                </p>
+
+                                <div class="input-group">
+                                    <label for="sectorSelectorBtn">Product areas <span class="unit">(choose all that apply)</span></label>
+                                    <div class="popup-anchor">
+                                        <button type="button" class="select-trigger" id="sectorSelectorBtn">
+                                            <span>Select product areas</span>
+                                            <span class="material-icons">expand_more</span>
+                                        </button>
+                                        <div class="check-popup open" id="sectorPopup">
+                                            <div class="popup-topline">
+                                                <div class="popup-heading">
+                                                    <strong>Select sponsor-relevant product areas</strong>
+                                                    <button type="button" class="layout-toggle-btn" id="sectorLayoutToggle" title="Switch to column layout">
+                                                        <span>Rows</span>
+                                                        <span class="material-icons">view_week</span>
+                                                    </button>
+                                                </div>
+                                                <div class="popup-actions">
+                                                    <button type="button" class="mini-btn" id="selectAllSectors">Select all</button>
+                                                    <button type="button" class="mini-btn" id="clearSectors">Clear</button>
+                                                </div>
+                                            </div>
+                                            <div class="check-grid" id="sectorOptions"></div>
+                                        </div>
+                                        <div class="selector-help">
+                                            The industry checkboxes are already preloaded locally here. Use the button above to collapse or reopen the chooser after making selections.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="internalProcessWaterNeed">Sponsor process-water demand <span class="unit">(m3/day)</span></label>
+                                    <input type="number" id="internalProcessWaterNeed" value="22000" min="0" step="500">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="processWaterSavingsPerM3">Process-water savings value <span class="unit">($/m3)</span> <span class="meta-inline">Placeholder</span></label>
+                                    <input type="number" id="processWaterSavingsPerM3" value="0.65" min="0" step="0.05">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="retailerSites">Retail / channel sites stabilized <span class="unit">(sites)</span></label>
+                                    <input type="number" id="retailerSites" value="4200" min="0" step="50">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="retailerValuePerMWh">Retail uptime value <span class="unit">($/MWh stabilized)</span> <span class="meta-inline">Placeholder</span></label>
+                                    <input type="number" id="retailerValuePerMWh" value="110" min="0" step="5">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="brandTrustValuePerHousehold">Brand-trust value <span class="unit">($/household/year)</span> <span class="meta-inline">Placeholder</span></label>
+                                    <input type="number" id="brandTrustValuePerHousehold" value="8" min="0" step="0.5">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="waterCapexPerM3Day">Water infrastructure capex <span class="unit">($/m3/day)</span> <span class="meta-inline">Placeholder</span></label>
+                                    <input type="number" id="waterCapexPerM3Day" value="1450" min="100" step="50">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="carbonValuePerMWh">Carbon / compliance value <span class="unit">($/MWh low-carbon)</span> <span class="meta-inline">Placeholder</span></label>
+                                    <input type="number" id="carbonValuePerMWh" value="18" min="0" step="1">
+                                    <div class="inline-note">
+                                        Placeholder coefficients embedded in the product and energy models are disclosed in the results narrative so it is obvious what should be replaced with sponsor data.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="subpanel">
+                                <h3>Blended energy portfolio</h3>
+                                <p class="section-copy">
+                                    Go broader than nuclear: mix renewables, thermal recovery, flexible backup, and advanced generation to see how resilient energy changes corporate value.
+                                </p>
+
+                                <div class="energy-grid">
+                                    <div class="energy-row">
+                                        <label for="energySolar">Solar PV <span class="unit">(MW)</span></label>
+                                        <input type="number" id="energySolar" value="120" min="0" step="5">
+                                        <div class="energy-meta">Capacity factor 24%<br>Capex $0.95M/MW</div>
+                                    </div>
+                                    <div class="energy-row">
+                                        <label for="energyWind">Onshore wind <span class="unit">(MW)</span></label>
+                                        <input type="number" id="energyWind" value="95" min="0" step="5">
+                                        <div class="energy-meta">Capacity factor 37%<br>Capex $1.45M/MW</div>
+                                    </div>
+                                    <div class="energy-row">
+                                        <label for="energyGeothermal">Geothermal <span class="unit">(MW)</span></label>
+                                        <input type="number" id="energyGeothermal" value="35" min="0" step="5">
+                                        <div class="energy-meta">Capacity factor 90%<br>Capex $4.8M/MW</div>
+                                    </div>
+                                    <div class="energy-row">
+                                        <label for="energyHydro">Small hydro <span class="unit">(MW)</span></label>
+                                        <input type="number" id="energyHydro" value="25" min="0" step="5">
+                                        <div class="energy-meta">Capacity factor 52%<br>Capex $3.4M/MW</div>
+                                    </div>
+                                    <div class="energy-row">
+                                        <label for="energyNuclear">SMR / nuclear retrofit <span class="unit">(MW)</span></label>
+                                        <input type="number" id="energyNuclear" value="40" min="0" step="5">
+                                        <div class="energy-meta">Capacity factor 92%<br>Capex $6.8M/MW</div>
+                                    </div>
+                                    <div class="energy-row">
+                                        <label for="energyWasteHeat">Industrial waste-heat recovery <span class="unit">(MW)</span></label>
+                                        <input type="number" id="energyWasteHeat" value="28" min="0" step="2">
+                                        <div class="energy-meta">Capacity factor 61%<br>Capex $1.2M/MW</div>
+                                    </div>
+                                    <div class="energy-row">
+                                        <label for="energyWasteToEnergy">Waste-to-energy / biogas <span class="unit">(MW)</span></label>
+                                        <input type="number" id="energyWasteToEnergy" value="18" min="0" step="2">
+                                        <div class="energy-meta">Capacity factor 74%<br>Capex $5.0M/MW</div>
+                                    </div>
+                                    <div class="energy-row">
+                                        <label for="energyGasBackup">Flexible gas backup <span class="unit">(MW)</span></label>
+                                        <input type="number" id="energyGasBackup" value="22" min="0" step="2">
+                                        <div class="energy-meta">Capacity factor 18%<br>Capex $1.1M/MW</div>
+                                    </div>
+                                </div>
+
+                                <div class="action-row">
+                                    <button type="button" class="btn" id="calculateCorporateBtn"><span class="material-icons">calculate</span>Calculate corporate benefits</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="results-panel">
+                            <div class="results-shell">
+                                <h3>Sponsor benefit stack</h3>
+                                <div class="metric-list">
+                                    <div class="metric-row">
+                                        <span class="label">Incremental category revenue</span>
+                                        <span class="value" id="corpRevenueLift">$0</span>
+                                    </div>
+                                    <div class="metric-row">
+                                        <span class="label">Operating profit uplift</span>
+                                        <span class="value" id="corpMarginLift">$0</span>
+                                    </div>
+                                    <div class="metric-row">
+                                        <span class="label">Process-water value</span>
+                                        <span class="value" id="corpProcessValue">$0</span>
+                                    </div>
+                                    <div class="metric-row">
+                                        <span class="label">Retail uptime / cold-chain value</span>
+                                        <span class="value" id="corpRetailValue">$0</span>
+                                    </div>
+                                    <div class="metric-row">
+                                        <span class="label">Brand-trust and market-development value</span>
+                                        <span class="value" id="corpBrandValue">$0</span>
+                                    </div>
+                                    <div class="metric-row">
+                                        <span class="label">Carbon / compliance value</span>
+                                        <span class="value" id="corpCarbonValue">$0</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="results-shell">
+                                <h3>Top product-area impacts</h3>
+                                <div id="sectorBreakdown" class="sector-breakdown"></div>
+                            </div>
+
+                            <div class="results-shell">
+                                <h3>Sponsor narrative</h3>
+                                <div id="corporateNarrative" class="metric-list"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="fundingPanel" class="panel-shell expanded">
+                <div class="panel-head">
+                    <div class="panel-kicker"><span class="material-icons">account_balance</span>Capital stack</div>
+                    <h2>Blended Contributions Panel</h2>
+                    <p>
+                        Model a mix of corporate, nonprofit, and government support across project phases. Government is weighted toward planning, permitting, and early project development, while nonprofit and corporate capital scale into deployment.
+                    </p>
+                </div>
+
+                <div class="panel-summary-grid">
+                    <div class="summary-card">
+                        <span class="label">Government planning lead</span>
+                        <span class="value" id="fundingPlanningLead">$0</span>
+                        <span class="detail" id="fundingPlanningLeadDetail">Public contribution to studies, design, and permitting.</span>
+                    </div>
+                    <div class="summary-card">
+                        <span class="label">Deployment capital stack</span>
+                        <span class="value" id="fundingDeploymentMix">-</span>
+                        <span class="detail" id="fundingDeploymentMixDetail">Corporate / nonprofit / government deployment mix.</span>
+                    </div>
+                    <div class="summary-card">
+                        <span class="label">Catalytic unlock ratio</span>
+                        <span class="value" id="fundingCatalyticRatio">0.0x</span>
+                        <span class="detail" id="fundingCatalyticRatioDetail">Deployable capex unlocked per public planning dollar.</span>
+                    </div>
+                    <div class="summary-card">
+                        <span class="label">Funding gap or reserve</span>
+                        <span class="value" id="fundingGap">-</span>
+                        <span class="detail" id="fundingGapDetail">Positive means the modeled stack still leaves a gap.</span>
+                    </div>
+                </div>
+
+                <div class="panel-note-row">
+                    <div class="panel-note"><span class="material-icons">schema</span>Government defaults are highest in planning to fund project preparation first, then corporate and nonprofit capital shoulder more of the buildout phase.</div>
+                    <div class="placeholder-pill"><span class="material-icons">edit_note</span>Conversion rates, rate buy-downs, and reserve settings below are placeholders.</div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="panel-grid">
+                        <div class="stack">
+                            <div class="subpanel">
+                                <h3>Planning-stage contributions</h3>
+                                <p class="section-copy">
+                                    Use this for prefeasibility, permitting, engineering, community engagement, site studies, and procurement preparation.
+                                </p>
+
+                                <div class="input-group">
+                                    <label for="planningStageBudget">Planning-stage budget <span class="unit">($M)</span></label>
+                                    <input type="number" id="planningStageBudget" value="48" min="1" step="1">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="governmentPlanningShare">Government planning share <span class="unit">(%)</span></label>
+                                    <input type="number" id="governmentPlanningShare" value="68" min="0" max="100" step="1">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="nonprofitPlanningShare">Nonprofit planning share <span class="unit">(%)</span></label>
+                                    <input type="number" id="nonprofitPlanningShare" value="20" min="0" max="100" step="1">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="corporatePlanningShare">Corporate planning share <span class="unit">(%)</span></label>
+                                    <input type="number" id="corporatePlanningShare" value="12" min="0" max="100" step="1">
+                                    <div class="info-box">
+                                        <strong>Planning-first public role:</strong> these defaults assume government mostly funds the planning stage so permitting, design, and site preparation are derisked before private deployment capital commits.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="subpanel">
+                                <h3>Deployment-stage contributions</h3>
+                                <p class="section-copy">
+                                    Deployment uses the broader water-plus-energy project capex from the corporate calculator and allocates that budget by the shares below.
+                                </p>
+
+                                <div class="input-group">
+                                    <label for="governmentDeploymentShare">Government deployment share <span class="unit">(%)</span></label>
+                                    <input type="number" id="governmentDeploymentShare" value="22" min="0" max="100" step="1">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="nonprofitDeploymentShare">Nonprofit deployment share <span class="unit">(%)</span></label>
+                                    <input type="number" id="nonprofitDeploymentShare" value="18" min="0" max="100" step="1">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="corporateDeploymentShare">Corporate deployment share <span class="unit">(%)</span></label>
+                                    <input type="number" id="corporateDeploymentShare" value="60" min="0" max="100" step="1">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="planningConversionRate">Planning-to-deployment conversion <span class="unit">(%)</span> <span class="meta-inline">Placeholder</span></label>
+                                    <input type="number" id="planningConversionRate" value="82" min="1" max="100" step="1">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="concessionalRateReduction">Concessional rate buy-down <span class="unit">(%)</span> <span class="meta-inline">Placeholder</span></label>
+                                    <input type="number" id="concessionalRateReduction" value="1.8" min="0" max="10" step="0.1">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="communityBenefitReserve">Community benefit reserve <span class="unit">(% of deployment capex)</span> <span class="meta-inline">Placeholder</span></label>
+                                    <input type="number" id="communityBenefitReserve" value="4" min="0" max="20" step="0.5">
+                                </div>
+
+                                <div class="action-row">
+                                    <button type="button" class="btn" id="calculateFundingBtn"><span class="material-icons">stacked_bar_chart</span>Calculate blended contributions</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="results-panel">
+                            <div class="results-shell">
+                                <h3>Funding by phase</h3>
+                                <div class="metric-list">
+                                    <div class="metric-row"><span class="label">Government planning contribution</span><span class="value" id="fundingPlanningGov">$0</span></div>
+                                    <div class="metric-row"><span class="label">Nonprofit planning contribution</span><span class="value" id="fundingPlanningNpo">$0</span></div>
+                                    <div class="metric-row"><span class="label">Corporate planning contribution</span><span class="value" id="fundingPlanningCorp">$0</span></div>
+                                    <div class="metric-row"><span class="label">Government deployment contribution</span><span class="value" id="fundingDeploymentGov">$0</span></div>
+                                    <div class="metric-row"><span class="label">Nonprofit deployment contribution</span><span class="value" id="fundingDeploymentNpo">$0</span></div>
+                                    <div class="metric-row"><span class="label">Corporate deployment contribution</span><span class="value" id="fundingDeploymentCorp">$0</span></div>
+                                </div>
+                            </div>
+
+                            <div class="results-shell">
+                                <h3>Capital-stack narrative</h3>
+                                <div id="fundingNarrative" class="metric-list"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="governancePanel" class="panel-shell expanded">
+                <div class="panel-head">
+                    <div class="panel-kicker"><span class="material-icons">workspace_premium</span>Mayor incentive lens</div>
+                    <h2>China-Style Mayor Success Indicators, Plus Creative Extensions</h2>
+                    <p>
+                        This panel translates the idea of local-official incentives into a city scorecard. The first set reflects themes documented in research and official high-quality-development language in China. The second set adds creative extensions for water-energy transformation, regional branding, and flagship-company creation.
+                    </p>
+                </div>
+
+                <div class="panel-summary-grid">
+                    <div class="summary-card">
+                        <span class="label">Core promotion signals</span>
+                        <span class="value">Growth + jobs + order</span>
+                        <span class="detail">Economic performance, employment, and social stability remain foundational signals in the literature.</span>
+                    </div>
+                    <div class="summary-card">
+                        <span class="label">High-quality development signals</span>
+                        <span class="value">Innovation + green + debt discipline</span>
+                        <span class="detail">Recent framing puts more emphasis on industrial upgrading, environmental outcomes, and risk control.</span>
+                    </div>
+                    <div class="summary-card">
+                        <span class="label">BYD-style city win</span>
+                        <span class="value">Flagship firm effect</span>
+                        <span class="detail">Inference: landing or growing a breakout EV, battery, or clean-tech champion can strengthen a mayor’s reputation for industrial strategy.</span>
+                    </div>
+                    <div class="summary-card">
+                        <span class="label">Creative extension</span>
+                        <span class="value">Water-energy leadership</span>
+                        <span class="detail">A city that solves water, resilience, and clean industry at once would likely generate political prestige and policy attention.</span>
+                    </div>
+                </div>
+
+                <div class="panel-note-row">
+                    <div class="panel-note"><span class="material-icons">policy</span>Documented themes below are grounded in published research and official high-quality-development language.</div>
+                    <div class="placeholder-pill"><span class="material-icons">auto_awesome</span>Cards marked as inferred or creative are my extensions of how those incentives could play out in a water-energy-industrial context.</div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="stack">
+                        <div class="subpanel">
+                            <h3>Documented or well-supported indicator clusters</h3>
+                            <div class="governance-grid">
+                                <div class="governance-card"><strong>GDP and industrial output</strong><span>Classic growth signals: output expansion, industrial value added, and tax-base growth.</span></div>
+                                <div class="governance-card"><strong>Employment and wage growth</strong><span>Urban job creation, stable labor markets, and household income improvements.</span></div>
+                                <div class="governance-card"><strong>Fiscal performance</strong><span>Revenue collection, investment efficiency, and better-quality local fiscal capacity.</span></div>
+                                <div class="governance-card"><strong>Social stability</strong><span>Low unrest, effective petition management, public order, and visible administrative control.</span></div>
+                                <div class="governance-card"><strong>Innovation output</strong><span>Patents, R&amp;D intensity, high-tech firms, and industrial upgrading into strategic sectors.</span></div>
+                                <div class="governance-card"><strong>Green development</strong><span>Pollution reduction, carbon intensity control, cleaner air and water, and renewable-energy expansion.</span></div>
+                                <div class="governance-card"><strong>Debt and risk control</strong><span>Containing local financial risk, stabilizing property exposure, and avoiding major fiscal accidents.</span></div>
+                                <div class="governance-card"><strong>Infrastructure delivery</strong><span>Transport, utilities, logistics, housing completion, and major project execution speed.</span></div>
+                                <div class="governance-card"><strong>Industrial policy execution</strong><span>Converting national priorities into local industrial clusters and visible firm formation.</span></div>
+                                <div class="governance-card"><strong>Energy transition execution</strong><span>Renewable buildout, grid reliability, electrification, and low-carbon manufacturing capacity.</span></div>
+                                <div class="governance-card"><strong>Public service quality</strong><span>Education, healthcare access, emergency readiness, and service-delivery competence.</span></div>
+                                <div class="governance-card"><strong>Food and resource security</strong><span>Water reliability, land protection, logistics resilience, and supply security under stress.</span></div>
+                            </div>
+                        </div>
+
+                        <div class="subpanel">
+                            <h3>BYD-style flagship company flywheel</h3>
+                            <div class="governance-grid">
+                                <div class="governance-card inference"><strong>Flagship-firm prestige</strong><span>Inference: if a city helps scale a breakout EV or battery champion, the mayor can be seen as unusually effective at industrial strategy.</span></div>
+                                <div class="governance-card inference"><strong>Promotion narrative</strong><span>The story becomes: this mayor did not just manage growth, but created a nationally significant sector winner.</span></div>
+                                <div class="governance-card inference"><strong>Accolades and visibility</strong><span>More inspections, conference slots, policy-pilot status, model-city branding, and media attention can follow.</span></div>
+                                <div class="governance-card inference"><strong>Cluster multiplier</strong><span>A flagship firm attracts suppliers, engineers, logistics, finance, and training institutions, making the achievement look repeatable.</span></div>
+                                <div class="governance-card inference"><strong>Export credibility</strong><span>Strong manufacturing exports and recognizable local champions reinforce the image of globally competitive governance.</span></div>
+                                <div class="governance-card inference"><strong>Talent magnet effect</strong><span>City leadership gains prestige when graduates, founders, and investors start treating the city as a serious destination.</span></div>
+                            </div>
+                        </div>
+
+                        <div class="subpanel">
+                            <h3>Creative water-energy mayor scorecard</h3>
+                            <div class="governance-grid">
+                                <div class="governance-card inference"><strong>Pure-water coverage</strong><span>How many neighborhoods gain dependable clean water, and how fast service reaches low-income districts.</span></div>
+                                <div class="governance-card inference"><strong>Resilience per yuan</strong><span>How much blackout risk, drought risk, and logistics disruption is removed for each unit of public spending.</span></div>
+                                <div class="governance-card inference"><strong>Clean-industry launch count</strong><span>New EV, battery, pump, membrane, water-tech, recycling, and heat-recovery companies created under the mayor’s tenure.</span></div>
+                                <div class="governance-card inference"><strong>Community trust uplift</strong><span>Whether households visibly feel the city is cleaner, safer, and more upwardly mobile because of the projects.</span></div>
+                                <div class="governance-card inference"><strong>Water-energy export package</strong><span>Can the city export not just goods, but a replicable water-plus-energy development model to other provinces or countries?</span></div>
+                                <div class="governance-card inference"><strong>Tour-of-duty legacy</strong><span>What landmark project or flagship company will still define the city positively after the mayor is promoted elsewhere?</span></div>
+                                <div class="governance-card inference"><strong>Climate prestige</strong><span>Could the city become known nationally for proving that growth, clean industry, and water restoration can happen together?</span></div>
+                                <div class="governance-card inference"><strong>Mayor-as-builder reputation</strong><span>A stronger reputation for practical delivery: permits moved, capital assembled, factories opened, and households served.</span></div>
+                                <div class="governance-card inference"><strong>Model-city designation potential</strong><span>Creative extension: success could position the city for pilot-zone status, awards, and elite policy attention.</span></div>
+                            </div>
+
+                            <div class="sources-note">
+                                Source-backed themes: local growth incentives and cadre promotion research, plus official high-quality-development framing and renewable-energy emphasis.
+                                BYD-style “flagship company = mayor prestige” is an inference from those innovation and industrial-upgrading incentives, not a formal rule stated in the sources.
+                                Sources:
+                                <a href="https://www.sciencedirect.com/science/article/pii/S0047272704001355" target="_blank" rel="noopener">Li &amp; Zhou on political turnover and economic performance</a>,
+                                <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2452482" target="_blank" rel="noopener">Landry, Lu &amp; Duan on political selection and performance</a>,
+                                <a href="https://english.www.gov.cn/news/202501/03/content_WS6777ea61c6d0868f4e8ee7ef.html" target="_blank" rel="noopener">State Council / Xinhua on high-quality development</a>,
+                                <a href="https://english.www.gov.cn/policies/featured/202503/07/content_WS67cb05cbc6d0868f4e8f093d.html" target="_blank" rel="noopener">2025 government work report goals and tasks</a>,
+                                <a href="https://www.sciencedirect.com/science/article/pii/S0959652625002057" target="_blank" rel="noopener">Research on promotion incentives and renewable-energy development</a>.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="nuclearPanel" class="panel-shell collapsed">
+                <div class="panel-head">
+                    <div class="panel-kicker"><span class="material-icons">nuclear</span>Reference scenario</div>
+                    <h2>Deep Nuclear Desalination Calculator</h2>
+                    <p>
+                        This panel preserves the deeper reactor retrofit model. It is collapsed by default so the broader sponsor model stays on top, while a compact summary of water output and finance stays visible.
+                    </p>
+                </div>
+
+                <div class="panel-summary-grid">
+                    <div class="summary-card">
+                        <span class="label">Daily fresh water</span>
+                        <span class="value" id="nuclearSummaryDailyWater">-</span>
+                        <span class="detail">Waste-heat driven MED output from the reference nuclear scenario.</span>
+                    </div>
+                    <div class="summary-card">
+                        <span class="label">Annual water revenue</span>
+                        <span class="value" id="nuclearSummaryRevenue">-</span>
+                        <span class="detail">Reference water sale value using default placeholder pricing.</span>
+                    </div>
+                    <div class="summary-card">
+                        <span class="label">Total project cost</span>
+                        <span class="value" id="nuclearSummaryCost">-</span>
+                        <span class="detail">Plant purchase, retrofit scope, and tunnel boring combined.</span>
+                    </div>
+                    <div class="summary-card">
+                        <span class="label">Payback period</span>
+                        <span class="value" id="nuclearSummaryPayback">-</span>
+                        <span class="detail" id="nuclearSummaryHint">Expand to inspect the detailed thermal and finance assumptions.</span>
+                    </div>
+                </div>
+
+                <div class="panel-note-row">
+                    <div class="placeholder-pill"><span class="material-icons">info</span>Reference finance assumptions remain placeholders unless you replace them in the detailed panel.</div>
+                </div>
+
+                <div class="collapse-teaser">
+                    <p id="nuclearCollapsedCopy">
+                        The default deep-nuclear scenario is already calculated. Expand this panel for reactor power, MED settings, tunnel assumptions, and the detailed financing proposal summary.
+                    </p>
+                    <button type="button" class="outline-btn" data-expand-panel="nuclearPanel"><span class="material-icons">open_in_full</span>Expand deep nuclear details</button>
+                </div>
+
+                <div class="panel-body">
+                    <div class="nuclear-layout">
+                        <div class="subpanel">
+                            <h3>Plant configuration</h3>
+                            <p class="section-copy">These detailed assumptions drive the MED retrofit case and the summary shown above.</p>
+
+                            <div class="input-group">
+                                <label for="reactorPower">Reactor thermal power output <span class="unit">(MWth)</span></label>
+                                <input type="number" id="reactorPower" value="3000" min="100" step="100">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="wasteHeatFactor">Waste heat utilization factor <span class="unit">(%)</span></label>
+                                <input type="number" id="wasteHeatFactor" value="67" min="50" max="75" step="1">
+                                <div class="info-box"><strong>Note:</strong> around 67% of reactor thermal power is often rejected through cooling systems. This models the recoverable share.</div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="medEfficiency">MED system efficiency <span class="unit">(GOR)</span></label>
+                                <input type="number" id="medEfficiency" value="12" min="8" max="20" step="0.5">
+                                <div class="info-box"><strong>GOR:</strong> Gain Output Ratio for MED. Higher values indicate more distillate per unit of steam.</div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="numEffects">Number of MED effects</label>
+                                <input type="number" id="numEffects" value="8" min="4" max="16" step="1">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="topBrineTemp">Top brine temperature <span class="unit">(C)</span></label>
+                                <input type="number" id="topBrineTemp" value="70" min="50" max="90" step="5">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="availability">Plant availability factor <span class="unit">(%)</span></label>
+                                <input type="number" id="availability" value="90" min="80" max="95" step="1">
+                            </div>
+
+                            <h3>Economic parameters</h3>
+                            <div class="panel-note"><span class="material-icons">science</span>Placeholder finance assumptions are tagged below.</div>
+
+                            <div class="input-group">
+                                <label for="waterPrice">Water sale price <span class="unit">($/m3)</span></label>
+                                <input type="number" id="waterPrice" value="0.50" min="0.10" step="0.05">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="medCapitalCost">MED system capital cost <span class="unit">($/m3/day capacity)</span></label>
+                                <input type="number" id="medCapitalCost" value="1500" min="1000" step="100">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="retrofitMultiplier">Retrofit cost multiplier</label>
+                                <input type="number" id="retrofitMultiplier" value="1.2" min="1.0" max="2.0" step="0.1">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="oAndMRate">Operating and maintenance rate <span class="unit">(% of project cost/year)</span> <span class="meta-inline">Placeholder</span></label>
+                                <input type="number" id="oAndMRate" value="5" min="1" max="15" step="0.5">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="discountRate">Discount rate <span class="unit">(%)</span> <span class="meta-inline">Placeholder</span></label>
+                                <input type="number" id="discountRate" value="10" min="1" max="20" step="0.5">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="analysisYears">Analysis period <span class="unit">(years)</span> <span class="meta-inline">Placeholder</span></label>
+                                <input type="number" id="analysisYears" value="20" min="5" max="50" step="1">
+                            </div>
+
+                            <h3>Earthgrid boring technology</h3>
+
+                            <div class="input-group">
+                                <label for="wasteTunnelLength">Waste disposal tunnel length <span class="unit">(km)</span></label>
+                                <input type="number" id="wasteTunnelLength" value="5" min="1" step="0.5">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="fuelTunnelLength">Fuel transport tunnel length <span class="unit">(km)</span></label>
+                                <input type="number" id="fuelTunnelLength" value="2" min="0.5" step="0.5">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="boringCostPerKm">Boring cost per kilometer <span class="unit">($M/km)</span></label>
+                                <input type="number" id="boringCostPerKm" value="50" min="20" step="5">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="plantPurchasePrice">Nuclear plant purchase price <span class="unit">($M)</span></label>
+                                <input type="number" id="plantPurchasePrice" value="500" min="100" step="50">
+                            </div>
+
+                            <div class="action-row">
+                                <button type="button" class="btn secondary" id="calculateNuclearBtn"><span class="material-icons">autorenew</span>Calculate desalination economics</button>
+                            </div>
+                        </div>
+
+                        <div class="stack">
+                            <div class="subpanel">
+                                <h3>Water and finance outputs</h3>
+                                <div class="formula-box">
+                                    <code>Daily Water (m3/day) = (Waste Heat MW * 1000 * 24 * 3600 * GOR) / (Latent Heat * 1000)
+
+Waste Heat = Reactor Power * Waste Heat Factor / 100
+Latent Heat = 2326 kJ/kg at about 70 C</code>
+                                </div>
+
+                                <div class="results-stack">
+                                    <div class="results-block">
+                                        <h3>Water production</h3>
+                                        <div class="metric-list">
+                                            <div class="metric-row"><span class="label">Waste heat available</span><span class="value" id="wasteHeat">-</span></div>
+                                            <div class="metric-row"><span class="label">Daily fresh water production</span><span class="value" id="dailyWater">-</span></div>
+                                            <div class="metric-row"><span class="label">Annual water production</span><span class="value" id="annualWater">-</span></div>
+                                            <div class="metric-row"><span class="label">Water per MWth per day</span><span class="value" id="waterPerMW">-</span></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="results-block">
+                                        <h3>Financial analysis</h3>
+                                        <div class="metric-list">
+                                            <div class="metric-row"><span class="label">Annual water revenue</span><span class="value" id="annualRevenue">-</span></div>
+                                            <div class="metric-row"><span class="label">MED system capital cost</span><span class="value" id="medCapital">-</span></div>
+                                            <div class="metric-row"><span class="label">Total retrofit cost</span><span class="value" id="retrofitCost">-</span></div>
+                                            <div class="metric-row"><span class="label">Earthgrid boring cost</span><span class="value" id="boringCost">-</span></div>
+                                            <div class="metric-row"><span class="label">Total project cost</span><span class="value" id="totalCost">-</span></div>
+                                            <div class="metric-row"><span class="label">Payback period</span><span class="value" id="paybackPeriod">-</span></div>
+                                            <div class="metric-row"><span class="label" id="npvLabel">20-Year NPV (10% discount)</span><span class="value" id="npv">-</span></div>
+                                            <div class="metric-row"><span class="label">Cost per m3 of water</span><span class="value" id="costPerCubicMeter">-</span></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="results-block">
+                                        <h3>Energy metrics</h3>
+                                        <div class="metric-list">
+                                            <div class="metric-row"><span class="label">Thermal energy per m3</span><span class="value" id="energyPerCubicMeter">-</span></div>
+                                            <div class="metric-row"><span class="label">Specific energy consumption</span><span class="value" id="specificEnergy">-</span></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="action-row">
+                                        <button type="button" class="btn" id="exportNuclearCsvBtn"><span class="material-icons">download</span>Export results to CSV</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="proposal-summary">
+                                <h3>Financing proposal summary</h3>
+                                <div id="proposalSummary">
+                                    <p style="color:#6c757d;">Default scenario is loading with placeholder finance assumptions...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="footer-attribution">
+            <strong>Desalination Economic Evaluation Program (DEEP)</strong> International Atomic Energy Agency<br>
+            International Atomic Energy Agency (IAEA)
         </div>
     </div>
 
     <script>
-        // Constants
-        const LATENT_HEAT_KJ_KG = 2326; // kJ/kg at ~70°C
+        const LATENT_HEAT_KJ_KG = 2326;
         const HOURS_PER_DAY = 24;
         const DAYS_PER_YEAR = 365;
         const SECONDS_PER_HOUR = 3600;
-        const MJ_TO_KWH = 0.277778; // Conversion factor
+        const HOURS_PER_YEAR = HOURS_PER_DAY * DAYS_PER_YEAR;
 
-        // Global variable to store calculation results
+        const productAreas = [
+            { id: 'soap', label: 'Soaps and handwash', annualSpend: 46, waterSensitivity: 1.05, energySensitivity: 0.15, margin: 0.27, brandFactor: 0.65, growthSensitivity: 0.22, note: 'Cleaner water improves lather, rinse quality, and repeat purchase.' },
+            { id: 'shampoo', label: 'Shampoo and conditioner', annualSpend: 58, waterSensitivity: 0.98, energySensitivity: 0.18, margin: 0.29, brandFactor: 0.72, growthSensitivity: 0.24, note: 'Softened water reduces overuse and helps premium formulations perform better.' },
+            { id: 'laundry', label: 'Laundry detergents', annualSpend: 92, waterSensitivity: 1.1, energySensitivity: 0.18, margin: 0.24, brandFactor: 0.56, growthSensitivity: 0.18, note: 'Reliable water service directly expands wash frequency and detergent usage.' },
+            { id: 'dish', label: 'Dish care', annualSpend: 54, waterSensitivity: 0.92, energySensitivity: 0.14, margin: 0.26, brandFactor: 0.48, growthSensitivity: 0.16, note: 'Water clarity and lower hardness increase visible performance.' },
+            { id: 'surface', label: 'Surface cleaners', annualSpend: 40, waterSensitivity: 0.78, energySensitivity: 0.14, margin: 0.28, brandFactor: 0.42, growthSensitivity: 0.14, note: 'Water access expands general cleaning frequency in homes and shops.' },
+            { id: 'oral', label: 'Oral care', annualSpend: 52, waterSensitivity: 0.58, energySensitivity: 0.12, margin: 0.33, brandFactor: 0.51, growthSensitivity: 0.16, note: 'Safe water supports brushing compliance and premium oral-care uptake.' },
+            { id: 'baby', label: 'Baby care', annualSpend: 66, waterSensitivity: 0.74, energySensitivity: 0.18, margin: 0.31, brandFactor: 0.68, growthSensitivity: 0.26, note: 'Purified water and reliable power increase trust in baby-specific products.' },
+            { id: 'beverage', label: 'Beverage concentrates', annualSpend: 72, waterSensitivity: 0.88, energySensitivity: 0.42, margin: 0.22, brandFactor: 0.38, growthSensitivity: 0.18, note: 'Water safety and cold-chain reliability support higher beverage throughput.' },
+            { id: 'foods', label: 'Packaged foods', annualSpend: 108, waterSensitivity: 0.44, energySensitivity: 0.55, margin: 0.19, brandFactor: 0.29, growthSensitivity: 0.21, note: 'Retail uptime and refrigeration make more of the category available more often.' },
+            { id: 'dairy', label: 'Dairy and chilled foods', annualSpend: 86, waterSensitivity: 0.36, energySensitivity: 0.78, margin: 0.2, brandFactor: 0.31, growthSensitivity: 0.18, note: 'Cold-chain resilience directly protects sales and reduces spoilage.' },
+            { id: 'pharma', label: 'Pharmaceuticals', annualSpend: 94, waterSensitivity: 0.66, energySensitivity: 0.71, margin: 0.34, brandFactor: 0.63, growthSensitivity: 0.2, note: 'Water purity and reliable energy stabilize both production and last-mile delivery.' },
+            { id: 'cosmetics', label: 'Personal care and cosmetics', annualSpend: 74, waterSensitivity: 0.76, energySensitivity: 0.18, margin: 0.36, brandFactor: 0.74, growthSensitivity: 0.28, note: 'Consumers trade up faster when water quality improves perceived efficacy.' },
+            { id: 'textiles', label: 'Textiles and apparel care', annualSpend: 48, waterSensitivity: 0.59, energySensitivity: 0.36, margin: 0.21, brandFactor: 0.27, growthSensitivity: 0.14, note: 'Water and energy reliability support garment care products and local finishing.' },
+            { id: 'agri', label: 'Agriculture inputs', annualSpend: 68, waterSensitivity: 0.62, energySensitivity: 0.64, margin: 0.23, brandFactor: 0.33, growthSensitivity: 0.19, note: 'Water-energy projects can expand irrigated productivity and agro-input demand.' },
+            { id: 'bottled', label: 'Refill and packaged water', annualSpend: 38, waterSensitivity: 0.95, energySensitivity: 0.26, margin: 0.18, brandFactor: 0.24, growthSensitivity: 0.12, note: 'Clean-water distribution expands adjacent refill, storage, and dispenser products.' }
+        ];
+
+        const energySources = [
+            { id: 'solar', inputId: 'energySolar', label: 'Solar PV', capacityFactor: 0.24, capexPerMwMillion: 0.95, dispatchability: 0.28, lowCarbon: true },
+            { id: 'wind', inputId: 'energyWind', label: 'Onshore wind', capacityFactor: 0.37, capexPerMwMillion: 1.45, dispatchability: 0.36, lowCarbon: true },
+            { id: 'geothermal', inputId: 'energyGeothermal', label: 'Geothermal', capacityFactor: 0.9, capexPerMwMillion: 4.8, dispatchability: 0.95, lowCarbon: true },
+            { id: 'hydro', inputId: 'energyHydro', label: 'Small hydro', capacityFactor: 0.52, capexPerMwMillion: 3.4, dispatchability: 0.78, lowCarbon: true },
+            { id: 'nuclear', inputId: 'energyNuclear', label: 'SMR / nuclear retrofit', capacityFactor: 0.92, capexPerMwMillion: 6.8, dispatchability: 0.98, lowCarbon: true },
+            { id: 'wasteHeat', inputId: 'energyWasteHeat', label: 'Industrial waste heat recovery', capacityFactor: 0.61, capexPerMwMillion: 1.2, dispatchability: 0.7, lowCarbon: true },
+            { id: 'wasteToEnergy', inputId: 'energyWasteToEnergy', label: 'Waste-to-energy / biogas', capacityFactor: 0.74, capexPerMwMillion: 5.0, dispatchability: 0.88, lowCarbon: true },
+            { id: 'gasBackup', inputId: 'energyGasBackup', label: 'Flexible gas backup', capacityFactor: 0.18, capexPerMwMillion: 1.1, dispatchability: 0.94, lowCarbon: false }
+        ];
+
         let calculationResults = null;
+        let corporateResults = null;
+        let sectorLayoutMode = 'rows';
 
-        function calculate() {
-            // Get input values
-            const reactorPower = parseFloat(document.getElementById('reactorPower').value) || 3000;
-            const wasteHeatFactor = parseFloat(document.getElementById('wasteHeatFactor').value) || 67;
-            const medEfficiency = parseFloat(document.getElementById('medEfficiency').value) || 12;
-            const numEffects = parseFloat(document.getElementById('numEffects').value) || 8;
-            const topBrineTemp = parseFloat(document.getElementById('topBrineTemp').value) || 70;
-            const availability = parseFloat(document.getElementById('availability').value) || 90;
-            const waterPrice = parseFloat(document.getElementById('waterPrice').value) || 0.50;
-            const medCapitalCost = parseFloat(document.getElementById('medCapitalCost').value) || 1500;
-            const retrofitMultiplier = parseFloat(document.getElementById('retrofitMultiplier').value) || 1.2;
-            const wasteTunnelLength = parseFloat(document.getElementById('wasteTunnelLength').value) || 5;
-            const fuelTunnelLength = parseFloat(document.getElementById('fuelTunnelLength').value) || 2;
-            const boringCostPerKm = parseFloat(document.getElementById('boringCostPerKm').value) || 50;
-            const plantPurchasePrice = parseFloat(document.getElementById('plantPurchasePrice').value) || 500;
+        function getNumber(id, fallback) {
+            const element = document.getElementById(id);
+            if (!element) return fallback;
+            const value = parseFloat(element.value);
+            return Number.isFinite(value) ? value : fallback;
+        }
 
-            // Calculate waste heat available (MWth)
-            const wasteHeatMW = reactorPower * (wasteHeatFactor / 100);
-            
-            // Calculate waste heat in kW
-            const wasteHeatKW = wasteHeatMW * 1000;
-            
-            // Calculate daily energy available for desalination (kWh/day)
-            // Using the MED formula: Water production = (Thermal Energy × GOR) / Latent Heat
-            const dailyEnergyKWh = wasteHeatKW * HOURS_PER_DAY;
-            
-            // Calculate daily fresh water production (m³/day)
-            // Formula: Daily Water = (Waste Heat (MW) × 1000 kJ/s/MW × 24 h × 3600 s/h × GOR) / (Latent Heat kJ/kg × 1000 kg/m³)
-            // Simplified: Daily Water = (Waste Heat (MW) × 24 × 3600 × GOR × 1000) / (Latent Heat × 1000)
-            // Further simplified: Daily Water = (Waste Heat (MW) × 24 × 3600 × GOR) / Latent Heat
-            // Where: 1 MW = 1000 kJ/s, so MW × 24 × 3600 × 1000 = kJ/day
-            const dailyWaterProduction = (wasteHeatMW * 1000 * HOURS_PER_DAY * SECONDS_PER_HOUR * medEfficiency) / (LATENT_HEAT_KJ_KG * 1000);
-            
-            // Apply availability factor
-            const dailyWaterProductionAdjusted = dailyWaterProduction * (availability / 100);
-            
-            // Annual water production
-            const annualWaterProduction = dailyWaterProductionAdjusted * DAYS_PER_YEAR;
-            
-            // Water per MWth per day
-            const waterPerMWPerDay = dailyWaterProductionAdjusted / reactorPower;
+        function formatNumber(value) {
+            if (!Number.isFinite(value)) return '-';
+            if (Math.abs(value) >= 1000000) return (value / 1000000).toFixed(2) + 'M';
+            if (Math.abs(value) >= 1000) return (value / 1000).toFixed(2) + 'K';
+            return value.toFixed(2);
+        }
 
-            // Financial calculations
-            const annualRevenue = annualWaterProduction * waterPrice;
-            
-            // MED system capital cost
-            const medSystemCapitalCost = dailyWaterProductionAdjusted * medCapitalCost;
-            const totalRetrofitCost = medSystemCapitalCost * retrofitMultiplier;
-            
-            // Earthgrid boring costs
-            const totalTunnelLength = wasteTunnelLength + fuelTunnelLength;
-            const boringCost = totalTunnelLength * boringCostPerKm;
-            
-            // Total project cost
-            const totalProjectCost = plantPurchasePrice + totalRetrofitCost + boringCost;
-            
-            // Payback period (years)
-            const paybackPeriod = totalProjectCost / annualRevenue;
-            
-            // Calculate NPV over 20 years with 10% discount rate
-            const discountRate = 0.10;
-            let npv = -totalProjectCost; // Initial investment
-            for (let year = 1; year <= 20; year++) {
-                npv += annualRevenue / Math.pow(1 + discountRate, year);
+        function formatWhole(value) {
+            if (!Number.isFinite(value)) return '-';
+            return Math.round(value).toLocaleString();
+        }
+
+        function formatCurrency(value) {
+            if (!Number.isFinite(value)) return '$0';
+            const abs = Math.abs(value);
+            const prefix = value < 0 ? '-$' : '$';
+            if (abs >= 1000000000) return prefix + (abs / 1000000000).toFixed(2) + 'B';
+            if (abs >= 1000000) return prefix + (abs / 1000000).toFixed(2) + 'M';
+            if (abs >= 1000) return prefix + (abs / 1000).toFixed(2) + 'K';
+            return prefix + abs.toFixed(2);
+        }
+
+        function formatPercent(value) {
+            if (!Number.isFinite(value)) return '0%';
+            return value.toFixed(1) + '%';
+        }
+
+        function clamp(value, min, max) {
+            return Math.min(Math.max(value, min), max);
+        }
+
+        function setText(id, value) {
+            const element = document.getElementById(id);
+            if (element) element.textContent = value;
+        }
+
+        function setHtml(id, value) {
+            const element = document.getElementById(id);
+            if (element) element.innerHTML = value;
+        }
+
+        function getSelectedProductAreas() {
+            return productAreas.filter(area => {
+                const checkbox = document.getElementById('sector-' + area.id);
+                return checkbox && checkbox.checked;
+            });
+        }
+
+        function updateSectorTriggerLabel() {
+            const selected = getSelectedProductAreas();
+            const label = document.querySelector('#sectorSelectorBtn span');
+            if (!label) return;
+            if (!selected.length) {
+                label.textContent = 'Select product areas';
+                return;
             }
-            
-            // Cost per cubic meter (assuming 20-year depreciation)
-            const annualDepreciation = totalProjectCost / 20;
-            const annualOandM = totalProjectCost * 0.05; // 5% of capital cost for O&M
-            const costPerCubicMeter = (annualDepreciation + annualOandM) / annualWaterProduction;
-            
-            // Energy metrics
-            const energyPerCubicMeter = (wasteHeatMW * HOURS_PER_DAY * 3.6) / dailyWaterProductionAdjusted; // MJ/m³
-            const specificEnergy = energyPerCubicMeter / medEfficiency; // MJ/m³ (net)
+            const topLabels = selected.slice(0, 3).map(area => area.label);
+            label.textContent = selected.length > 3 ? topLabels.join(', ') + ' +' + (selected.length - 3) : topLabels.join(', ');
+        }
 
-            // Update results display
-            document.getElementById('wasteHeat').textpageContent = formatNumber(wasteHeatMW) + ' MWth';
-            document.getElementById('dailyWater').textpageContent = formatNumber(dailyWaterProductionAdjusted) + ' m³/day';
-            document.getElementById('annualWater').textpageContent = formatNumber(annualWaterProduction) + ' m³/year';
-            document.getElementById('waterPerMW').textpageContent = formatNumber(waterPerMWPerDay) + ' m³/(MWth·day)';
-            
-            document.getElementById('annualRevenue').textpageContent = formatCurrency(annualRevenue);
-            document.getElementById('medCapital').textpageContent = formatCurrency(medSystemCapitalCost);
-            document.getElementById('retrofitCost').textpageContent = formatCurrency(totalRetrofitCost);
-            document.getElementById('boringCost').textpageContent = formatCurrency(boringCost);
-            document.getElementById('totalCost').textpageContent = formatCurrency(totalProjectCost);
-            document.getElementById('paybackPeriod').textpageContent = formatNumber(paybackPeriod) + ' years';
-            document.getElementById('npv').textpageContent = formatCurrency(npv);
-            document.getElementById('costPerCubicMeter').textpageContent = formatCurrency(costPerCubicMeter);
-            
-            document.getElementById('energyPerCubicMeter').textpageContent = formatNumber(energyPerCubicMeter) + ' MJ/m³';
-            document.getElementById('specificEnergy').textpageContent = formatNumber(specificEnergy) + ' MJ/m³';
+        function renderSectorOptions() {
+            const holder = document.getElementById('sectorOptions');
+            if (!holder) return;
+            const defaultSelected = new Set(['soap', 'shampoo', 'laundry', 'beverage', 'pharma', 'foods']);
+            holder.innerHTML = productAreas.map(area => `
+                <label class="check-item" for="sector-${area.id}">
+                    <input type="checkbox" id="sector-${area.id}" ${defaultSelected.has(area.id) ? 'checked' : ''}>
+                    <span class="check-copy">
+                        <strong>${area.label}</strong>
+                        <span>${area.note}</span>
+                    </span>
+                </label>
+            `).join('');
+            updateSectorTriggerLabel();
+            updateSectorLayoutToggle();
+        }
 
-            // Generate proposal summary
-            generateProposalSummary({
-                reactorPower,
-                wasteHeatMW,
-                dailyWaterProductionAdjusted,
-                annualWaterProduction,
-                annualRevenue,
-                totalProjectCost,
-                paybackPeriod,
-                npv,
-                costPerCubicMeter,
-                medEfficiency,
-                numEffects,
-                topBrineTemp
+        function updateSectorLayoutToggle() {
+            const holder = document.getElementById('sectorOptions');
+            const toggle = document.getElementById('sectorLayoutToggle');
+            if (!holder || !toggle) return;
+
+            const label = toggle.querySelector('span');
+            const icon = toggle.querySelector('.material-icons');
+            const isColumns = sectorLayoutMode === 'columns';
+
+            holder.classList.toggle('columns-layout', isColumns);
+
+            if (label) {
+                label.textContent = isColumns ? 'Columns' : 'Rows';
+            }
+            if (icon) {
+                icon.textContent = isColumns ? 'view_column' : 'view_week';
+            }
+            toggle.title = isColumns ? 'Switch to row layout' : 'Switch to column layout';
+        }
+
+        function toggleSectorLayout() {
+            sectorLayoutMode = sectorLayoutMode === 'columns' ? 'rows' : 'columns';
+            updateSectorLayoutToggle();
+        }
+
+        function renderSectorBreakdown(sectorImpacts) {
+            const holder = document.getElementById('sectorBreakdown');
+            if (!holder) return;
+            if (!sectorImpacts.length) {
+                holder.innerHTML = '<div class="sector-card"><div class="micro">Select one or more product areas to see where clean water and reliable energy create the strongest sponsor upside.</div></div>';
+                return;
+            }
+
+            holder.innerHTML = sectorImpacts
+                .sort((a, b) => b.marginGain - a.marginGain)
+                .map(area => `
+                    <div class="sector-card">
+                        <div class="sector-card-top">
+                            <strong>${area.label}</strong>
+                            <strong>${formatCurrency(area.marginGain)}</strong>
+                        </div>
+                        <div class="micro">
+                            Revenue lift ${formatCurrency(area.revenueGain)} | uplift rate ${formatPercent(area.upliftRate * 100)}<br>
+                            ${area.note}
+                        </div>
+                    </div>
+                `).join('');
+        }
+
+        function renderCorporateNarrative(data) {
+            const dominantSources = data.energyMix
+                .filter(source => source.annualMwh > 0)
+                .sort((a, b) => b.annualMwh - a.annualMwh)
+                .slice(0, 3)
+                .map(source => source.label)
+                .join(', ') || 'no energy sources selected';
+
+            const leadingSectors = data.sectorImpacts
+                .sort((a, b) => b.revenueGain - a.revenueGain)
+                .slice(0, 3)
+                .map(area => area.label)
+                .join(', ') || 'no product areas selected';
+
+            setHtml('corporateNarrative', `
+                <div class="metric-row">
+                    <span class="label">Blended project capex</span>
+                    <span class="value">${formatCurrency(data.projectCapex)}</span>
+                </div>
+                <div class="metric-row">
+                    <span class="label">Sponsor share of modeled capex</span>
+                    <span class="value">${formatPercent(data.sponsorShareOfCapex * 100)}</span>
+                </div>
+                <div class="metric-row">
+                    <span class="label">Dominant energy sources</span>
+                    <span class="value">${dominantSources}</span>
+                </div>
+                <div class="metric-row">
+                    <span class="label">Strongest product-area leverage</span>
+                    <span class="value">${leadingSectors}</span>
+                </div>
+                <div class="metric-row">
+                    <span class="label">Placeholder assumptions used</span>
+                    <span class="value">Sector lift coefficients, capex defaults, carbon value, and brand-trust values are placeholders.</span>
+                </div>
+            `);
+        }
+
+        function renderFundingNarrative(data) {
+            setHtml('fundingNarrative', `
+                <div class="metric-row">
+                    <span class="label">Planning budget</span>
+                    <span class="value">${formatCurrency(data.planningBudget)}</span>
+                </div>
+                <div class="metric-row">
+                    <span class="label">Deployment budget modeled</span>
+                    <span class="value">${formatCurrency(data.deploymentBudget)}</span>
+                </div>
+                <div class="metric-row">
+                    <span class="label">Government emphasis</span>
+                    <span class="value">${formatPercent(data.governmentPlanningShare)} planning / ${formatPercent(data.governmentDeploymentShare)} deployment</span>
+                </div>
+                <div class="metric-row">
+                    <span class="label">Concessional rate effect</span>
+                    <span class="value">${data.concessionalRateReduction.toFixed(1)}% placeholder reduction in blended financing cost</span>
+                </div>
+                <div class="metric-row">
+                    <span class="label">Community reserve</span>
+                    <span class="value">${formatCurrency(data.communityReserveAmount)}</span>
+                </div>
+            `);
+        }
+
+        function calculateFundingMix() {
+            const planningBudget = getNumber('planningStageBudget', 48) * 1000000;
+            const governmentPlanningShare = getNumber('governmentPlanningShare', 68);
+            const nonprofitPlanningShare = getNumber('nonprofitPlanningShare', 20);
+            const corporatePlanningShare = getNumber('corporatePlanningShare', 12);
+            const governmentDeploymentShare = getNumber('governmentDeploymentShare', 22);
+            const nonprofitDeploymentShare = getNumber('nonprofitDeploymentShare', 18);
+            const corporateDeploymentShare = getNumber('corporateDeploymentShare', 60);
+            const planningConversionRate = getNumber('planningConversionRate', 82) / 100;
+            const concessionalRateReduction = getNumber('concessionalRateReduction', 1.8);
+            const communityBenefitReserve = getNumber('communityBenefitReserve', 4) / 100;
+
+            const deploymentBudget = corporateResults ? corporateResults.projectCapex : 0;
+            const deployableBudget = deploymentBudget * planningConversionRate;
+            const communityReserveAmount = deployableBudget * communityBenefitReserve;
+            const netDeploymentBudget = deployableBudget + communityReserveAmount;
+
+            const planningGov = planningBudget * (governmentPlanningShare / 100);
+            const planningNpo = planningBudget * (nonprofitPlanningShare / 100);
+            const planningCorp = planningBudget * (corporatePlanningShare / 100);
+            const planningGap = planningBudget - (planningGov + planningNpo + planningCorp);
+
+            const deployGov = netDeploymentBudget * (governmentDeploymentShare / 100);
+            const deployNpo = netDeploymentBudget * (nonprofitDeploymentShare / 100);
+            const deployCorp = netDeploymentBudget * (corporateDeploymentShare / 100);
+            const deploymentGap = netDeploymentBudget - (deployGov + deployNpo + deployCorp);
+            const totalGap = planningGap + deploymentGap;
+            const catalyticRatio = planningGov > 0 ? deployableBudget / planningGov : 0;
+
+            setText('fundingPlanningLead', formatCurrency(planningGov));
+            setText('fundingPlanningLeadDetail', 'Government covers ' + formatPercent(governmentPlanningShare) + ' of planning-stage spend.');
+            setText('fundingDeploymentMix', Math.round(corporateDeploymentShare) + '/' + Math.round(nonprofitDeploymentShare) + '/' + Math.round(governmentDeploymentShare));
+            setText('fundingDeploymentMixDetail', 'Corporate / nonprofit / government deployment split.');
+            setText('fundingCatalyticRatio', catalyticRatio.toFixed(2) + 'x');
+            setText('fundingCatalyticRatioDetail', 'Deployable capex unlocked per public planning dollar.');
+            setText('fundingGap', formatCurrency(totalGap));
+            setText('fundingGapDetail', totalGap >= 0 ? 'Positive means more money is still needed to close the model.' : 'Negative means modeled contributions exceed the budget and create reserve headroom.');
+
+            setText('fundingPlanningGov', formatCurrency(planningGov));
+            setText('fundingPlanningNpo', formatCurrency(planningNpo));
+            setText('fundingPlanningCorp', formatCurrency(planningCorp));
+            setText('fundingDeploymentGov', formatCurrency(deployGov));
+            setText('fundingDeploymentNpo', formatCurrency(deployNpo));
+            setText('fundingDeploymentCorp', formatCurrency(deployCorp));
+
+            renderFundingNarrative({
+                planningBudget,
+                deploymentBudget: netDeploymentBudget,
+                governmentPlanningShare,
+                governmentDeploymentShare,
+                concessionalRateReduction,
+                communityReserveAmount
+            });
+        }
+
+        function calculateCorporateBenefits() {
+            const populationServed = getNumber('populationServed', 1200000);
+            const avgHouseholdSize = getNumber('avgHouseholdSize', 4.1);
+            const pureWaterCoverage = getNumber('pureWaterCoverage', 82);
+            const dailyPureWaterOutput = getNumber('dailyPureWaterOutput', 180000);
+            const targetLitersPerPerson = getNumber('targetLitersPerPerson', 110);
+            const hardnessReduction = getNumber('hardnessReduction', 58);
+            const retailReach = getNumber('retailReach', 62);
+            const sponsorBrandShare = getNumber('sponsorBrandShare', 18);
+            const communityIncomeLift = getNumber('communityIncomeLift', 6);
+            const annualSponsorContribution = getNumber('annualSponsorContribution', 90) * 1000000;
+            const corporateDiscountRate = getNumber('corporateDiscountRate', 10) / 100;
+            const corporateHorizon = getNumber('corporateHorizon', 10);
+            const internalProcessWaterNeed = getNumber('internalProcessWaterNeed', 22000);
+            const processWaterSavingsPerM3 = getNumber('processWaterSavingsPerM3', 0.65);
+            const retailerSites = getNumber('retailerSites', 4200);
+            const retailerValuePerMWh = getNumber('retailerValuePerMWh', 110);
+            const brandTrustValuePerHousehold = getNumber('brandTrustValuePerHousehold', 8);
+            const waterCapexPerM3Day = getNumber('waterCapexPerM3Day', 1450);
+            const carbonValuePerMWh = getNumber('carbonValuePerMWh', 18);
+
+            const households = populationServed / avgHouseholdSize;
+            const coveredHouseholds = households * (pureWaterCoverage / 100);
+            const litersPerPersonProvided = (dailyPureWaterOutput * 1000) / Math.max(populationServed, 1);
+            const serviceRatio = clamp(litersPerPersonProvided / Math.max(targetLitersPerPerson, 1), 0, 1.35);
+            const waterQualityIndex = clamp((pureWaterCoverage / 100) * serviceRatio * (0.55 + (hardnessReduction / 100) * 0.45), 0, 1.3);
+
+            const energyMix = energySources.map(source => {
+                const mw = getNumber(source.inputId, 0);
+                const annualMwh = mw * HOURS_PER_YEAR * source.capacityFactor;
+                const capex = mw * source.capexPerMwMillion * 1000000;
+                return {
+                    ...source,
+                    mw,
+                    annualMwh,
+                    capex
+                };
             });
 
-            // Store results for CSV export
+            const annualEnergyMwh = energyMix.reduce((sum, source) => sum + source.annualMwh, 0);
+            const lowCarbonMwh = energyMix.filter(source => source.lowCarbon).reduce((sum, source) => sum + source.annualMwh, 0);
+            const energyCapex = energyMix.reduce((sum, source) => sum + source.capex, 0);
+            const waterCapex = dailyPureWaterOutput * waterCapexPerM3Day;
+            const projectCapex = energyCapex + waterCapex;
+            const weightedReliability = annualEnergyMwh > 0
+                ? energyMix.reduce((sum, source) => sum + (source.annualMwh * source.dispatchability), 0) / annualEnergyMwh
+                : 0;
+            const lowCarbonShare = annualEnergyMwh > 0 ? lowCarbonMwh / annualEnergyMwh : 0;
+            const reliabilityIndex = clamp(weightedReliability * (0.7 + lowCarbonShare * 0.3), 0, 1.15);
+
+            const selectedSectors = getSelectedProductAreas();
+            const sectorHouseholds = coveredHouseholds * (retailReach / 100) * (sponsorBrandShare / 100);
+
+            const sectorImpacts = selectedSectors.map(area => {
+                const upliftRate = clamp(
+                    0.015 +
+                    (waterQualityIndex * area.waterSensitivity * 0.11) +
+                    (reliabilityIndex * area.energySensitivity * 0.04) +
+                    ((communityIncomeLift / 100) * area.growthSensitivity),
+                    0,
+                    0.38
+                );
+                const revenueGain = sectorHouseholds * area.annualSpend * upliftRate;
+                const marginGain = revenueGain * area.margin;
+                const brandValue = coveredHouseholds * brandTrustValuePerHousehold * area.brandFactor * clamp(waterQualityIndex, 0.4, 1.15);
+
+                return {
+                    ...area,
+                    upliftRate,
+                    revenueGain,
+                    marginGain,
+                    brandValue
+                };
+            });
+
+            const totalRevenueLift = sectorImpacts.reduce((sum, area) => sum + area.revenueGain, 0);
+            const totalMarginLift = sectorImpacts.reduce((sum, area) => sum + area.marginGain, 0);
+            const totalBrandValue = sectorImpacts.reduce((sum, area) => sum + area.brandValue, 0);
+
+            const recoverableProcessWater = Math.min(internalProcessWaterNeed, dailyPureWaterOutput * 0.16);
+            const processWaterValue = recoverableProcessWater * DAYS_PER_YEAR * processWaterSavingsPerM3;
+            const stabilizedRetailLoadMwh = retailerSites * 110 * (0.32 + reliabilityIndex * 0.82);
+            const retailUptimeValue = stabilizedRetailLoadMwh * retailerValuePerMWh;
+            const carbonValue = lowCarbonMwh * carbonValuePerMWh * 0.08;
+            const totalAnnualBenefit = totalMarginLift + processWaterValue + retailUptimeValue + totalBrandValue + carbonValue;
+            const netAnnualBenefit = totalAnnualBenefit - annualSponsorContribution;
+
+            let npv = 0;
+            for (let year = 1; year <= corporateHorizon; year++) {
+                npv += netAnnualBenefit / Math.pow(1 + corporateDiscountRate, year);
+            }
+
+            const sponsorShareOfCapex = projectCapex > 0 ? (annualSponsorContribution * corporateHorizon) / projectCapex : 0;
+            const roiMultiple = annualSponsorContribution > 0 ? totalAnnualBenefit / annualSponsorContribution : 0;
+
+            corporateResults = {
+                populationServed,
+                households,
+                coveredHouseholds,
+                litersPerPersonProvided,
+                annualEnergyMwh,
+                lowCarbonShare,
+                projectCapex,
+                totalRevenueLift,
+                totalMarginLift,
+                processWaterValue,
+                retailUptimeValue,
+                totalBrandValue,
+                carbonValue,
+                totalAnnualBenefit,
+                npv,
+                roiMultiple,
+                sponsorShareOfCapex,
+                energyMix,
+                sectorImpacts
+            };
+
+            setText('corpAnnualValue', formatCurrency(totalAnnualBenefit));
+            setText('corpAnnualValueDetail', formatCurrency(totalMarginLift) + ' profit + ' + formatCurrency(processWaterValue + retailUptimeValue + totalBrandValue + carbonValue) + ' strategic value.');
+            setText('corpNpv', formatCurrency(npv));
+            setText('corpRoiDetail', 'ROI multiple: ' + roiMultiple.toFixed(2) + 'x');
+            setText('corpHouseholds', formatWhole(coveredHouseholds));
+            setText('corpWaterDetail', litersPerPersonProvided.toFixed(1) + ' L/person/day delivered.');
+            setText('corpEnergy', formatNumber(annualEnergyMwh) + ' MWh/yr');
+            setText('corpEnergyDetail', 'Low-carbon share: ' + formatPercent(lowCarbonShare * 100));
+
+            setText('corpRevenueLift', formatCurrency(totalRevenueLift));
+            setText('corpMarginLift', formatCurrency(totalMarginLift));
+            setText('corpProcessValue', formatCurrency(processWaterValue));
+            setText('corpRetailValue', formatCurrency(retailUptimeValue));
+            setText('corpBrandValue', formatCurrency(totalBrandValue));
+            setText('corpCarbonValue', formatCurrency(carbonValue));
+
+            setText('heroSponsorValue', formatCurrency(totalAnnualBenefit));
+            setText('heroWaterReach', formatWhole(coveredHouseholds) + ' households');
+            setText('heroEnergyMix', formatNumber(annualEnergyMwh) + ' MWh/yr');
+
+            renderSectorBreakdown(sectorImpacts);
+            renderCorporateNarrative(corporateResults);
+            calculateFundingMix();
+        }
+
+        function renderProposalSummary(data) {
+            const summary = `
+                <h3 style="margin-bottom: 15px;">Executive summary</h3>
+                <p style="margin-bottom: 15px; line-height: 1.8;">
+                    This reference proposal converts an existing coastal nuclear plant into a
+                    <span style="background:#fff3cd;padding:2px 6px;border-radius:4px;font-weight:700;">cogeneration asset</span>
+                    producing power and fresh water through MED technology. The model captures
+                    <span style="background:#fff3cd;padding:2px 6px;border-radius:4px;font-weight:700;">${(data.wasteHeatMW / data.reactorPower * 100).toFixed(1)}%</span>
+                    of reactor thermal output normally rejected by cooling systems and redirects it into
+                    <span style="background:#fff3cd;padding:2px 6px;border-radius:4px;font-weight:700;">${formatNumber(data.dailyWaterProductionAdjusted)} m3/day</span>
+                    of purified water.
+                </p>
+
+                <h3 style="margin: 22px 0 12px;">Technical specifications</h3>
+                <ul style="line-height: 1.85; margin-left: 20px;">
+                    <li><strong>Reactor thermal power:</strong> ${formatNumber(data.reactorPower)} MWth</li>
+                    <li><strong>Waste heat recovered:</strong> ${formatNumber(data.wasteHeatMW)} MWth</li>
+                    <li><strong>MED system:</strong> ${data.numEffects} effects with GOR ${data.medEfficiency}</li>
+                    <li><strong>Top brine temperature:</strong> ${data.topBrineTemp} C</li>
+                    <li><strong>Annual production:</strong> ${formatNumber(data.annualWaterProduction)} m3/year</li>
+                </ul>
+
+                <h3 style="margin: 22px 0 12px;">Financial highlights</h3>
+                <ul style="line-height: 1.85; margin-left: 20px;">
+                    <li><strong>Total project investment:</strong> ${formatCurrency(data.totalProjectCost)}</li>
+                    <li><strong>Annual water revenue:</strong> ${formatCurrency(data.annualRevenue)}</li>
+                    <li><strong>Payback period:</strong> ${formatNumber(data.paybackPeriod)} years</li>
+                    <li><strong>${data.analysisYears}-year NPV (${data.discountRate}%):</strong> ${formatCurrency(data.npv)}</li>
+                    <li><strong>Production cost:</strong> ${formatCurrency(data.costPerCubicMeter)}/m3</li>
+                </ul>
+
+                <div style="background:#fff3cd;border-left:2px solid #e0a800;padding:15px;margin-top:18px;border-radius:8px;">
+                    <strong style="color:#856404;">Placeholder finance assumptions added:</strong>
+                    O&amp;M rate ${data.oAndMRate}%/year, discount rate ${data.discountRate}%, and analysis period ${data.analysisYears} years.
+                    Replace them with lender, utility, or sponsor-specific terms when available.
+                </div>
+
+                <h3 style="margin: 22px 0 12px;">Infrastructure components</h3>
+                <ul style="line-height: 1.85; margin-left: 20px;">
+                    <li><strong>MED desalination system:</strong> multi-effect distillation trains integrated with existing cooling infrastructure</li>
+                    <li><strong>Earthgrid boring:</strong> deep waste-disposal and fuel-transport tunnels</li>
+                    <li><strong>Heat-exchange systems:</strong> retrofit scope for routing recoverable waste heat into water production</li>
+                    <li><strong>Water delivery systems:</strong> polishing, storage, and community distribution assets</li>
+                </ul>
+            `;
+
+            setHtml('proposalSummary', summary);
+        }
+
+        function calculateNuclear() {
+            const reactorPower = getNumber('reactorPower', 3000);
+            const wasteHeatFactor = getNumber('wasteHeatFactor', 67);
+            const medEfficiency = getNumber('medEfficiency', 12);
+            const numEffects = getNumber('numEffects', 8);
+            const topBrineTemp = getNumber('topBrineTemp', 70);
+            const availability = getNumber('availability', 90);
+            const waterPrice = getNumber('waterPrice', 0.5);
+            const medCapitalCost = getNumber('medCapitalCost', 1500);
+            const retrofitMultiplier = getNumber('retrofitMultiplier', 1.2);
+            const oAndMRate = getNumber('oAndMRate', 5);
+            const discountRate = getNumber('discountRate', 10);
+            const analysisYears = getNumber('analysisYears', 20);
+            const wasteTunnelLength = getNumber('wasteTunnelLength', 5);
+            const fuelTunnelLength = getNumber('fuelTunnelLength', 2);
+            const boringCostPerKm = getNumber('boringCostPerKm', 50);
+            const plantPurchasePrice = getNumber('plantPurchasePrice', 500);
+
+            const wasteHeatMW = reactorPower * (wasteHeatFactor / 100);
+            const dailyWaterProduction = (wasteHeatMW * 1000 * HOURS_PER_DAY * SECONDS_PER_HOUR * medEfficiency) / (LATENT_HEAT_KJ_KG * 1000);
+            const dailyWaterProductionAdjusted = dailyWaterProduction * (availability / 100);
+            const annualWaterProduction = dailyWaterProductionAdjusted * DAYS_PER_YEAR;
+            const waterPerMWPerDay = dailyWaterProductionAdjusted / reactorPower;
+            const annualRevenue = annualWaterProduction * waterPrice;
+            const medSystemCapitalCost = dailyWaterProductionAdjusted * medCapitalCost;
+            const totalRetrofitCost = medSystemCapitalCost * retrofitMultiplier;
+            const totalTunnelLength = wasteTunnelLength + fuelTunnelLength;
+            const boringCost = totalTunnelLength * boringCostPerKm;
+            const totalProjectCost = plantPurchasePrice + totalRetrofitCost + boringCost;
+            const paybackPeriod = totalProjectCost / annualRevenue;
+            const discountRateDecimal = discountRate / 100;
+
+            let npv = -totalProjectCost;
+            for (let year = 1; year <= analysisYears; year++) {
+                npv += annualRevenue / Math.pow(1 + discountRateDecimal, year);
+            }
+
+            const annualDepreciation = totalProjectCost / analysisYears;
+            const annualOandM = totalProjectCost * (oAndMRate / 100);
+            const costPerCubicMeter = (annualDepreciation + annualOandM) / annualWaterProduction;
+            const energyPerCubicMeter = (wasteHeatMW * HOURS_PER_DAY * 3.6) / dailyWaterProductionAdjusted;
+            const specificEnergy = energyPerCubicMeter / medEfficiency;
+            const displayDiscountRate = Number.isInteger(discountRate) ? discountRate.toFixed(0) : discountRate.toFixed(1);
+            const displayAnalysisYears = Number.isInteger(analysisYears) ? analysisYears.toFixed(0) : analysisYears.toFixed(1);
+
+            setText('wasteHeat', formatNumber(wasteHeatMW) + ' MWth');
+            setText('dailyWater', formatNumber(dailyWaterProductionAdjusted) + ' m3/day');
+            setText('annualWater', formatNumber(annualWaterProduction) + ' m3/year');
+            setText('waterPerMW', formatNumber(waterPerMWPerDay) + ' m3/(MWth day)');
+            setText('annualRevenue', formatCurrency(annualRevenue));
+            setText('medCapital', formatCurrency(medSystemCapitalCost));
+            setText('retrofitCost', formatCurrency(totalRetrofitCost));
+            setText('boringCost', formatCurrency(boringCost));
+            setText('totalCost', formatCurrency(totalProjectCost));
+            setText('paybackPeriod', formatNumber(paybackPeriod) + ' years');
+            setText('npvLabel', displayAnalysisYears + '-Year NPV (' + displayDiscountRate + '% discount)');
+            setText('npv', formatCurrency(npv));
+            setText('costPerCubicMeter', formatCurrency(costPerCubicMeter));
+            setText('energyPerCubicMeter', formatNumber(energyPerCubicMeter) + ' MJ/m3');
+            setText('specificEnergy', formatNumber(specificEnergy) + ' MJ/m3');
+
+            setText('nuclearSummaryDailyWater', formatNumber(dailyWaterProductionAdjusted) + ' m3/day');
+            setText('nuclearSummaryRevenue', formatCurrency(annualRevenue));
+            setText('nuclearSummaryCost', formatCurrency(totalProjectCost));
+            setText('nuclearSummaryPayback', formatNumber(paybackPeriod) + ' years');
+            setText('nuclearSummaryHint', formatNumber(wasteHeatMW) + ' MWth recovered at ' + availability.toFixed(0) + '% availability.');
+            setText('heroNuclearRef', formatCurrency(annualRevenue) + ' annual revenue');
+            setText('nuclearCollapsedCopy', 'The current deep-nuclear reference case produces ' + formatNumber(dailyWaterProductionAdjusted) + ' m3/day, carries a total modeled cost of ' + formatCurrency(totalProjectCost) + ', and reaches payback in ' + formatNumber(paybackPeriod) + ' years.');
+
             calculationResults = {
-                // Input parameters
                 reactorPower,
                 wasteHeatFactor,
                 medEfficiency,
@@ -642,11 +2314,13 @@
                 waterPrice,
                 medCapitalCost,
                 retrofitMultiplier,
+                oAndMRate,
+                discountRate,
+                analysisYears,
                 wasteTunnelLength,
                 fuelTunnelLength,
                 boringCostPerKm,
                 plantPurchasePrice,
-                // Calculated results
                 wasteHeatMW,
                 dailyWaterProductionAdjusted,
                 annualWaterProduction,
@@ -662,86 +2336,24 @@
                 energyPerCubicMeter,
                 specificEnergy
             };
-        }
 
-        function formatNumber(num) {
-            if (num >= 1000000) {
-                return (num / 1000000).toFixed(2) + 'M';
-            } else if (num >= 1000) {
-                return (num / 1000).toFixed(2) + 'K';
-            }
-            return num.toFixed(2);
-        }
-
-        function formatCurrency(num) {
-            if (num >= 1000000000) {
-                return '$' + (num / 1000000000).toFixed(2) + 'B';
-            } else if (num >= 1000000) {
-                return '$' + (num / 1000000).toFixed(2) + 'M';
-            } else if (num >= 1000) {
-                return '$' + (num / 1000).toFixed(2) + 'K';
-            }
-            return '$' + num.toFixed(2);
-        }
-
-        function generateProposalSummary(data) {
-            const summary = `
-                <h3 style="color: #1e3c72; margin-bottom: 15px;">Executive Summary</h3>
-                <p style="margin-bottom: 15px; line-height: 1.8;">
-                    This proposal outlines the conversion of an existing coastal nuclear power plant into a 
-                    <span class="highlight">cogeneration facility</span> producing both electricity and fresh water through 
-                    Multi-Effect Distillation (MED) technology. By capturing <span class="highlight">${(data.wasteHeatMW/data.reactorPower*100).toFixed(1)}%</span> 
-                    of the reactor's thermal output currently lost through cooling towers, the facility will produce 
-                    <span class="highlight">${formatNumber(data.dailyWaterProductionAdjusted)} m³/day</span> of fresh water 
-                    (${formatNumber(data.annualWaterProduction)} m³/year).
-                </p>
-
-                <h3 style="color: #1e3c72; margin: 25px 0 15px 0;">Technical Specifications</h3>
-                <ul style="line-height: 2; margin-left: 20px;">
-                    <li><strong>Reactor Thermal Power:</strong> ${formatNumber(data.reactorPower)} MWth</li>
-                    <li><strong>Waste Heat Recovered:</strong> ${formatNumber(data.wasteHeatMW)} MWth</li>
-                    <li><strong>MED System:</strong> ${data.numEffects}-effect system with GOR of ${data.medEfficiency}</li>
-                    <li><strong>Top Brine Temperature:</strong> ${data.topBrineTemp}°C</li>
-                    <li><strong>Daily Production:</strong> ${formatNumber(data.dailyWaterProductionAdjusted)} m³/day</li>
-                </ul>
-
-                <h3 style="color: #1e3c72; margin: 25px 0 15px 0;">Financial Highlights</h3>
-                <ul style="line-height: 2; margin-left: 20px;">
-                    <li><strong>Total Project Investment:</strong> ${formatCurrency(data.totalProjectCost)}</li>
-                    <li><strong>Annual Water Revenue:</strong> ${formatCurrency(data.annualRevenue)}</li>
-                    <li><strong>Payback Period:</strong> ${formatNumber(data.paybackPeriod)} years</li>
-                    <li><strong>20-Year NPV (10%):</strong> ${formatCurrency(data.npv)}</li>
-                    <li><strong>Production Cost:</strong> ${formatCurrency(data.costPerCubicMeter)}/m³</li>
-                </ul>
-
-                <h3 style="color: #1e3c72; margin: 25px 0 15px 0;">Infrastructure Components</h3>
-                <ul style="line-height: 2; margin-left: 20px;">
-                    <li><strong>MED Desalination System:</strong> State-of-the-art multi-effect distillation units</li>
-                    <li><strong>Earthgrid Boring Technology:</strong> Deep underground waste disposal and fuel transport tunnels</li>
-                    <li><strong>Heat Exchange Systems:</strong> Integration with existing reactor cooling infrastructure</li>
-                    <li><strong>Water Treatment & Distribution:</strong> Purification and delivery systems</li>
-                </ul>
-
-                <h3 style="color: #1e3c72; margin: 25px 0 15px 0;">Revenue Model</h3>
-                <p style="line-height: 1.8; margin-bottom: 15px;">
-                    Revenue from the sale of desalinated water will fund:
-                </p>
-                <ul style="line-height: 2; margin-left: 20px;">
-                    <li>Initial plant purchase and retrofit costs</li>
-                    <li>Earthgrid boring infrastructure for waste disposal</li>
-                    <li>Fuel transport tunnel construction</li>
-                    <li>Ongoing operations and maintenance</li>
-                </ul>
-
-                <div style="background: #d4edda; border-left: 2px solid #28a745; padding: 15px; margin-top: 20px; border-radius: 5px;">
-                    <strong style="color: #155724;">Investment Opportunity:</strong> This project represents a sustainable solution 
-                    to water scarcity while maximizing the utilization of existing nuclear infrastructure. The integration of 
-                    MED desalination with nuclear waste heat recovery creates a dual revenue stream and significantly improves 
-                    the economic viability of the facility.
-                </div>
-            `;
-            
-            document.getElementById('proposalSummary').innerHTML = summary;
+            renderProposalSummary({
+                reactorPower,
+                wasteHeatMW,
+                dailyWaterProductionAdjusted,
+                annualWaterProduction,
+                annualRevenue,
+                totalProjectCost,
+                paybackPeriod,
+                npv,
+                costPerCubicMeter,
+                medEfficiency,
+                numEffects,
+                topBrineTemp,
+                discountRate,
+                analysisYears,
+                oAndMRate
+            });
         }
 
         function exportToCSV() {
@@ -750,87 +2362,242 @@
                 return;
             }
 
-            // Prepare CSV data
             const csvData = [];
-            
-            // Add header section
-            csvData.push('Nuclear Desalination Calculator - Calculation Results');
+            csvData.push('Deep Nuclear Desalination - Calculation Results');
             csvData.push('Generated: ' + new Date().toLocaleString());
             csvData.push('');
-            
-            // Input Parameters Section
             csvData.push('INPUT PARAMETERS');
             csvData.push('Parameter,Value,Unit');
             csvData.push(`Reactor Thermal Power Output,${calculationResults.reactorPower},MWth`);
             csvData.push(`Waste Heat Utilization Factor,${calculationResults.wasteHeatFactor},%`);
             csvData.push(`MED System Efficiency (GOR),${calculationResults.medEfficiency},`);
             csvData.push(`Number of MED Effects,${calculationResults.numEffects},`);
-            csvData.push(`Top Brine Temperature,${calculationResults.topBrineTemp},°C`);
+            csvData.push(`Top Brine Temperature,${calculationResults.topBrineTemp},C`);
             csvData.push(`Plant Availability Factor,${calculationResults.availability},%`);
-            csvData.push(`Water Sale Price,${calculationResults.waterPrice},$/m³`);
-            csvData.push(`MED System Capital Cost,${calculationResults.medCapitalCost},$/m³/day capacity`);
+            csvData.push(`Water Sale Price,${calculationResults.waterPrice},$/m3`);
+            csvData.push(`MED System Capital Cost,${calculationResults.medCapitalCost},$/m3/day capacity`);
             csvData.push(`Retrofit Cost Multiplier,${calculationResults.retrofitMultiplier},`);
+            csvData.push(`Operating and Maintenance Rate (placeholder),${calculationResults.oAndMRate},% of project cost/year`);
+            csvData.push(`Discount Rate (placeholder),${calculationResults.discountRate},%`);
+            csvData.push(`Analysis Period (placeholder),${calculationResults.analysisYears},years`);
             csvData.push(`Waste Disposal Tunnel Length,${calculationResults.wasteTunnelLength},km`);
             csvData.push(`Fuel Transport Tunnel Length,${calculationResults.fuelTunnelLength},km`);
             csvData.push(`Boring Cost per Kilometer,${calculationResults.boringCostPerKm},$M/km`);
             csvData.push(`Nuclear Plant Purchase Price,${calculationResults.plantPurchasePrice},$M`);
             csvData.push('');
-            
-            // Water Production Section
-            csvData.push('WATER PRODUCTION RESULTS');
+            csvData.push('RESULTS');
             csvData.push('Metric,Value,Unit');
             csvData.push(`Waste Heat Available,${calculationResults.wasteHeatMW.toFixed(2)},MWth`);
-            csvData.push(`Daily Fresh Water Production,${calculationResults.dailyWaterProductionAdjusted.toFixed(2)},m³/day`);
-            csvData.push(`Annual Water Production,${calculationResults.annualWaterProduction.toFixed(2)},m³/year`);
-            csvData.push(`Water per MWth per day,${calculationResults.waterPerMWPerDay.toFixed(4)},m³/(MWth·day)`);
-            csvData.push('');
-            
-            // Financial Analysis Section
-            csvData.push('FINANCIAL ANALYSIS');
-            csvData.push('Metric,Value,Unit');
+            csvData.push(`Daily Fresh Water Production,${calculationResults.dailyWaterProductionAdjusted.toFixed(2)},m3/day`);
+            csvData.push(`Annual Water Production,${calculationResults.annualWaterProduction.toFixed(2)},m3/year`);
+            csvData.push(`Water per MWth per day,${calculationResults.waterPerMWPerDay.toFixed(4)},m3/(MWth day)`);
             csvData.push(`Annual Water Revenue,${calculationResults.annualRevenue.toFixed(2)},$`);
             csvData.push(`MED System Capital Cost,${calculationResults.medSystemCapitalCost.toFixed(2)},$`);
             csvData.push(`Total Retrofit Cost,${calculationResults.totalRetrofitCost.toFixed(2)},$`);
             csvData.push(`Earthgrid Boring Cost,${calculationResults.boringCost.toFixed(2)},$`);
             csvData.push(`Total Project Cost,${calculationResults.totalProjectCost.toFixed(2)},$`);
             csvData.push(`Payback Period,${calculationResults.paybackPeriod.toFixed(2)},years`);
-            csvData.push(`20-Year NPV (10% discount),${calculationResults.npv.toFixed(2)},$`);
-            csvData.push(`Cost per m³ of Water,${calculationResults.costPerCubicMeter.toFixed(4)},$/m³`);
-            csvData.push('');
-            
-            // Energy Metrics Section
-            csvData.push('ENERGY METRICS');
-            csvData.push('Metric,Value,Unit');
-            csvData.push(`Thermal Energy per m³,${calculationResults.energyPerCubicMeter.toFixed(2)},MJ/m³`);
-            csvData.push(`Specific Energy Consumption,${calculationResults.specificEnergy.toFixed(2)},MJ/m³`);
-            
-            // Convert array to CSV string
+            csvData.push(`${calculationResults.analysisYears}-Year NPV (${calculationResults.discountRate}% discount),${calculationResults.npv.toFixed(2)},$`);
+            csvData.push(`Cost per m3 of Water,${calculationResults.costPerCubicMeter.toFixed(4)},$/m3`);
+            csvData.push(`Thermal Energy per m3,${calculationResults.energyPerCubicMeter.toFixed(2)},MJ/m3`);
+            csvData.push(`Specific Energy Consumption,${calculationResults.specificEnergy.toFixed(2)},MJ/m3`);
+
             const csvString = csvData.join('\n');
-            
-            // Create blob and download
             const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
             const url = URL.createObjectURL(blob);
-            
-            // Generate filename with date and time (filesystem-safe format)
             const now = new Date();
-            const dateStr = now.toISOString().split('T')[0]; // YYYY-MM-DD
-            const timeStr = now.toTimeString().split(' ')[0].replace(/:/g, '-'); // HH-MM-SS
-            const filename = `nuclear_desalination_results_${dateStr}_${timeStr}.csv`;
-            
+            const dateStr = now.toISOString().split('T')[0];
+            const timeStr = now.toTimeString().split(' ')[0].replace(/:/g, '-');
             link.setAttribute('href', url);
-            link.setAttribute('download', filename);
+            link.setAttribute('download', 'deep_nuclear_results_' + dateStr + '_' + timeStr + '.csv');
             link.style.visibility = 'hidden';
-            
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
         }
 
-        // Calculate on page load with default values
-        window.onload = function() {
-            calculate();
-        };
+        function setPanelCollapsed(panelId, collapsed) {
+            const panel = document.getElementById(panelId);
+            if (!panel) return;
+            panel.classList.toggle('collapsed', collapsed);
+            panel.classList.toggle('expanded', !collapsed);
+        }
+
+        function renderRestoreChips() {
+            const holder = document.getElementById('panelRestores');
+            if (!holder) return;
+            const hiddenPanels = Array.from(document.querySelectorAll('.panel-shell.panel-hidden'));
+            holder.innerHTML = hiddenPanels.map(panel => `
+                <button type="button" class="restore-chip" data-restore-panel="${panel.id}">
+                    <span class="material-icons">refresh</span>Restore ${panel.getAttribute('data-panel-label') || panel.id}
+                </button>
+            `).join('');
+        }
+
+        function hidePanel(panelId) {
+            const panel = document.getElementById(panelId);
+            if (!panel) return;
+            panel.classList.add('panel-hidden');
+            renderRestoreChips();
+        }
+
+        function restorePanel(panelId) {
+            const panel = document.getElementById(panelId);
+            if (!panel) return;
+            panel.classList.remove('panel-hidden');
+            renderRestoreChips();
+        }
+
+        function handleDashboardPanelAction(action, panelId) {
+            if (action === 'expand') {
+                setPanelCollapsed(panelId, false);
+                return true;
+            }
+            if (action === 'collapse') {
+                setPanelCollapsed(panelId, true);
+                return true;
+            }
+            if (action === 'hide') {
+                hidePanel(panelId);
+                return true;
+            }
+            return false;
+        }
+
+        function setupPanelMenus() {
+            if (typeof addPanelMenu !== 'function') return;
+
+            const panels = [
+                { id: 'corporatePanel', label: 'Corporate Benefits', collapsed: false },
+                { id: 'fundingPanel', label: 'Blended Contributions', collapsed: false },
+                { id: 'governancePanel', label: 'Mayor Incentives', collapsed: false },
+                { id: 'nuclearPanel', label: 'Deep Nuclear', collapsed: true }
+            ];
+
+            panels.forEach(panelConfig => {
+                const panel = document.getElementById(panelConfig.id);
+                if (!panel || document.getElementById(panelConfig.id + 'MenuControl')) return;
+                panel.setAttribute('data-panel-label', panelConfig.label);
+
+                const panelMenu = addPanelMenu({
+                    panelType: 'Map',
+                    targetPanelId: panelConfig.id,
+                    containerSelector: '#' + panelConfig.id,
+                    panelLabel: panelConfig.label,
+                    onAction: handleDashboardPanelAction,
+                    isExpanded: function(currentPanel) {
+                        return !currentPanel.classList.contains('collapsed');
+                    },
+                    toggleExpand: function(action, currentPanelId) {
+                        setPanelCollapsed(currentPanelId, action === 'collapse');
+                    },
+                    toggleSiblings: false
+                });
+
+                panelMenu.render();
+                panelMenu.updateState();
+                setPanelCollapsed(panelConfig.id, panelConfig.collapsed);
+            });
+        }
+
+        function setupEventHandlers() {
+            const corporateBtn = document.getElementById('calculateCorporateBtn');
+            const fundingBtn = document.getElementById('calculateFundingBtn');
+            const nuclearBtn = document.getElementById('calculateNuclearBtn');
+            const exportBtn = document.getElementById('exportNuclearCsvBtn');
+            const selectorBtn = document.getElementById('sectorSelectorBtn');
+            const sectorPopup = document.getElementById('sectorPopup');
+            const sectorLayoutToggle = document.getElementById('sectorLayoutToggle');
+            const selectAllSectors = document.getElementById('selectAllSectors');
+            const clearSectors = document.getElementById('clearSectors');
+
+            if (corporateBtn) corporateBtn.addEventListener('click', calculateCorporateBenefits);
+            if (fundingBtn) fundingBtn.addEventListener('click', calculateFundingMix);
+            if (nuclearBtn) nuclearBtn.addEventListener('click', calculateNuclear);
+            if (exportBtn) exportBtn.addEventListener('click', exportToCSV);
+            if (sectorLayoutToggle) sectorLayoutToggle.addEventListener('click', function(event) {
+                event.stopPropagation();
+                toggleSectorLayout();
+            });
+
+            if (selectorBtn && sectorPopup) {
+                selectorBtn.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    sectorPopup.classList.toggle('open');
+                });
+            }
+
+            if (sectorPopup) {
+                sectorPopup.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                });
+            }
+
+            document.addEventListener('click', function(event) {
+                if (sectorPopup && selectorBtn && !event.target.closest('#sectorPopup') && !event.target.closest('#sectorSelectorBtn')) {
+                    sectorPopup.classList.remove('open');
+                }
+
+                const restoreButton = event.target.closest('[data-restore-panel]');
+                if (restoreButton) {
+                    restorePanel(restoreButton.getAttribute('data-restore-panel'));
+                }
+
+                const expandButton = event.target.closest('[data-expand-panel]');
+                if (expandButton) {
+                    setPanelCollapsed(expandButton.getAttribute('data-expand-panel'), false);
+                }
+            });
+
+            if (selectAllSectors) {
+                selectAllSectors.addEventListener('click', function() {
+                    productAreas.forEach(area => {
+                        const checkbox = document.getElementById('sector-' + area.id);
+                        if (checkbox) checkbox.checked = true;
+                    });
+                    updateSectorTriggerLabel();
+                    calculateCorporateBenefits();
+                });
+            }
+
+            if (clearSectors) {
+                clearSectors.addEventListener('click', function() {
+                    productAreas.forEach(area => {
+                        const checkbox = document.getElementById('sector-' + area.id);
+                        if (checkbox) checkbox.checked = false;
+                    });
+                    updateSectorTriggerLabel();
+                    calculateCorporateBenefits();
+                });
+            }
+
+            const sectorHolder = document.getElementById('sectorOptions');
+            if (sectorHolder) {
+                sectorHolder.addEventListener('change', function() {
+                    updateSectorTriggerLabel();
+                    calculateCorporateBenefits();
+                });
+            }
+        }
+
+        function initializeDashboard() {
+            renderSectorOptions();
+            setupEventHandlers();
+            setupPanelMenus();
+            calculateCorporateBenefits();
+            calculateFundingMix();
+            calculateNuclear();
+            renderRestoreChips();
+        }
+
+        if (typeof waitForElm === 'function') {
+            waitForElm('#populationServed').then(initializeDashboard);
+        } else if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeDashboard, { once: true });
+        } else {
+            initializeDashboard();
+        }
     </script>
 </body>
 </html>
