@@ -639,6 +639,7 @@
         .results-panel {
             display: grid;
             gap: 18px;
+            align-content: start;
         }
 
         .results-shell {
@@ -647,6 +648,7 @@
             background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(238, 247, 246, 0.95));
             border: 1px solid rgba(19, 42, 43, 0.09);
             box-shadow: 0 14px 26px rgba(16, 35, 39, 0.06);
+            align-self: start;
         }
 
         .results-shell h3 {
@@ -796,6 +798,69 @@
             color: #8f5d10;
         }
 
+        .scorecard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 12px;
+        }
+
+        .scorecard-card {
+            padding: 16px 17px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid rgba(19, 42, 43, 0.08);
+        }
+
+        .scorecard-topline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .scorecard-card strong {
+            display: block;
+            font-size: 0.98rem;
+            color: var(--ink-1);
+        }
+
+        .scorecard-score {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 46px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(15, 113, 115, 0.1);
+            color: var(--accent-1);
+            font-size: 0.88rem;
+            font-weight: 700;
+        }
+
+        .scorecard-card p {
+            margin: 0 0 12px;
+            color: var(--ink-2);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .scorecard-card input[type="range"] {
+            width: 100%;
+            margin: 0;
+            accent-color: var(--accent-1);
+        }
+
+        .scorecard-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 10px;
+            color: var(--ink-2);
+            font-size: 0.84rem;
+        }
+
         .sources-note {
             margin-top: 16px;
             padding: 14px 16px;
@@ -938,6 +1003,25 @@
             color: #ffd98d;
         }
 
+        .dark .scorecard-card {
+            background: rgba(12, 21, 28, 0.9);
+            border-color: rgba(146, 177, 191, 0.14);
+        }
+
+        .dark .scorecard-card strong {
+            color: #edf6f7;
+        }
+
+        .dark .scorecard-score {
+            background: rgba(90, 190, 182, 0.12);
+            color: #7ed9d3;
+        }
+
+        .dark .scorecard-card p,
+        .dark .scorecard-meta {
+            color: #b8ccd4;
+        }
+
         .dark .sources-note a {
             color: #7ed9d3;
         }
@@ -996,7 +1080,7 @@
             <div class="eyebrow"><span class="material-icons">water_drop</span>Water + energy sponsor studio</div>
             <h1>Corporate upside from financing&nbsp;pure&nbsp;water and resilient&nbsp;community&nbsp;energy</h1>
             <p>
-                Model how cleaner water, stronger local grids, and more reliable community infrastructure can expand product demand,
+                Model how cleaner water, robust energy grids, and fast reliable infrastructure can expand product demand,
                 cut operating risk, and improve sponsor returns across categories from soaps and shampoos to food, pharma, and packaged goods.
             </p>
             <div class="hero-highlights">
@@ -1065,250 +1149,250 @@
                     <div class="placeholder-pill"><span class="material-icons">science</span>Placeholder market-lift and energy coefficients are preloaded so results appear immediately.</div>
                 </div>
 
-                <div class="panel-body">
+                <div class="panel-body stack">
                     <div class="panel-grid">
-                        <div class="stack">
-                            <div class="subpanel">
-                                <h3>Community and sponsor assumptions</h3>
-                                <p class="section-copy">
-                                    Start with community scale, water quality improvement, sponsor penetration, and internal operating exposure.
-                                </p>
+                        <div class="subpanel">
+                            <h3>Community and sponsor assumptions</h3>
+                            <p class="section-copy">
+                                Start with community scale, water quality improvement, sponsor penetration, and internal operating exposure.
+                            </p>
 
-                                <div class="input-group">
-                                    <label for="populationServed">Population served <span class="unit">(people)</span></label>
-                                    <input type="number" id="populationServed" value="1200000" min="10000" step="10000">
-                                </div>
-
-                                <div class="input-group">
-                                    <label for="avgHouseholdSize">Average household size <span class="unit">(people/household)</span></label>
-                                    <input type="number" id="avgHouseholdSize" value="4.1" min="1.5" step="0.1">
-                                </div>
-
-                                <div class="input-group">
-                                    <label for="pureWaterCoverage">Pure-water service coverage <span class="unit">(%)</span></label>
-                                    <input type="number" id="pureWaterCoverage" value="82" min="10" max="100" step="1">
-                                </div>
-
-                                <div class="input-group">
-                                    <label for="dailyPureWaterOutput">Daily pure-water output <span class="unit">(m3/day)</span></label>
-                                    <input type="number" id="dailyPureWaterOutput" value="180000" min="1000" step="1000">
-                                </div>
-
-                                <div class="input-group">
-                                    <label for="targetLitersPerPerson">Target service level <span class="unit">(L/person/day)</span></label>
-                                    <input type="number" id="targetLitersPerPerson" value="110" min="20" step="5">
-                                </div>
-
-                                <div class="input-group">
-                                    <label for="hardnessReduction">Hardness / contamination reduction <span class="unit">(%)</span> <span class="meta-inline">Placeholder</span></label>
-                                    <input type="number" id="hardnessReduction" value="58" min="0" max="100" step="1">
-                                </div>
-
-                                <div class="input-group">
-                                    <label for="retailReach">Retail reach in served households <span class="unit">(%)</span> <span class="meta-inline">Placeholder</span></label>
-                                    <input type="number" id="retailReach" value="62" min="1" max="100" step="1">
-                                </div>
-
-                                <div class="input-group">
-                                    <label for="sponsorBrandShare">Sponsor category share <span class="unit">(%)</span> <span class="meta-inline">Placeholder</span></label>
-                                    <input type="number" id="sponsorBrandShare" value="18" min="1" max="100" step="1">
-                                </div>
-
-                                <div class="input-group">
-                                    <label for="communityIncomeLift">Income / basket-growth uplift <span class="unit">(%)</span> <span class="meta-inline">Placeholder</span></label>
-                                    <input type="number" id="communityIncomeLift" value="6" min="0" max="25" step="0.5">
-                                </div>
-
-                                <div class="input-group">
-                                    <label for="annualSponsorContribution">Annual sponsor financing contribution <span class="unit">($M/year)</span></label>
-                                    <input type="number" id="annualSponsorContribution" value="90" min="1" step="1">
-                                </div>
-
-                                <div class="input-group">
-                                    <label for="corporateDiscountRate">Sponsor discount rate <span class="unit">(%)</span> <span class="meta-inline">Placeholder</span></label>
-                                    <input type="number" id="corporateDiscountRate" value="10" min="1" max="30" step="0.5">
-                                </div>
-
-                                <div class="input-group">
-                                    <label for="corporateHorizon">Benefit horizon <span class="unit">(years)</span> <span class="meta-inline">Placeholder</span></label>
-                                    <input type="number" id="corporateHorizon" value="10" min="3" max="30" step="1">
-                                </div>
-
-                                <div class="info-box">
-                                    <strong>Why these fields matter:</strong> pure-water coverage changes product efficacy and willingness to buy more premium formulations;
-                                    energy reliability stabilizes retail refrigeration, pumps, warehousing, and sponsor-owned process lines.
-                                </div>
+                            <div class="input-group">
+                                <label for="populationServed">Population served <span class="unit">(people)</span></label>
+                                <input type="number" id="populationServed" value="1200000" min="10000" step="10000">
                             </div>
 
-                            <div class="subpanel">
-                                <h3>Product areas and operating leverage</h3>
-                                <p class="section-copy">
-                                    Choose the product families that matter to the sponsor, then estimate where water availability creates direct demand lift or manufacturing savings.
-                                </p>
+                            <div class="input-group">
+                                <label for="avgHouseholdSize">Average household size <span class="unit">(people/household)</span></label>
+                                <input type="number" id="avgHouseholdSize" value="4.1" min="1.5" step="0.1">
+                            </div>
 
-                                <div class="input-group">
-                                    <label for="sectorSelectorBtn">Product areas <span class="unit">(choose all that apply)</span></label>
-                                    <div class="popup-anchor">
-                                        <button type="button" class="select-trigger" id="sectorSelectorBtn">
-                                            <span>Select product areas</span>
-                                            <span class="material-icons">expand_more</span>
-                                        </button>
-                                        <div class="check-popup open" id="sectorPopup">
-                                            <div class="popup-topline">
-                                                <div class="popup-heading">
-                                                    <strong>Select sponsor-relevant product areas</strong>
-                                                    <button type="button" class="layout-toggle-btn" id="sectorLayoutToggle" title="Switch to column layout">
-                                                        <span>Rows</span>
-                                                        <span class="material-icons">view_week</span>
-                                                    </button>
-                                                </div>
-                                                <div class="popup-actions">
-                                                    <button type="button" class="mini-btn" id="selectAllSectors">Select all</button>
-                                                    <button type="button" class="mini-btn" id="clearSectors">Clear</button>
-                                                </div>
+                            <div class="input-group">
+                                <label for="pureWaterCoverage">Pure-water service coverage <span class="unit">(%)</span></label>
+                                <input type="number" id="pureWaterCoverage" value="82" min="10" max="100" step="1">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="dailyPureWaterOutput">Daily pure-water output <span class="unit">(m3/day)</span></label>
+                                <input type="number" id="dailyPureWaterOutput" value="180000" min="1000" step="1000">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="targetLitersPerPerson">Target service level <span class="unit">(L/person/day)</span></label>
+                                <input type="number" id="targetLitersPerPerson" value="110" min="20" step="5">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="hardnessReduction">Hardness / contamination reduction <span class="unit">(%)</span> <span class="meta-inline">Placeholder</span></label>
+                                <input type="number" id="hardnessReduction" value="58" min="0" max="100" step="1">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="retailReach">Retail reach in served households <span class="unit">(%)</span> <span class="meta-inline">Placeholder</span></label>
+                                <input type="number" id="retailReach" value="62" min="1" max="100" step="1">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="sponsorBrandShare">Sponsor category share <span class="unit">(%)</span> <span class="meta-inline">Placeholder</span></label>
+                                <input type="number" id="sponsorBrandShare" value="18" min="1" max="100" step="1">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="communityIncomeLift">Income / basket-growth uplift <span class="unit">(%)</span> <span class="meta-inline">Placeholder</span></label>
+                                <input type="number" id="communityIncomeLift" value="6" min="0" max="25" step="0.5">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="annualSponsorContribution">Annual sponsor financing contribution <span class="unit">($M/year)</span></label>
+                                <input type="number" id="annualSponsorContribution" value="90" min="1" step="1">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="corporateDiscountRate">Sponsor discount rate <span class="unit">(%)</span> <span class="meta-inline">Placeholder</span></label>
+                                <input type="number" id="corporateDiscountRate" value="10" min="1" max="30" step="0.5">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="corporateHorizon">Benefit horizon <span class="unit">(years)</span> <span class="meta-inline">Placeholder</span></label>
+                                <input type="number" id="corporateHorizon" value="10" min="3" max="30" step="1">
+                            </div>
+
+                            <div class="info-box">
+                                <strong>Why these fields matter:</strong> pure-water coverage changes product efficacy and willingness to buy more premium formulations;
+                                energy reliability stabilizes retail refrigeration, pumps, warehousing, and sponsor-owned process lines.
+                            </div>
+                        </div>
+
+                        <div class="results-shell">
+                            <h3>Sponsor benefit stack</h3>
+                            <div class="metric-list">
+                                <div class="metric-row">
+                                    <span class="label">Incremental category revenue</span>
+                                    <span class="value" id="corpRevenueLift">$0</span>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="label">Operating profit uplift</span>
+                                    <span class="value" id="corpMarginLift">$0</span>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="label">Process-water value</span>
+                                    <span class="value" id="corpProcessValue">$0</span>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="label">Retail uptime / cold-chain value</span>
+                                    <span class="value" id="corpRetailValue">$0</span>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="label">Brand-trust and market-development value</span>
+                                    <span class="value" id="corpBrandValue">$0</span>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="label">Carbon / compliance value</span>
+                                    <span class="value" id="corpCarbonValue">$0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-grid">
+                        <div class="subpanel">
+                            <h3>Product areas and operating leverage</h3>
+                            <p class="section-copy">
+                                Choose the product families that matter to the sponsor, then estimate where water availability creates direct demand lift or manufacturing savings.
+                            </p>
+
+                            <div class="input-group">
+                                <label for="sectorSelectorBtn">Product areas <span class="unit">(choose all that apply)</span></label>
+                                <div class="popup-anchor">
+                                    <button type="button" class="select-trigger" id="sectorSelectorBtn">
+                                        <span>Select product areas</span>
+                                        <span class="material-icons">expand_more</span>
+                                    </button>
+                                    <div class="check-popup open" id="sectorPopup">
+                                        <div class="popup-topline">
+                                            <div class="popup-heading">
+                                                <strong>Select sponsor-relevant product areas</strong>
+                                                <button type="button" class="layout-toggle-btn" id="sectorLayoutToggle" title="Switch to column layout">
+                                                    <span>Rows</span>
+                                                    <span class="material-icons">view_week</span>
+                                                </button>
                                             </div>
-                                            <div class="check-grid" id="sectorOptions"></div>
+                                            <div class="popup-actions">
+                                                <button type="button" class="mini-btn" id="selectAllSectors">Select all</button>
+                                                <button type="button" class="mini-btn" id="clearSectors">Clear</button>
+                                            </div>
                                         </div>
-                                        <div class="selector-help">
-                                            The industry checkboxes are already preloaded locally here. Use the button above to collapse or reopen the chooser after making selections.
-                                        </div>
+                                        <div class="check-grid" id="sectorOptions"></div>
                                     </div>
-                                </div>
-
-                                <div class="input-group">
-                                    <label for="internalProcessWaterNeed">Sponsor process-water demand <span class="unit">(m3/day)</span></label>
-                                    <input type="number" id="internalProcessWaterNeed" value="22000" min="0" step="500">
-                                </div>
-
-                                <div class="input-group">
-                                    <label for="processWaterSavingsPerM3">Process-water savings value <span class="unit">($/m3)</span> <span class="meta-inline">Placeholder</span></label>
-                                    <input type="number" id="processWaterSavingsPerM3" value="0.65" min="0" step="0.05">
-                                </div>
-
-                                <div class="input-group">
-                                    <label for="retailerSites">Retail / channel sites stabilized <span class="unit">(sites)</span></label>
-                                    <input type="number" id="retailerSites" value="4200" min="0" step="50">
-                                </div>
-
-                                <div class="input-group">
-                                    <label for="retailerValuePerMWh">Retail uptime value <span class="unit">($/MWh stabilized)</span> <span class="meta-inline">Placeholder</span></label>
-                                    <input type="number" id="retailerValuePerMWh" value="110" min="0" step="5">
-                                </div>
-
-                                <div class="input-group">
-                                    <label for="brandTrustValuePerHousehold">Brand-trust value <span class="unit">($/household/year)</span> <span class="meta-inline">Placeholder</span></label>
-                                    <input type="number" id="brandTrustValuePerHousehold" value="8" min="0" step="0.5">
-                                </div>
-
-                                <div class="input-group">
-                                    <label for="waterCapexPerM3Day">Water infrastructure capex <span class="unit">($/m3/day)</span> <span class="meta-inline">Placeholder</span></label>
-                                    <input type="number" id="waterCapexPerM3Day" value="1450" min="100" step="50">
-                                </div>
-
-                                <div class="input-group">
-                                    <label for="carbonValuePerMWh">Carbon / compliance value <span class="unit">($/MWh low-carbon)</span> <span class="meta-inline">Placeholder</span></label>
-                                    <input type="number" id="carbonValuePerMWh" value="18" min="0" step="1">
-                                    <div class="inline-note">
-                                        Placeholder coefficients embedded in the product and energy models are disclosed in the results narrative so it is obvious what should be replaced with sponsor data.
+                                    <div class="selector-help">
+                                        The industry checkboxes are already preloaded locally here. Use the button above to collapse or reopen the chooser after making selections.
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="subpanel">
-                                <h3>Blended energy portfolio</h3>
-                                <p class="section-copy">
-                                    Go broader than nuclear: mix renewables, thermal recovery, flexible backup, and advanced generation to see how resilient energy changes corporate value.
-                                </p>
+                            <div class="input-group">
+                                <label for="internalProcessWaterNeed">Sponsor process-water demand <span class="unit">(m3/day)</span></label>
+                                <input type="number" id="internalProcessWaterNeed" value="22000" min="0" step="500">
+                            </div>
 
-                                <div class="energy-grid">
-                                    <div class="energy-row">
-                                        <label for="energySolar">Solar PV <span class="unit">(MW)</span></label>
-                                        <input type="number" id="energySolar" value="120" min="0" step="5">
-                                        <div class="energy-meta">Capacity factor 24%<br>Capex $0.95M/MW</div>
-                                    </div>
-                                    <div class="energy-row">
-                                        <label for="energyWind">Onshore wind <span class="unit">(MW)</span></label>
-                                        <input type="number" id="energyWind" value="95" min="0" step="5">
-                                        <div class="energy-meta">Capacity factor 37%<br>Capex $1.45M/MW</div>
-                                    </div>
-                                    <div class="energy-row">
-                                        <label for="energyGeothermal">Geothermal <span class="unit">(MW)</span></label>
-                                        <input type="number" id="energyGeothermal" value="35" min="0" step="5">
-                                        <div class="energy-meta">Capacity factor 90%<br>Capex $4.8M/MW</div>
-                                    </div>
-                                    <div class="energy-row">
-                                        <label for="energyHydro">Small hydro <span class="unit">(MW)</span></label>
-                                        <input type="number" id="energyHydro" value="25" min="0" step="5">
-                                        <div class="energy-meta">Capacity factor 52%<br>Capex $3.4M/MW</div>
-                                    </div>
-                                    <div class="energy-row">
-                                        <label for="energyNuclear">SMR / nuclear retrofit <span class="unit">(MW)</span></label>
-                                        <input type="number" id="energyNuclear" value="40" min="0" step="5">
-                                        <div class="energy-meta">Capacity factor 92%<br>Capex $6.8M/MW</div>
-                                    </div>
-                                    <div class="energy-row">
-                                        <label for="energyWasteHeat">Industrial waste-heat recovery <span class="unit">(MW)</span></label>
-                                        <input type="number" id="energyWasteHeat" value="28" min="0" step="2">
-                                        <div class="energy-meta">Capacity factor 61%<br>Capex $1.2M/MW</div>
-                                    </div>
-                                    <div class="energy-row">
-                                        <label for="energyWasteToEnergy">Waste-to-energy / biogas <span class="unit">(MW)</span></label>
-                                        <input type="number" id="energyWasteToEnergy" value="18" min="0" step="2">
-                                        <div class="energy-meta">Capacity factor 74%<br>Capex $5.0M/MW</div>
-                                    </div>
-                                    <div class="energy-row">
-                                        <label for="energyGasBackup">Flexible gas backup <span class="unit">(MW)</span></label>
-                                        <input type="number" id="energyGasBackup" value="22" min="0" step="2">
-                                        <div class="energy-meta">Capacity factor 18%<br>Capex $1.1M/MW</div>
-                                    </div>
-                                </div>
+                            <div class="input-group">
+                                <label for="processWaterSavingsPerM3">Process-water savings value <span class="unit">($/m3)</span> <span class="meta-inline">Placeholder</span></label>
+                                <input type="number" id="processWaterSavingsPerM3" value="0.65" min="0" step="0.05">
+                            </div>
 
-                                <div class="action-row">
-                                    <button type="button" class="btn" id="calculateCorporateBtn"><span class="material-icons">calculate</span>Calculate corporate benefits</button>
+                            <div class="input-group">
+                                <label for="retailerSites">Retail / channel sites stabilized <span class="unit">(sites)</span></label>
+                                <input type="number" id="retailerSites" value="4200" min="0" step="50">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="retailerValuePerMWh">Retail uptime value <span class="unit">($/MWh stabilized)</span> <span class="meta-inline">Placeholder</span></label>
+                                <input type="number" id="retailerValuePerMWh" value="110" min="0" step="5">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="brandTrustValuePerHousehold">Brand-trust value <span class="unit">($/household/year)</span> <span class="meta-inline">Placeholder</span></label>
+                                <input type="number" id="brandTrustValuePerHousehold" value="8" min="0" step="0.5">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="waterCapexPerM3Day">Water infrastructure capex <span class="unit">($/m3/day)</span> <span class="meta-inline">Placeholder</span></label>
+                                <input type="number" id="waterCapexPerM3Day" value="1450" min="100" step="50">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="carbonValuePerMWh">Carbon / compliance value <span class="unit">($/MWh low-carbon)</span> <span class="meta-inline">Placeholder</span></label>
+                                <input type="number" id="carbonValuePerMWh" value="18" min="0" step="1">
+                                <div class="inline-note">
+                                    Placeholder coefficients embedded in the product and energy models are disclosed in the results narrative so it is obvious what should be replaced with sponsor data.
                                 </div>
                             </div>
                         </div>
 
-                        <div class="results-panel">
-                            <div class="results-shell">
-                                <h3>Sponsor benefit stack</h3>
-                                <div class="metric-list">
-                                    <div class="metric-row">
-                                        <span class="label">Incremental category revenue</span>
-                                        <span class="value" id="corpRevenueLift">$0</span>
-                                    </div>
-                                    <div class="metric-row">
-                                        <span class="label">Operating profit uplift</span>
-                                        <span class="value" id="corpMarginLift">$0</span>
-                                    </div>
-                                    <div class="metric-row">
-                                        <span class="label">Process-water value</span>
-                                        <span class="value" id="corpProcessValue">$0</span>
-                                    </div>
-                                    <div class="metric-row">
-                                        <span class="label">Retail uptime / cold-chain value</span>
-                                        <span class="value" id="corpRetailValue">$0</span>
-                                    </div>
-                                    <div class="metric-row">
-                                        <span class="label">Brand-trust and market-development value</span>
-                                        <span class="value" id="corpBrandValue">$0</span>
-                                    </div>
-                                    <div class="metric-row">
-                                        <span class="label">Carbon / compliance value</span>
-                                        <span class="value" id="corpCarbonValue">$0</span>
-                                    </div>
+                        <div class="results-shell">
+                            <h3>Top product-area impacts</h3>
+                            <div id="sectorBreakdown" class="sector-breakdown"></div>
+                        </div>
+                    </div>
+
+                    <div class="panel-grid">
+                        <div class="subpanel">
+                            <h3>Blended energy portfolio</h3>
+                            <p class="section-copy">
+                                Go broader than nuclear: mix renewables, thermal recovery, flexible backup, and advanced generation to see how resilient energy changes corporate value.
+                            </p>
+
+                            <div class="energy-grid">
+                                <div class="energy-row">
+                                    <label for="energySolar">Solar PV <span class="unit">(MW)</span></label>
+                                    <input type="number" id="energySolar" value="120" min="0" step="5">
+                                    <div class="energy-meta">Capacity factor 24%<br>Capex $0.95M/MW</div>
+                                </div>
+                                <div class="energy-row">
+                                    <label for="energyWind">Onshore wind <span class="unit">(MW)</span></label>
+                                    <input type="number" id="energyWind" value="95" min="0" step="5">
+                                    <div class="energy-meta">Capacity factor 37%<br>Capex $1.45M/MW</div>
+                                </div>
+                                <div class="energy-row">
+                                    <label for="energyGeothermal">Geothermal <span class="unit">(MW)</span></label>
+                                    <input type="number" id="energyGeothermal" value="35" min="0" step="5">
+                                    <div class="energy-meta">Capacity factor 90%<br>Capex $4.8M/MW</div>
+                                </div>
+                                <div class="energy-row">
+                                    <label for="energyHydro">Small hydro <span class="unit">(MW)</span></label>
+                                    <input type="number" id="energyHydro" value="25" min="0" step="5">
+                                    <div class="energy-meta">Capacity factor 52%<br>Capex $3.4M/MW</div>
+                                </div>
+                                <div class="energy-row">
+                                    <label for="energyNuclear">SMR / nuclear retrofit <span class="unit">(MW)</span></label>
+                                    <input type="number" id="energyNuclear" value="40" min="0" step="5">
+                                    <div class="energy-meta">Capacity factor 92%<br>Capex $6.8M/MW</div>
+                                </div>
+                                <div class="energy-row">
+                                    <label for="energyWasteHeat">Industrial waste-heat recovery <span class="unit">(MW)</span></label>
+                                    <input type="number" id="energyWasteHeat" value="28" min="0" step="2">
+                                    <div class="energy-meta">Capacity factor 61%<br>Capex $1.2M/MW</div>
+                                </div>
+                                <div class="energy-row">
+                                    <label for="energyWasteToEnergy">Waste-to-energy / biogas <span class="unit">(MW)</span></label>
+                                    <input type="number" id="energyWasteToEnergy" value="18" min="0" step="2">
+                                    <div class="energy-meta">Capacity factor 74%<br>Capex $5.0M/MW</div>
+                                </div>
+                                <div class="energy-row">
+                                    <label for="energyGasBackup">Flexible gas backup <span class="unit">(MW)</span></label>
+                                    <input type="number" id="energyGasBackup" value="22" min="0" step="2">
+                                    <div class="energy-meta">Capacity factor 18%<br>Capex $1.1M/MW</div>
                                 </div>
                             </div>
 
-                            <div class="results-shell">
-                                <h3>Top product-area impacts</h3>
-                                <div id="sectorBreakdown" class="sector-breakdown"></div>
+                            <div class="action-row">
+                                <button type="button" class="btn" id="calculateCorporateBtn"><span class="material-icons">calculate</span>Calculate corporate benefits</button>
                             </div>
+                        </div>
 
-                            <div class="results-shell">
-                                <h3>Sponsor narrative</h3>
-                                <div id="corporateNarrative" class="metric-list"></div>
-                            </div>
+                        <div class="results-shell">
+                            <h3>Sponsor narrative</h3>
+                            <div id="corporateNarrative" class="metric-list"></div>
                         </div>
                     </div>
                 </div>
@@ -1464,7 +1548,7 @@
                         <span class="detail">Economic performance, employment, and social stability remain foundational signals in the literature.</span>
                     </div>
                     <div class="summary-card">
-                        <span class="label">High-quality development signals</span>
+                        <span class="label">High-quality Dev</span>
                         <span class="value">Innovation + green + debt discipline</span>
                         <span class="detail">Recent framing puts more emphasis on industrial upgrading, environmental outcomes, and risk control.</span>
                     </div>
@@ -1488,25 +1572,13 @@
                 <div class="panel-body">
                     <div class="stack">
                         <div class="subpanel">
-                            <h3>Documented or well-supported indicator clusters</h3>
-                            <div class="governance-grid">
-                                <div class="governance-card"><strong>GDP and industrial output</strong><span>Classic growth signals: output expansion, industrial value added, and tax-base growth.</span></div>
-                                <div class="governance-card"><strong>Employment and wage growth</strong><span>Urban job creation, stable labor markets, and household income improvements.</span></div>
-                                <div class="governance-card"><strong>Fiscal performance</strong><span>Revenue collection, investment efficiency, and better-quality local fiscal capacity.</span></div>
-                                <div class="governance-card"><strong>Social stability</strong><span>Low unrest, effective petition management, public order, and visible administrative control.</span></div>
-                                <div class="governance-card"><strong>Innovation output</strong><span>Patents, R&amp;D intensity, high-tech firms, and industrial upgrading into strategic sectors.</span></div>
-                                <div class="governance-card"><strong>Green development</strong><span>Pollution reduction, carbon intensity control, cleaner air and water, and renewable-energy expansion.</span></div>
-                                <div class="governance-card"><strong>Debt and risk control</strong><span>Containing local financial risk, stabilizing property exposure, and avoiding major fiscal accidents.</span></div>
-                                <div class="governance-card"><strong>Infrastructure delivery</strong><span>Transport, utilities, logistics, housing completion, and major project execution speed.</span></div>
-                                <div class="governance-card"><strong>Industrial policy execution</strong><span>Converting national priorities into local industrial clusters and visible firm formation.</span></div>
-                                <div class="governance-card"><strong>Energy transition execution</strong><span>Renewable buildout, grid reliability, electrification, and low-carbon manufacturing capacity.</span></div>
-                                <div class="governance-card"><strong>Public service quality</strong><span>Education, healthcare access, emergency readiness, and service-delivery competence.</span></div>
-                                <div class="governance-card"><strong>Food and resource security</strong><span>Water reliability, land protection, logistics resilience, and supply security under stress.</span></div>
-                            </div>
+                            <h3>Performance Indicators</h3>
+                            <p class="section-copy">Move each slider to reflect how strongly a mayor is currently delivering against these documented or well-supported indicator clusters. The scorecard is cached in your browser and restored on reload.</p>
+                            <div id="performanceIndicatorGrid" class="scorecard-grid"></div>
                         </div>
 
                         <div class="subpanel">
-                            <h3>BYD-style flagship company flywheel</h3>
+                            <h3>Flagship company flywheel</h3>
                             <div class="governance-grid">
                                 <div class="governance-card inference"><strong>Flagship-firm prestige</strong><span>Inference: if a city helps scale a breakout EV or battery champion, the mayor can be seen as unusually effective at industrial strategy.</span></div>
                                 <div class="governance-card inference"><strong>Promotion narrative</strong><span>The story becomes: this mayor did not just manage growth, but created a nationally significant sector winner.</span></div>
@@ -1537,7 +1609,7 @@
                                 Sources:
                                 <a href="https://www.sciencedirect.com/science/article/pii/S0047272704001355" target="_blank" rel="noopener">Li &amp; Zhou on political turnover and economic performance</a>,
                                 <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2452482" target="_blank" rel="noopener">Landry, Lu &amp; Duan on political selection and performance</a>,
-                                <a href="https://english.www.gov.cn/news/202501/03/content_WS6777ea61c6d0868f4e8ee7ef.html" target="_blank" rel="noopener">State Council / Xinhua on high-quality development</a>,
+                                <a href="https://english.www.gov.cn/news/202501/03/content_WS6777ea61c6d0868f4e8ee7ef.html" target="_blank" rel="noopener">State Council / high-quality development</a>,
                                 <a href="https://english.www.gov.cn/policies/featured/202503/07/content_WS67cb05cbc6d0868f4e8f093d.html" target="_blank" rel="noopener">2025 government work report goals and tasks</a>,
                                 <a href="https://www.sciencedirect.com/science/article/pii/S0959652625002057" target="_blank" rel="noopener">Research on promotion incentives and renewable-energy development</a>.
                             </div>
@@ -1590,6 +1662,7 @@
                 </div>
 
                 <div class="panel-body">
+                    <h2>DEEP Nuclear</h2>
                     <div class="nuclear-layout">
                         <div class="subpanel">
                             <h3>Plant configuration</h3>
@@ -1760,6 +1833,22 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
         const DAYS_PER_YEAR = 365;
         const SECONDS_PER_HOUR = 3600;
         const HOURS_PER_YEAR = HOURS_PER_DAY * DAYS_PER_YEAR;
+        const PERFORMANCE_SCORECARD_STORAGE_KEY = 'deepNuclearPerformanceScorecardV1';
+
+        const performanceIndicators = [
+            { id: 'gdpIndustrialOutput', label: 'GDP and industrial output', description: 'Classic growth signals: output expansion, industrial value added, and tax-base growth.', defaultValue: 74 },
+            { id: 'employmentWages', label: 'Employment and wage growth', description: 'Urban job creation, stable labor markets, and household income improvements.', defaultValue: 71 },
+            { id: 'fiscalPerformance', label: 'Fiscal performance', description: 'Revenue collection, investment efficiency, and better-quality local fiscal capacity.', defaultValue: 66 },
+            { id: 'socialStability', label: 'Social stability', description: 'Low unrest, effective petition management, public order, and visible administrative control.', defaultValue: 77 },
+            { id: 'innovationOutput', label: 'Innovation output', description: 'Patents, R&D intensity, high-tech firms, and industrial upgrading into strategic sectors.', defaultValue: 73 },
+            { id: 'greenDevelopment', label: 'Green development', description: 'Pollution reduction, carbon intensity control, cleaner air and water, and renewable-energy expansion.', defaultValue: 68 },
+            { id: 'debtRiskControl', label: 'Debt and risk control', description: 'Containing local financial risk, stabilizing property exposure, and avoiding major fiscal accidents.', defaultValue: 61 },
+            { id: 'infrastructureDelivery', label: 'Infrastructure delivery', description: 'Transport, utilities, logistics, housing completion, and major project execution speed.', defaultValue: 76 },
+            { id: 'industrialPolicyExecution', label: 'Industrial policy execution', description: 'Converting national priorities into local industrial clusters and visible firm formation.', defaultValue: 72 },
+            { id: 'energyTransition', label: 'Energy transition execution', description: 'Renewable buildout, grid reliability, electrification, and low-carbon manufacturing capacity.', defaultValue: 69 },
+            { id: 'publicServiceQuality', label: 'Public service quality', description: 'Education, healthcare access, emergency readiness, and service-delivery competence.', defaultValue: 67 },
+            { id: 'foodResourceSecurity', label: 'Food and resource security', description: 'Water reliability, land protection, logistics resilience, and supply security under stress.', defaultValue: 65 }
+        ];
 
         const productAreas = [
             { id: 'soap', label: 'Soaps and handwash', annualSpend: 46, waterSensitivity: 1.05, energySensitivity: 0.15, margin: 0.27, brandFactor: 0.65, growthSensitivity: 0.22, note: 'Cleaner water improves lather, rinse quality, and repeat purchase.' },
@@ -1793,6 +1882,7 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
         let calculationResults = null;
         let corporateResults = null;
         let sectorLayoutMode = 'rows';
+        let performanceScorecard = {};
 
         function getNumber(id, fallback) {
             const element = document.getElementById(id);
@@ -1840,6 +1930,69 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
         function setHtml(id, value) {
             const element = document.getElementById(id);
             if (element) element.innerHTML = value;
+        }
+
+        function getScoreBand(value) {
+            if (value >= 85) return 'Exceptional';
+            if (value >= 70) return 'Strong';
+            if (value >= 55) return 'Developing';
+            if (value >= 40) return 'Fragile';
+            return 'Weak';
+        }
+
+        function loadPerformanceScorecard() {
+            let cached = {};
+            try {
+                cached = JSON.parse(window.localStorage?.getItem(PERFORMANCE_SCORECARD_STORAGE_KEY) || '{}') || {};
+            } catch (error) {
+                cached = {};
+            }
+
+            performanceScorecard = {};
+            performanceIndicators.forEach(indicator => {
+                const rawValue = Number(cached[indicator.id]);
+                performanceScorecard[indicator.id] = Number.isFinite(rawValue) ? clamp(rawValue, 0, 100) : indicator.defaultValue;
+            });
+        }
+
+        function savePerformanceScorecard() {
+            try {
+                window.localStorage?.setItem(PERFORMANCE_SCORECARD_STORAGE_KEY, JSON.stringify(performanceScorecard));
+            } catch (error) {
+                // Ignore storage failures and keep UI responsive.
+            }
+        }
+
+        function renderPerformanceIndicators() {
+            const holder = document.getElementById('performanceIndicatorGrid');
+            if (!holder) return;
+
+            holder.innerHTML = performanceIndicators.map(indicator => {
+                const score = performanceScorecard[indicator.id];
+                return `
+                    <div class="scorecard-card">
+                        <div class="scorecard-topline">
+                            <strong>${indicator.label}</strong>
+                            <span class="scorecard-score" id="scorecardValue-${indicator.id}">${score}</span>
+                        </div>
+                        <p>${indicator.description}</p>
+                        <input type="range" min="0" max="100" step="1" value="${score}" data-scorecard-id="${indicator.id}">
+                        <div class="scorecard-meta">
+                            <span>0</span>
+                            <span id="scorecardBand-${indicator.id}">${getScoreBand(score)}</span>
+                            <span>100</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updatePerformanceIndicator(indicatorId, value) {
+            performanceScorecard[indicatorId] = clamp(Number(value), 0, 100);
+            const numericValue = performanceScorecard[indicatorId];
+            setText('scorecardValue-' + indicatorId, String(numericValue));
+            setText('scorecardBand-' + indicatorId, getScoreBand(numericValue));
+            savePerformanceScorecard();
         }
 
         function getSelectedProductAreas() {
@@ -2580,10 +2733,21 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
                     calculateCorporateBenefits();
                 });
             }
+
+            const performanceHolder = document.getElementById('performanceIndicatorGrid');
+            if (performanceHolder) {
+                performanceHolder.addEventListener('input', function(event) {
+                    const slider = event.target.closest('input[type="range"][data-scorecard-id]');
+                    if (!slider) return;
+                    updatePerformanceIndicator(slider.getAttribute('data-scorecard-id'), slider.value);
+                });
+            }
         }
 
         function initializeDashboard() {
+            loadPerformanceScorecard();
             renderSectorOptions();
+            renderPerformanceIndicators();
             setupEventHandlers();
             setupPanelMenus();
             calculateCorporateBenefits();
