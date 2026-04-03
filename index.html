@@ -37,7 +37,6 @@
         .dashboard-shell {
             max-width: 1500px;
             margin: 0 auto;
-            padding: 34px 22px 60px;
         }
 
         .hero {
@@ -82,7 +81,9 @@
         .hero h1 {
             max-width: 980px;
             margin: 0;
-            font-size: clamp(2.1rem, 4.8cqw, 4rem);
+            font-size: clamp(2.1rem, 4.8cqw, 34px);
+            color: #fff;
+            font-color: #fff;
             line-height: 1.02;
             letter-spacing: -0.03em;
         }
@@ -990,10 +991,10 @@
     <link type="text/css" rel="stylesheet" href="/localsite/css/base.css" id="/localsite/css/base.css" />
     <script type="text/javascript" src="/localsite/js/localsite.js?showheader=true&showsearch=true"></script>
 
-    <div class="dashboard-shell">
+    <div class="dashboard-shell contentpadding">
         <div class="hero">
             <div class="eyebrow"><span class="material-icons">water_drop</span>Water + energy sponsor studio</div>
-            <h1>Corporate upside from financing pure water and resilient community energy</h1>
+            <h1>Corporate upside from financing&nbsp;pure&nbsp;water and resilient&nbsp;community&nbsp;energy</h1>
             <p>
                 Model how cleaner water, stronger local grids, and more reliable community infrastructure can expand product demand,
                 cut operating risk, and improve sponsor returns across categories from soaps and shampoos to food, pharma, and packaged goods.
@@ -1012,8 +1013,8 @@
                     <span class="value" id="heroEnergyMix">0 MWh/yr</span>
                 </div>
                 <div class="hero-chip">
-                    <span class="label">Deep nuclear reference</span>
-                    <span class="value" id="heroNuclearRef">$0 annual revenue</span>
+                    <span class="label">Annual water revenue</span>
+                    <span class="value" id="heroNuclearRef">$0 annually</span>
                 </div>
             </div>
         </div>
@@ -1031,7 +1032,7 @@
                     <div class="panel-kicker"><span class="material-icons">business_center</span>Top calculator</div>
                     <h2>Corporate Benefit Calculator</h2>
                     <p>
-                        Estimate the business case for sponsors that help finance clean-water infrastructure plus a blended community energy stack.
+                        Estimate the business case for sponsors that help finance clean-water infrastructure and a blended community energy stack.
                         Product-sector uplift coefficients, capacity factors, and capex defaults below are placeholders and should be replaced with sponsor-specific data.
                     </p>
                 </div>
@@ -1450,9 +1451,9 @@
             <section id="governancePanel" class="panel-shell expanded">
                 <div class="panel-head">
                     <div class="panel-kicker"><span class="material-icons">workspace_premium</span>Mayor incentive lens</div>
-                    <h2>China-Style Mayor Success Indicators, Plus Creative Extensions</h2>
+                    <h2>Local-Officials Scorecard</h2>
                     <p>
-                        This panel translates the idea of local-official incentives into a city scorecard. The first set reflects themes documented in research and official high-quality-development language in China. The second set adds creative extensions for water-energy transformation, regional branding, and flagship-company creation.
+                        This panel presents local-official incentives as a city scorecard. The first set focuses on research and high-quality-development. The second set adds ratings for water-energy transformation, regional branding, and company incubation.
                     </p>
                 </div>
 
@@ -1548,7 +1549,7 @@
             <section id="nuclearPanel" class="panel-shell collapsed">
                 <div class="panel-head">
                     <div class="panel-kicker"><span class="material-icons">nuclear</span>Reference scenario</div>
-                    <h2>Deep Nuclear Desalination Calculator</h2>
+                    <h2>Water Output Calculator</h2>
                     <p>
                         This panel preserves the deeper reactor retrofit model. It is collapsed by default so the broader sponsor model stays on top, while a compact summary of water output and finance stays visible.
                     </p>
@@ -1748,7 +1749,7 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
         </div>
 
         <div class="footer-attribution">
-            <strong>Desalination Economic Evaluation Program (DEEP)</strong> International Atomic Energy Agency<br>
+            <strong>Desalination Economic Evaluation Program (DEEP)</strong><br>
             International Atomic Energy Agency (IAEA)
         </div>
     </div>
@@ -2301,7 +2302,7 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             setText('nuclearSummaryCost', formatCurrency(totalProjectCost));
             setText('nuclearSummaryPayback', formatNumber(paybackPeriod) + ' years');
             setText('nuclearSummaryHint', formatNumber(wasteHeatMW) + ' MWth recovered at ' + availability.toFixed(0) + '% availability.');
-            setText('heroNuclearRef', formatCurrency(annualRevenue) + ' annual revenue');
+            setText('heroNuclearRef', formatCurrency(annualRevenue) + ' annually');
             setText('nuclearCollapsedCopy', 'The current deep-nuclear reference case produces ' + formatNumber(dailyWaterProductionAdjusted) + ' m3/day, carries a total modeled cost of ' + formatCurrency(totalProjectCost) + ', and reaches payback in ' + formatNumber(paybackPeriod) + ' years.');
 
             calculationResults = {
