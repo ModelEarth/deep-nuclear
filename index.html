@@ -352,6 +352,8 @@
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.08);
             filter: blur(10px);
+            pointer-events: none;
+            z-index: 0;
         }
 
         .hero-topbar {
@@ -360,6 +362,8 @@
             justify-content: flex-start;
             gap: 12px;
             margin: 0 0 14px;
+            position: relative;
+            z-index: 1;
         }
 
         .eyebrow {
@@ -388,6 +392,8 @@
             align-items: flex-start;
             justify-content: space-between;
             gap: 24px;
+            position: relative;
+            z-index: 1;
         }
 
         #studioLeft {
@@ -449,17 +455,37 @@
         }
 
         .energy-simple-item {
-            display: flex;
+            display: grid;
+            grid-template-columns: 18px 18px minmax(0, 1fr);
             align-items: center;
             gap: 10px;
             padding: 9px 10px;
             border-radius: 16px;
             background: rgba(255, 255, 255, 0.1);
+            cursor: grab;
         }
 
-        .energy-simple-item input {
+        .energy-simple-item.energy-row-unchecked {
+            opacity: 0.72;
+        }
+
+        .energy-simple-checkbox,
+        .energy-row-checkbox {
             width: auto;
             margin: 0;
+        }
+
+        .energy-drag-handle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.58);
+            cursor: grab;
+            user-select: none;
+        }
+
+        .energy-drag-handle .material-icons {
+            font-size: 18px;
         }
 
         .energy-simple-copy {
@@ -485,8 +511,34 @@
 
         .energy-simple-actions {
             display: flex;
-            justify-content: flex-end;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
             margin-top: 10px;
+        }
+
+        .energy-simple-unlock {
+            color: rgba(255, 255, 255, 0.84);
+            font-size: 0.86rem;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+        }
+
+        .energy-simple-item.dragging,
+        .energy-row.dragging {
+            opacity: 0.5;
+        }
+
+        .energy-drop-target {
+            outline: 2px dashed rgba(15, 113, 115, 0.45);
+            outline-offset: 2px;
+        }
+
+        .energy-placeholder-row {
+            cursor: default;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px dashed rgba(255, 255, 255, 0.18);
         }
 
         #heroEnergyMixLink {
@@ -565,6 +617,27 @@
             color: var(--ink-1);
             text-decoration: none;
             font-weight: 600;
+        }
+
+        .subpanel a,
+        .results-shell a,
+        .proposal-summary a,
+        .sources-note a,
+        .metric-row a {
+            color: inherit;
+        }
+
+        .subpanel a:hover,
+        .subpanel a:focus-visible,
+        .results-shell a:hover,
+        .results-shell a:focus-visible,
+        .proposal-summary a:hover,
+        .proposal-summary a:focus-visible,
+        .sources-note a:hover,
+        .sources-note a:focus-visible,
+        .metric-row a:hover,
+        .metric-row a:focus-visible {
+            color: inherit;
         }
 
         .restore-bar {
@@ -646,9 +719,10 @@
             text-transform: uppercase;
         }
 
-        .panel-head h2 {
+        .large-h2, .panel-grid h2, .dashboard-stack h2, .panel-body h2 {
             margin: 0;
-            font-size: clamp(1.6rem, 3.2cqw, 2.6rem);
+            font-sizeX: clamp(1.6rem, 3.2cqw, 2.6rem);
+            font-size: 38px;
             line-height: 1.06;
             letter-spacing: -0.03em;
         }
@@ -819,7 +893,7 @@
 
         .subpanel h2.section-title {
             margin: 0 0 8px;
-            font-size: clamp(1.45rem, 2.8cqw, 2.05rem);
+            font-sizeX: clamp(1.45rem, 2.8cqw, 2.05rem);
             line-height: 1.05;
             letter-spacing: -0.03em;
             color: var(--ink-1);
@@ -1056,20 +1130,26 @@
 
         .energy-row {
             display: grid;
-            grid-template-columns: minmax(220px, 1.2fr) 110px 34px minmax(120px, 0.8fr);
+            grid-template-columns: 18px 18px minmax(220px, 1.2fr) 110px 34px minmax(120px, 0.8fr);
             gap: 12px;
             align-items: center;
             padding: 12px 14px;
             border-radius: 18px;
             background: rgba(245, 248, 248, 0.96);
             border: 1px solid rgba(19, 42, 43, 0.08);
+            cursor: grab;
         }
 
-        .energy-row label {
+        .energy-row.energy-row-unchecked {
+            opacity: 0.7;
+        }
+
+        .energy-row-main {
             display: flex;
             align-items: center;
             gap: 10px;
             font-size: 0.98rem;
+            min-width: 0;
         }
 
         .energy-share {
@@ -1083,7 +1163,28 @@
             min-width: 0;
         }
 
-        .energy-row input {
+        .energy-name-editor {
+            display: inline-block;
+            min-width: 0;
+            padding-left: 8px;
+            line-height: 1.35;
+            cursor: text;
+            box-shadow: inset 0 0 0 rgba(15, 113, 115, 0);
+            transition: box-shadow 0.18s ease, background 0.18s ease;
+        }
+
+        .energy-name-editor:hover {
+            box-shadow: inset 1px 0 0 rgba(15, 113, 115, 0.46);
+        }
+
+        .energy-name-editor:focus {
+            outline: none;
+            background: rgba(15, 113, 115, 0.08);
+            box-shadow: inset 1px 0 0 rgba(15, 113, 115, 0.72);
+            border-radius: 8px;
+        }
+
+        .energy-row input[type="number"] {
             margin: 0;
             width: 100%;
             text-align: right;
@@ -1123,11 +1224,6 @@
             font-size: 1rem;
             font-weight: 700;
             box-shadow: 0 18px 30px rgba(15, 113, 115, 0.2);
-        }
-
-        .btn.secondary {
-            background: linear-gradient(135deg, #ed8f45 0%, #c4602e 100%);
-            box-shadow: 0 18px 30px rgba(196, 96, 46, 0.2);
         }
 
         .results-panel {
@@ -1243,6 +1339,43 @@
         .results-block h3 {
             margin: 0 0 14px;
             color: #0c5f6f;
+        }
+
+        .results-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .results-title-row h3 {
+            margin: 0;
+        }
+
+        .formula-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border: 0;
+            border-radius: 999px;
+            background: rgba(12, 95, 111, 0.12);
+            color: #0c5f6f;
+            cursor: pointer;
+        }
+
+        .formula-toggle .material-icons {
+            font-size: 20px;
+        }
+
+        .formula-box[hidden] {
+            display: none;
+        }
+
+        .results-block .formula-box {
+            margin: 0 0 14px;
         }
 
         .proposal-summary {
@@ -1480,6 +1613,20 @@
             color: #89ecf7;
         }
 
+        .dark .energy-placeholder-row {
+            background: rgba(10, 19, 25, 0.82);
+            border-color: rgba(126, 217, 211, 0.2);
+        }
+
+        .dark .energy-name-editor:hover {
+            box-shadow: inset 1px 0 0 rgba(126, 217, 211, 0.5);
+        }
+
+        .dark .energy-name-editor:focus {
+            background: rgba(126, 217, 211, 0.12);
+            box-shadow: inset 1px 0 0 rgba(126, 217, 211, 0.8);
+        }
+
         .dark .formula-box {
             background: rgba(80, 59, 10, 0.36);
             border-color: rgba(231, 205, 125, 0.34);
@@ -1686,8 +1833,7 @@
                 <nav class="rail-nav" aria-label="Section navigation">
                     <a class="rail-link" href="#studio" data-nav-target="studio"><span class="material-icons">auto_awesome</span><span class="rail-label">Studio</span></a>
                     <a class="rail-link" href="#benefits" data-nav-target="benefits"><span class="material-icons">business_center</span><span class="rail-label">Benefits</span></a>
-                    <a class="rail-link" href="#specs" data-nav-target="specs"><span class="material-icons">tune</span><span class="rail-label">Specs</span></a>
-                    <a class="rail-link" href="#products" data-nav-target="products"><span class="material-icons">inventory_2</span><span class="rail-label">Products</span></a>
+                    <a class="rail-link" href="#products" data-nav-target="products"><span class="material-icons">inventory_2</span><span class="rail-label">Product</span></a>
                     <a class="rail-link" href="#energyMix" data-nav-target="energyMix"><span class="material-icons">bolt</span><span class="rail-label">Energy Mix</span></a>
                     <a class="rail-link" href="#contributors" data-nav-target="contributors"><span class="material-icons">groups_3</span><span class="rail-label">Contributors</span></a>
                     <a class="rail-link" href="#deployment" data-nav-target="deployment"><span class="material-icons">construction</span><span class="rail-label">Deployment</span></a>
@@ -1761,7 +1907,7 @@
                     <h2>Corporate Benefit Calculator</h2>
                     <p>
                         Estimate the business case for sponsors that help finance clean-water infrastructure and a blended community energy stack.
-                        Product-sector uplift coefficients, capacity factors, and capex defaults below are placeholders and should be replaced with sponsor-specific data.
+                        Product-sector uplift coefficients, capacity factors, and capital expenditure (capex) defaults below are placeholders and should be replaced with sponsor-specific data.
                     </p>
                 </div>
 
@@ -1907,8 +2053,10 @@
                     </div>
 
                     <div class="panel-grid">
-                        <div id="products" class="subpanel nav-target">
-                            <h2 class="section-title">Products</h2>
+                        <div id="products" class="subpanelX nav-target">
+                            <div class="panel-headX">
+                                <h2 class="section-title">Products</h2>
+                            </div>
                             <h3>Product areas and operating leverage</h3>
                             <p class="section-copy">
                                 Choose the product families that matter to the sponsor, then estimate where water availability creates direct demand lift or manufacturing savings.
@@ -1969,7 +2117,7 @@
                             </div>
 
                             <div class="input-group">
-                                <label for="waterCapexPerM3Day">Water infrastructure capex <span class="unit">($/m3/day)</span> <span class="meta-inline">Placeholder</span></label>
+                                <label for="waterCapexPerM3Day">Water infrastructure capital expenditure (capex) <span class="unit">($/m3/day)</span> <span class="meta-inline">Placeholder</span></label>
                                 <input type="number" id="waterCapexPerM3Day" value="1450" min="100" step="50">
                             </div>
 
@@ -1990,61 +2138,14 @@
 
 	                    <div id="energyMix" class="subpanel nav-target">
 	                        <h2 class="section-title">Energy Mix</h2>
-	                        <h3>Blended energy portfolio</h3>
+                            <p>
+    	                        <h3>Blended energy portfolio</h3>
+                            </p>
 	                        <p class="section-copy">
 	                            Renewables, thermal recovery, flexible backup, and advanced generation to see how resilient energy changes corporate value.
                         </p>
 
-	                        <div class="energy-grid">
-	                            <div class="energy-row">
-	                                <label for="energySolar"><span class="energy-share" id="energySolarShare">0%</span><span class="energy-label-name">Solar PV</span></label>
-	                                <input type="number" id="energySolar" value="120" min="0" step="5">
-	                                <span class="energy-unit">MW</span>
-	                                <div class="energy-meta">Capacity factor 24%<br>Capex $0.95M/MW</div>
-	                            </div>
-	                            <div class="energy-row">
-	                                <label for="energyWind"><span class="energy-share" id="energyWindShare">0%</span><span class="energy-label-name">Onshore wind</span></label>
-	                                <input type="number" id="energyWind" value="95" min="0" step="5">
-	                                <span class="energy-unit">MW</span>
-	                                <div class="energy-meta">Capacity factor 37%<br>Capex $1.45M/MW</div>
-	                            </div>
-	                            <div class="energy-row">
-	                                <label for="energyGeothermal"><span class="energy-share" id="energyGeothermalShare">0%</span><span class="energy-label-name">Geothermal</span></label>
-	                                <input type="number" id="energyGeothermal" value="35" min="0" step="5">
-	                                <span class="energy-unit">MW</span>
-	                                <div class="energy-meta">Capacity factor 90%<br>Capex $4.8M/MW</div>
-	                            </div>
-	                            <div class="energy-row">
-	                                <label for="energyHydro"><span class="energy-share" id="energyHydroShare">0%</span><span class="energy-label-name">Small hydro</span></label>
-	                                <input type="number" id="energyHydro" value="25" min="0" step="5">
-	                                <span class="energy-unit">MW</span>
-	                                <div class="energy-meta">Capacity factor 52%<br>Capex $3.4M/MW</div>
-	                            </div>
-	                            <div class="energy-row">
-	                                <label for="energyNuclear"><span class="energy-share" id="energyNuclearShare">0%</span><span class="energy-label-name">SMR / nuclear retrofit</span></label>
-	                                <input type="number" id="energyNuclear" value="40" min="0" step="5">
-	                                <span class="energy-unit">MW</span>
-	                                <div class="energy-meta">Capacity factor 92%<br>Capex $6.8M/MW</div>
-	                            </div>
-	                            <div class="energy-row">
-	                                <label for="energyWasteHeat"><span class="energy-share" id="energyWasteHeatShare">0%</span><span class="energy-label-name">Industrial waste-heat recovery</span></label>
-	                                <input type="number" id="energyWasteHeat" value="28" min="0" step="2">
-	                                <span class="energy-unit">MW</span>
-	                                <div class="energy-meta">Capacity factor 61%<br>Capex $1.2M/MW</div>
-	                            </div>
-	                            <div class="energy-row">
-	                                <label for="energyWasteToEnergy"><span class="energy-share" id="energyWasteToEnergyShare">0%</span><span class="energy-label-name">Waste-to-energy / biogas</span></label>
-	                                <input type="number" id="energyWasteToEnergy" value="18" min="0" step="2">
-	                                <span class="energy-unit">MW</span>
-	                                <div class="energy-meta">Capacity factor 74%<br>Capex $5.0M/MW</div>
-	                            </div>
-	                            <div class="energy-row">
-	                                <label for="energyGasBackup"><span class="energy-share" id="energyGasBackupShare">0%</span><span class="energy-label-name">Flexible gas backup</span></label>
-	                                <input type="number" id="energyGasBackup" value="22" min="0" step="2">
-	                                <span class="energy-unit">MW</span>
-	                                <div class="energy-meta">Capacity factor 18%<br>Capex $1.1M/MW</div>
-	                            </div>
-	                        </div>
+	                        <div class="energy-grid" id="energyGrid"></div>
 
                         <div class="action-row">
                             <button type="button" class="btn" id="calculateCorporateBtn"><span class="material-icons">calculate</span>Calculate corporate benefits</button>
@@ -2076,7 +2177,7 @@
                     <div class="summary-card">
                         <span class="label">Catalytic unlock ratio</span>
                         <span class="value" id="fundingCatalyticRatio">0.0x</span>
-                        <span class="detail" id="fundingCatalyticRatioDetail">Deployable capex unlocked per public planning dollar.</span>
+                        <span class="detail" id="fundingCatalyticRatioDetail">Deployable capital expenditure (capex) unlocked per public planning dollar.</span>
                     </div>
                     <div class="summary-card">
                         <span class="label">Funding gap or reserve</span>
@@ -2123,10 +2224,13 @@
                                 </div>
                             </div>
 
-                            <div id="deployment" class="subpanel nav-target">
-                                <h3>Deployment-stage contributions</h3>
+                            <section id="deployment" class="subpanel nav-target">
+                                <h2 class="large-h2">Local Deployment</h2>
+                                <p>
+                                    <h3>Deployment-stage contributions</h3>
+                                </p>
                                 <p class="section-copy">
-                                    Deployment uses the broader water-plus-energy project capex from the corporate calculator and allocates that budget by the shares below.
+                                    Deployment uses the broader water-plus-energy project capital expenditure (capex) from the corporate calculator and allocates that budget by the shares below.
                                 </p>
 
                                 <div class="input-group">
@@ -2155,14 +2259,14 @@
                                 </div>
 
                                 <div class="input-group">
-                                    <label for="communityBenefitReserve">Community benefit reserve <span class="unit">(% of deployment capex)</span> <span class="meta-inline">Placeholder</span></label>
+                                    <label for="communityBenefitReserve">Community benefit reserve <span class="unit">(% of deployment capital expenditure (capex))</span> <span class="meta-inline">Placeholder</span></label>
                                     <input type="number" id="communityBenefitReserve" value="4" min="0" max="20" step="0.5">
                                 </div>
 
                                 <div class="action-row">
                                     <button type="button" class="btn" id="calculateFundingBtn"><span class="material-icons">stacked_bar_chart</span>Calculate blended contributions</button>
                                 </div>
-                            </div>
+                            </section>
                         </div>
 
                         <div class="results-panel">
@@ -2187,7 +2291,7 @@
                 </div>
             </section>
 
-            <section id="governancePanel" class="panel-shell expanded nav-target">
+            <section id="scorecard" class="panel-shell expanded nav-target">
                 <div class="panel-head">
                     <div class="panel-kicker"><span class="material-icons">workspace_premium</span>Mayor incentive lens</div>
                     <h2>Local-Officials Scorecard</h2>
@@ -2226,7 +2330,7 @@
 
                 <div class="panel-body">
                     <div class="stack">
-                        <div id="scorecard" class="subpanel nav-target">
+                        <div class="subpanel nav-target">
                             <h3>Performance Indicators</h3>
                             <p class="section-copy">Move each slider to reflect how strongly a mayor is currently delivering against these documented or well-supported indicator clusters. The scorecard is cached in your browser and restored on reload.</p>
                             <div id="performanceIndicatorGrid" class="scorecard-grid"></div>
@@ -2260,7 +2364,8 @@
 
                             <div class="sources-note">
                                 Source-backed themes: local growth incentives and cadre promotion research, plus official high-quality-development framing and renewable-energy emphasis.
-                                BYD-style “flagship company = mayor prestige” is an inference from those innovation and industrial-upgrading incentives, not a formal rule stated in the sources.
+                                the creation of local “flagship companies” from innovation initiatives and industrial-upgrading incentives.<br><br>
+
                                 Sources:
                                 <a href="https://www.sciencedirect.com/science/article/pii/S0047272704001355" target="_blank" rel="noopener">Li &amp; Zhou on political turnover and economic performance</a>,
                                 <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2452482" target="_blank" rel="noopener">Landry, Lu &amp; Duan on political selection and performance</a>,
@@ -2312,7 +2417,7 @@
                             <div class="input-group">
                                 <label for="medEfficiency">MED system efficiency <span class="unit">(GOR)</span></label>
                                 <input type="number" id="medEfficiency" value="12" min="8" max="20" step="0.5">
-                                <div class="info-box"><strong>GOR:</strong> Gain Output Ratio for MED. Higher values indicate more distillate per unit of steam.</div>
+                                <div class="info-box"><strong>GOR:</strong> Gain Output Ratio for MED.<br>Higher values indicate more distillate per unit of steam.</div>
                             </div>
 
                             <div class="input-group">
@@ -2392,17 +2497,20 @@
 
                         <div class="stack">
                             <div class="subpanel">
-                                <h3>Water and finance outputs</h3>
-                                <div class="formula-box">
-                                    <code>Daily Water (m3/day) = (Waste Heat MW * 1000 * 24 * 3600 * GOR) / (Latent Heat * 1000)
+                                <div class="results-stack">
+                                    <div class="results-block">
+                                        <div class="results-title-row">
+                                            <h3>Water production</h3>
+                                            <button type="button" class="formula-toggle" id="waterProductionFormulaToggle" aria-expanded="false" aria-controls="waterProductionFormula" title="Show water-production formula">
+                                                <span class="material-icons">info</span>
+                                            </button>
+                                        </div>
+                                        <div class="formula-box" id="waterProductionFormula" hidden>
+                                            <code>Daily Water (m3/day) = (Waste Heat MW * 1000 * 24 * 3600 * GOR) / (Latent Heat * 1000)
 
 Waste Heat = Reactor Power * Waste Heat Factor / 100
 Latent Heat = 2326 kJ/kg at about 70 C</code>
-                                </div>
-
-                                <div class="results-stack">
-                                    <div class="results-block">
-                                        <h3>Water production</h3>
+                                        </div>
                                         <div class="metric-list">
                                             <div class="metric-row"><span class="label">Waste heat available</span><span class="value" id="wasteHeat">-</span></div>
                                             <div class="metric-row"><span class="label">Daily fresh water production</span><span class="value" id="dailyWater">-</span></div>
@@ -2576,22 +2684,29 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             { id: 'bottled', label: 'Refill and packaged water', annualSpend: 38, waterSensitivity: 0.95, energySensitivity: 0.26, margin: 0.18, brandFactor: 0.24, growthSensitivity: 0.12, note: 'Clean-water distribution expands adjacent refill, storage, and dispenser products.' }
         ];
 
+        const ENERGY_MIX_STORAGE_KEY = 'energyMixObject1';
         const energySources = [
-            { id: 'solar', inputId: 'energySolar', label: 'Solar PV', capacityFactor: 0.24, capexPerMwMillion: 0.95, dispatchability: 0.28, lowCarbon: true },
-            { id: 'wind', inputId: 'energyWind', label: 'Onshore wind', capacityFactor: 0.37, capexPerMwMillion: 1.45, dispatchability: 0.36, lowCarbon: true },
-            { id: 'geothermal', inputId: 'energyGeothermal', label: 'Geothermal', capacityFactor: 0.9, capexPerMwMillion: 4.8, dispatchability: 0.95, lowCarbon: true },
-            { id: 'hydro', inputId: 'energyHydro', label: 'Small hydro', capacityFactor: 0.52, capexPerMwMillion: 3.4, dispatchability: 0.78, lowCarbon: true },
-            { id: 'nuclear', inputId: 'energyNuclear', label: 'SMR / nuclear retrofit', capacityFactor: 0.92, capexPerMwMillion: 6.8, dispatchability: 0.98, lowCarbon: true },
-            { id: 'wasteHeat', inputId: 'energyWasteHeat', label: 'Industrial waste heat recovery', capacityFactor: 0.61, capexPerMwMillion: 1.2, dispatchability: 0.7, lowCarbon: true },
-            { id: 'wasteToEnergy', inputId: 'energyWasteToEnergy', label: 'Waste-to-energy / biogas', capacityFactor: 0.74, capexPerMwMillion: 5.0, dispatchability: 0.88, lowCarbon: true },
-            { id: 'gasBackup', inputId: 'energyGasBackup', label: 'Flexible gas backup', capacityFactor: 0.18, capexPerMwMillion: 1.1, dispatchability: 0.94, lowCarbon: false }
+            { id: 'solar', label: 'Solar PV', defaultMw: 120, step: 5, capacityFactor: 0.24, capexPerMwMillion: 0.95, dispatchability: 0.28, lowCarbon: true },
+            { id: 'wind', label: 'Onshore wind', defaultMw: 95, step: 5, capacityFactor: 0.37, capexPerMwMillion: 1.45, dispatchability: 0.36, lowCarbon: true },
+            { id: 'geothermal', label: 'Geothermal', defaultMw: 35, step: 5, capacityFactor: 0.9, capexPerMwMillion: 4.8, dispatchability: 0.95, lowCarbon: true },
+            { id: 'hydro', label: 'Small hydro', defaultMw: 25, step: 5, capacityFactor: 0.52, capexPerMwMillion: 3.4, dispatchability: 0.78, lowCarbon: true },
+            { id: 'nuclear', label: 'SMR / nuclear retrofit', defaultMw: 40, step: 5, capacityFactor: 0.92, capexPerMwMillion: 6.8, dispatchability: 0.98, lowCarbon: true },
+            { id: 'wasteHeat', label: 'Industrial waste-heat recovery', defaultMw: 28, step: 2, capacityFactor: 0.61, capexPerMwMillion: 1.2, dispatchability: 0.7, lowCarbon: true },
+            { id: 'wasteToEnergy', label: 'Waste-to-energy / biogas', defaultMw: 18, step: 2, capacityFactor: 0.74, capexPerMwMillion: 5.0, dispatchability: 0.88, lowCarbon: true },
+            { id: 'gasBackup', label: 'Flexible gas backup', defaultMw: 22, step: 2, capacityFactor: 0.18, capexPerMwMillion: 1.1, dispatchability: 0.94, lowCarbon: false }
         ];
+
+        const DEFAULT_ENERGY_TOTAL_MW = energySources.reduce((sum, source) => sum + source.defaultMw, 0);
 
         let calculationResults = null;
         let corporateResults = null;
         let sectorLayoutMode = 'rows';
         let performanceScorecard = {};
         let energySimpleExpanded = false;
+        let energyMixRows = [];
+        let energyMixObject1 = {};
+        let draggedEnergyRowId = null;
+        let fundingCatalyticRatioValue = '0.0x';
 
         function getNumber(id, fallback) {
             const element = document.getElementById(id);
@@ -2634,6 +2749,15 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
         function roundTo(value, decimals) {
             const factor = Math.pow(10, decimals);
             return Math.round(value * factor) / factor;
+        }
+
+        function escapeHtml(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
         }
 
         function setText(id, value) {
@@ -2718,6 +2842,470 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             setText('scorecardValue-' + indicatorId, String(numericValue));
             setText('scorecardBand-' + indicatorId, getScoreBand(numericValue));
             savePerformanceScorecard();
+        }
+
+        function createDefaultEnergyRows() {
+            return energySources.map(source => ({
+                ...source,
+                name: source.label,
+                mw: source.defaultMw,
+                checked: true
+            })).concat([{
+                id: 'other',
+                label: 'Other',
+                name: 'Other',
+                defaultMw: null,
+                mw: null,
+                checked: false,
+                step: 1,
+                capacityFactor: 0.469,
+                capexPerMwMillion: 2.41,
+                dispatchability: 0.5636,
+                lowCarbon: false,
+                isOther: true
+            }]);
+        }
+
+        function sanitizeEnergyMw(value) {
+            if (value === '' || value === null || value === undefined) return null;
+            const numericValue = Number(value);
+            return Number.isFinite(numericValue) ? Math.max(0, numericValue) : null;
+        }
+
+        function loadEnergyMixObject() {
+            const defaultRows = createDefaultEnergyRows();
+            const defaultRowMap = new Map(defaultRows.map(row => [row.id, row]));
+            let cached = {};
+
+            try {
+                cached = JSON.parse(window.localStorage?.getItem(ENERGY_MIX_STORAGE_KEY) || '{}') || {};
+            } catch (error) {
+                cached = {};
+            }
+
+            const nextRows = [];
+            Object.keys(cached)
+                .sort((a, b) => Number(a) - Number(b))
+                .forEach(function(indexKey) {
+                    const cachedRow = cached[indexKey];
+                    if (!cachedRow || !defaultRowMap.has(cachedRow.id)) return;
+                    const defaultRow = defaultRowMap.get(cachedRow.id);
+                    nextRows.push({
+                        ...defaultRow,
+                        name: String(cachedRow.name || defaultRow.label).trim() || defaultRow.label,
+                        mw: sanitizeEnergyMw(cachedRow.mw),
+                        checked: !!cachedRow.checked
+                    });
+                    defaultRowMap.delete(cachedRow.id);
+                });
+
+            defaultRows.forEach(function(defaultRow) {
+                if (defaultRowMap.has(defaultRow.id)) {
+                    nextRows.push(defaultRowMap.get(defaultRow.id));
+                }
+            });
+
+            energyMixRows = nextRows.length ? nextRows : defaultRows;
+            saveEnergyMixObject();
+        }
+
+        function getEnergyActiveRows() {
+            return energyMixRows.filter(row => row.checked);
+        }
+
+        function getOtherEnergyRow() {
+            return energyMixRows.find(row => row.isOther || row.id === 'other') || null;
+        }
+
+        function getEnergyRowMw(row) {
+            return row && Number.isFinite(Number(row.mw)) ? Math.max(0, Number(row.mw)) : 0;
+        }
+
+        function getEnergyActiveTotalMw() {
+            return getEnergyActiveRows().reduce((sum, row) => sum + getEnergyRowMw(row), 0);
+        }
+
+        function getEnergyBaselineTotalMw() {
+            const otherRow = getOtherEnergyRow();
+            const nonOtherCheckedTotal = energyMixRows
+                .filter(row => row.checked && !row.isOther)
+                .reduce((sum, row) => sum + getEnergyRowMw(row), 0);
+            const otherStoredMw = otherRow && otherRow.checked ? getEnergyRowMw(otherRow) : 0;
+            return Math.max(DEFAULT_ENERGY_TOTAL_MW, nonOtherCheckedTotal + otherStoredMw);
+        }
+
+        function getEnergyOtherGapMw() {
+            const otherRow = getOtherEnergyRow();
+            const nonOtherCheckedTotal = energyMixRows
+                .filter(row => row.checked && !row.isOther)
+                .reduce((sum, row) => sum + getEnergyRowMw(row), 0);
+            const otherStoredMw = otherRow && otherRow.checked ? getEnergyRowMw(otherRow) : 0;
+            return Math.max(0, getEnergyBaselineTotalMw() - nonOtherCheckedTotal - otherStoredMw);
+        }
+
+        function getEffectiveEnergyRowMw(row) {
+            if (!row) return 0;
+            if (row.isOther) {
+                const storedMw = row.checked ? getEnergyRowMw(row) : 0;
+                return storedMw + getEnergyOtherGapMw();
+            }
+            return row.checked ? getEnergyRowMw(row) : 0;
+        }
+
+        function syncOtherEnergyRow() {
+            const gapMw = getEnergyOtherGapMw();
+            energyMixRows = energyMixRows.map(function(row) {
+                if (!row.isOther) return row;
+                return {
+                    ...row,
+                    checked: row.checked || getEnergyRowMw(row) > 0 || gapMw > 0.04
+                };
+            });
+        }
+
+        function getEnergyRowShare(row) {
+            const totalMw = getEnergyBaselineTotalMw();
+            const effectiveMw = getEffectiveEnergyRowMw(row);
+            if (effectiveMw <= 0 || totalMw <= 0) return 0;
+            return (effectiveMw / totalMw) * 100;
+        }
+
+        function saveEnergyMixObject() {
+            const nextObject = {};
+            energyMixRows.forEach(function(row, index) {
+                nextObject[String(index + 1)] = {
+                    id: row.id,
+                    name: row.name,
+                    mw: row.mw === null ? null : roundTo(Number(row.mw), 2),
+                    checked: !!row.checked
+                };
+            });
+
+            energyMixObject1 = nextObject;
+            try {
+                window.localStorage?.setItem(ENERGY_MIX_STORAGE_KEY, JSON.stringify(nextObject));
+            } catch (error) {
+                // Ignore storage failures and keep the UI responsive.
+            }
+        }
+
+        function renderEnergyGrid() {
+            const holder = document.getElementById('energyGrid');
+            if (!holder) return;
+
+            const rowsMarkup = energyMixRows.map(function(row) {
+                const effectiveMw = getEffectiveEnergyRowMw(row);
+                const inputValue = row.isOther
+                    ? (effectiveMw > 0 ? String(roundTo(effectiveMw, 2)) : '')
+                    : (row.mw === null ? '' : escapeHtml(row.mw));
+                const metaMarkup = row.isOther
+                    ? `Placeholder catch-all bucket for unassigned or removed MW.<br>Capacity factor ${formatPercent(row.capacityFactor * 100)}<br>Capital expenditure (capex) $${row.capexPerMwMillion.toFixed(2)}M/MW`
+                    : `Capacity factor ${formatPercent(row.capacityFactor * 100)}<br>Capital expenditure (capex) $${row.capexPerMwMillion.toFixed(2)}M/MW`;
+                return `
+                    <div class="energy-row ${row.checked ? '' : 'energy-row-unchecked'} ${row.isOther ? 'energy-placeholder-row' : ''}" draggable="true" data-energy-row-id="${row.id}" data-energy-drag-context="grid">
+                        <span class="energy-drag-handle" aria-hidden="true"><span class="material-icons">drag_indicator</span></span>
+                        <input class="energy-row-checkbox" type="checkbox" data-energy-checkbox-id="${row.id}" ${row.checked ? 'checked' : ''}>
+                        <div class="energy-row-main">
+                            <span class="energy-share">${formatPercent(getEnergyRowShare(row))}</span>
+                            <span class="energy-name-editor" contenteditable="true" spellcheck="false" data-energy-name-id="${row.id}">${escapeHtml(row.name)}</span>
+                        </div>
+                        <input type="number" data-energy-mw-id="${row.id}" value="${inputValue}" min="0" step="${row.step}">
+                        <span class="energy-unit">MW</span>
+                        <div class="energy-meta">${metaMarkup}</div>
+                    </div>
+                `;
+            }).join('');
+            holder.innerHTML = rowsMarkup;
+        }
+
+        function renderEnergySimple() {
+            const holder = document.getElementById('energySimpleList');
+            const actions = document.getElementById('energySimpleActions');
+            if (!holder || !actions) return;
+
+            const checkedRows = energyMixRows.filter(row => row.checked || (row.isOther && getEffectiveEnergyRowMw(row) > 0.04));
+            const uncheckedRows = energyMixRows.filter(row => !row.checked && !row.isOther);
+
+            function renderSimpleRows(rows) {
+                return rows.map(function(row) {
+                    return `
+                        <div class="energy-simple-item ${row.checked ? '' : 'energy-row-unchecked'} ${row.isOther ? 'energy-placeholder-row' : ''}" draggable="true" data-energy-row-id="${row.id}" data-energy-drag-context="simple">
+                            <span class="energy-drag-handle" aria-hidden="true"><span class="material-icons">drag_indicator</span></span>
+                            <input class="energy-simple-checkbox" type="checkbox" data-energy-checkbox-id="${row.id}" ${row.checked ? 'checked' : ''}>
+                            <div class="energy-simple-copy">
+                                <span>${escapeHtml(row.name)}</span>
+                                <span class="energy-simple-share">${formatPercent(getEnergyRowShare(row))}</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            let rowsMarkup = '';
+            if (checkedRows.length) {
+                rowsMarkup += renderSimpleRows(checkedRows);
+            }
+
+            if (energySimpleExpanded && uncheckedRows.length) {
+                rowsMarkup += `
+                    <div class="energy-simple-group">
+                        <div class="energy-simple-group-label">Available to add</div>
+                        ${renderSimpleRows(uncheckedRows)}
+                    </div>
+                `;
+            }
+
+            if (!rowsMarkup && uncheckedRows.length) {
+                rowsMarkup = `
+                    <div class="energy-simple-group">
+                        <div class="energy-simple-group-label">Available to add</div>
+                        ${renderSimpleRows(uncheckedRows)}
+                    </div>
+                `;
+            }
+
+            holder.innerHTML = rowsMarkup;
+
+            const unlockRatio = fundingCatalyticRatioValue || '0.0x';
+            const moreButtonMarkup = uncheckedRows.length
+                ? `<button type="button" class="btn-sm" id="energySimpleMoreBtn">${energySimpleExpanded ? 'Less' : 'More'}</button>`
+                : '';
+
+            actions.innerHTML = `
+                <span class="energy-simple-unlock">Unlocked Capital Expenditure: ${escapeHtml(unlockRatio)}</span>
+                ${moreButtonMarkup}
+            `;
+
+            const moreButton = actions.querySelector('#energySimpleMoreBtn');
+            if (moreButton) {
+                moreButton.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    energySimpleExpanded = !energySimpleExpanded;
+                    renderEnergySimple();
+                });
+            }
+        }
+
+        function refreshEnergyMixUi() {
+            syncOtherEnergyRow();
+            renderEnergyGrid();
+            renderEnergySimple();
+            saveEnergyMixObject();
+        }
+
+        function getCurrentCheckedShareMap(excludingRowId) {
+            const checkedRows = energyMixRows.filter(row => row.checked && row.id !== excludingRowId);
+            const totalMw = checkedRows.reduce((sum, row) => sum + getEnergyRowMw(row), 0);
+            const shareMap = {};
+
+            checkedRows.forEach(function(row) {
+                shareMap[row.id] = totalMw > 0 ? (getEnergyRowMw(row) / totalMw) * 100 : 0;
+            });
+
+            return {
+                checkedRows,
+                shareMap
+            };
+        }
+
+        function applyCheckedEnergyShareMap(shareMap, selectedIds) {
+            const baselineTotalMw = getEnergyBaselineTotalMw();
+            const selectedSet = new Set(selectedIds);
+
+            energyMixRows = energyMixRows.map(function(row) {
+                const nextRow = { ...row };
+                if (selectedSet.has(row.id)) {
+                    nextRow.checked = true;
+                    nextRow.mw = roundTo((baselineTotalMw * (Math.max(0, Number(shareMap[row.id]) || 0))) / 100, 2);
+                } else {
+                    nextRow.checked = false;
+                }
+                return nextRow;
+            });
+
+            refreshEnergyMixUi();
+            calculateCorporateBenefits();
+        }
+
+        function updateEnergyRowChecked(rowId, isChecked) {
+            const currentRow = energyMixRows.find(row => row.id === rowId);
+            if (!currentRow) return;
+
+            if (!isChecked) {
+                if (currentRow.isOther) {
+                    energyMixRows = energyMixRows.map(function(row) {
+                        return row.id === rowId ? { ...row, checked: false } : row;
+                    });
+                    refreshEnergyMixUi();
+                    calculateCorporateBenefits();
+                    return;
+                }
+
+                const removedMw = getEnergyRowMw(currentRow);
+                energyMixRows = energyMixRows.map(function(row) {
+                    if (row.id === rowId) {
+                        return { ...row, checked: false };
+                    }
+                    if (row.isOther) {
+                        return {
+                            ...row,
+                            checked: true,
+                            mw: roundTo(getEnergyRowMw(row) + removedMw, 2)
+                        };
+                    }
+                    return row;
+                });
+                refreshEnergyMixUi();
+                calculateCorporateBenefits();
+                return;
+            }
+
+            const { checkedRows, shareMap } = getCurrentCheckedShareMap(rowId);
+            if (!checkedRows.length) {
+                applyCheckedEnergyShareMap({ [rowId]: 100 }, [rowId]);
+                return;
+            }
+
+            if (checkedRows.length === 1) {
+                applyCheckedEnergyShareMap({
+                    [checkedRows[0].id]: 50,
+                    [rowId]: 50
+                }, [checkedRows[0].id, rowId]);
+                return;
+            }
+
+            const existingTotal = Object.values(shareMap).reduce((sum, value) => sum + value, 0);
+            if (existingTotal < 99.99) {
+                applyCheckedEnergyShareMap({
+                    ...shareMap,
+                    [rowId]: 100 - existingTotal
+                }, checkedRows.map(row => row.id).concat(rowId));
+                return;
+            }
+
+            if (checkedRows.length === 2) {
+                const equalShare = 100 / 3;
+                applyCheckedEnergyShareMap({
+                    [checkedRows[0].id]: equalShare,
+                    [checkedRows[1].id]: equalShare,
+                    [rowId]: equalShare
+                }, checkedRows.map(row => row.id).concat(rowId));
+                return;
+            }
+
+            const nextShareMap = {};
+            let contributedShare = 0;
+            checkedRows.forEach(function(row) {
+                const contribution = shareMap[row.id] > 1 ? 1 : 0;
+                nextShareMap[row.id] = Math.max(0, shareMap[row.id] - contribution);
+                contributedShare += contribution;
+            });
+            nextShareMap[rowId] = contributedShare > 0 ? contributedShare : 1;
+            applyCheckedEnergyShareMap(nextShareMap, checkedRows.map(row => row.id).concat(rowId));
+        }
+
+        function updateEnergyRowMw(rowId, value) {
+            energyMixRows = energyMixRows.map(function(row) {
+                return row.id === rowId ? { ...row, mw: sanitizeEnergyMw(value) } : row;
+            });
+            refreshEnergyMixUi();
+            calculateCorporateBenefits();
+        }
+
+        function updateEnergyRowName(rowId, value) {
+            const nextName = String(value || '').trim();
+            energyMixRows = energyMixRows.map(function(row) {
+                return row.id === rowId ? { ...row, name: nextName || row.label } : row;
+            });
+            refreshEnergyMixUi();
+            calculateCorporateBenefits();
+        }
+
+        function moveEnergyRow(rowId, targetRowId) {
+            if (!rowId || !targetRowId || rowId === targetRowId) return;
+            const fromIndex = energyMixRows.findIndex(row => row.id === rowId);
+            const toIndex = energyMixRows.findIndex(row => row.id === targetRowId);
+            if (fromIndex < 0 || toIndex < 0 || fromIndex === toIndex) return;
+
+            const nextRows = energyMixRows.slice();
+            const [movedRow] = nextRows.splice(fromIndex, 1);
+            nextRows.splice(toIndex, 0, movedRow);
+            energyMixRows = nextRows;
+            refreshEnergyMixUi();
+            calculateCorporateBenefits();
+        }
+
+        function getEnergyMixForCalculations() {
+            return energyMixRows
+                .filter(row => row.checked)
+                .map(function(row) {
+                    const mw = getEnergyRowMw(row);
+                    return {
+                        ...row,
+                        label: row.name,
+                        mw,
+                        annualMwh: mw * HOURS_PER_YEAR * row.capacityFactor,
+                        capex: mw * row.capexPerMwMillion * 1000000
+                    };
+                })
+                .filter(row => row.mw > 0);
+        }
+
+        function clearEnergyDropTargets() {
+            document.querySelectorAll('.energy-drop-target').forEach(function(target) {
+                target.classList.remove('energy-drop-target');
+            });
+            document.querySelectorAll('.energy-row.dragging, .energy-simple-item.dragging').forEach(function(target) {
+                target.classList.remove('dragging');
+            });
+        }
+
+        function setupEnergyDragSurface(surface) {
+            if (!surface) return;
+
+            surface.addEventListener('dragstart', function(event) {
+                if (event.target.closest('[contenteditable="true"]')) {
+                    event.preventDefault();
+                    return;
+                }
+                const row = event.target.closest('[data-energy-row-id]');
+                if (!row) return;
+                draggedEnergyRowId = row.getAttribute('data-energy-row-id');
+                row.classList.add('dragging');
+                if (event.dataTransfer) {
+                    event.dataTransfer.effectAllowed = 'move';
+                    event.dataTransfer.setData('text/plain', draggedEnergyRowId);
+                }
+            });
+
+            surface.addEventListener('dragover', function(event) {
+                const row = event.target.closest('[data-energy-row-id]');
+                if (!row || row.getAttribute('data-energy-row-id') === draggedEnergyRowId) return;
+                event.preventDefault();
+                clearEnergyDropTargets();
+                row.classList.add('energy-drop-target');
+            });
+
+            surface.addEventListener('dragleave', function(event) {
+                const row = event.target.closest('[data-energy-row-id]');
+                if (row && !row.contains(event.relatedTarget)) {
+                    row.classList.remove('energy-drop-target');
+                }
+            });
+
+            surface.addEventListener('drop', function(event) {
+                const row = event.target.closest('[data-energy-row-id]');
+                if (!row || !draggedEnergyRowId) return;
+                event.preventDefault();
+                clearEnergyDropTargets();
+                moveEnergyRow(draggedEnergyRowId, row.getAttribute('data-energy-row-id'));
+                draggedEnergyRowId = null;
+            });
+
+            surface.addEventListener('dragend', function() {
+                draggedEnergyRowId = null;
+                clearEnergyDropTargets();
+            });
         }
 
         function getSelectedProductAreas() {
@@ -2805,236 +3393,6 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
                 `).join('');
         }
 
-        function getEnergyMixFromInputs() {
-            return energySources.map(source => {
-                const mw = Math.max(0, getNumber(source.inputId, 0));
-                const annualMwh = mw * HOURS_PER_YEAR * source.capacityFactor;
-                const capex = mw * source.capexPerMwMillion * 1000000;
-                return {
-                    ...source,
-                    mw,
-                    annualMwh,
-                    capex
-                };
-            });
-        }
-
-        function getEnergyBaselineTotalMw() {
-            const currentTotal = getEnergyMixFromInputs().reduce((sum, source) => sum + source.mw, 0);
-            if (currentTotal > 0) return currentTotal;
-
-            return energySources.reduce((sum, source) => {
-                const input = document.getElementById(source.inputId);
-                const fallbackValue = parseFloat(input?.defaultValue || input?.getAttribute('value') || '0');
-                return sum + (Number.isFinite(fallbackValue) ? Math.max(0, fallbackValue) : 0);
-            }, 0);
-        }
-
-        function normalizeEnergyShareMap(shareMap) {
-            const normalized = {};
-            let total = 0;
-
-            energySources.forEach(source => {
-                const nextValue = Math.max(0, Number(shareMap[source.id]) || 0);
-                normalized[source.id] = nextValue;
-                total += nextValue;
-            });
-
-            if (total <= 0) {
-                return normalized;
-            }
-
-            if (Math.abs(total - 100) > 0.001) {
-                energySources.forEach(source => {
-                    normalized[source.id] = (normalized[source.id] / total) * 100;
-                });
-            }
-
-            let runningTotal = 0;
-            energySources.forEach((source, index) => {
-                if (index === energySources.length - 1) {
-                    normalized[source.id] = Math.max(0, 100 - runningTotal);
-                } else {
-                    normalized[source.id] = roundTo(normalized[source.id], 2);
-                    runningTotal += normalized[source.id];
-                }
-            });
-
-            return normalized;
-        }
-
-        function applyEnergyShareMap(shareMap) {
-            const normalized = normalizeEnergyShareMap(shareMap);
-            const totalMw = getEnergyBaselineTotalMw();
-
-            energySources.forEach(source => {
-                const input = document.getElementById(source.inputId);
-                if (!input) return;
-                const targetShare = Math.max(0, Number(normalized[source.id]) || 0);
-                const targetMw = totalMw > 0 ? roundTo((totalMw * targetShare) / 100, 2) : 0;
-                input.value = targetMw > 0 ? String(targetMw) : '0';
-            });
-
-            calculateCorporateBenefits();
-        }
-
-        function renderEnergySimple(energyMix) {
-            const holder = document.getElementById('energySimpleList');
-            const actions = document.getElementById('energySimpleActions');
-            if (!holder || !actions) return;
-
-            const totalMw = energyMix.reduce((sum, source) => sum + source.mw, 0);
-            const selectedSources = energyMix.filter(source => source.mw > 0.01);
-            const unselectedSources = energyMix.filter(source => source.mw <= 0.01);
-
-            function renderEnergyItems(sources) {
-                return sources.map(source => {
-                    const sharePercent = totalMw > 0 ? (source.mw / totalMw) * 100 : 0;
-                    const isChecked = source.mw > 0.01;
-                    return `
-                        <label class="energy-simple-item" for="energySimple-${source.id}">
-                            <input type="checkbox" id="energySimple-${source.id}" data-energy-simple-source="${source.id}" ${isChecked ? 'checked' : ''}>
-                            <span class="energy-simple-copy">
-                                <span>${source.label}</span>
-                                <span class="energy-simple-share">${formatPercent(sharePercent)}</span>
-                            </span>
-                        </label>
-                    `;
-                }).join('');
-            }
-
-            let listMarkup = '';
-            if (selectedSources.length) {
-                listMarkup += `<div class="energy-simple-group">${renderEnergyItems(selectedSources)}</div>`;
-            }
-
-            if (energySimpleExpanded && unselectedSources.length) {
-                listMarkup += `
-                    <div class="energy-simple-group">
-                        <div class="energy-simple-group-label">Available to add</div>
-                        ${renderEnergyItems(unselectedSources)}
-                    </div>
-                `;
-            }
-
-            if (!listMarkup) {
-                listMarkup = `
-                    <div class="energy-simple-group">
-                        <div class="energy-simple-group-label">Available to add</div>
-                        ${renderEnergyItems(unselectedSources)}
-                    </div>
-                `;
-            }
-
-            holder.innerHTML = listMarkup;
-
-            if (unselectedSources.length) {
-                actions.innerHTML = `<button type="button" class="btn-sm" id="energySimpleMoreBtn">${energySimpleExpanded ? 'Less' : 'More'}</button>`;
-            } else {
-                actions.innerHTML = '';
-            }
-        }
-
-        function updateEnergySimpleSelection(sourceId, isChecked) {
-            const energyMix = getEnergyMixFromInputs();
-            const currentShares = {};
-            const selectedBefore = [];
-            const selectedAfter = [];
-            const totalMw = energyMix.reduce((sum, source) => sum + source.mw, 0);
-
-            energyMix.forEach(source => {
-                currentShares[source.id] = totalMw > 0 ? (source.mw / totalMw) * 100 : 0;
-                if (source.id !== sourceId && source.mw > 0.01) selectedBefore.push(source.id);
-            });
-
-            if (isChecked) {
-                if (!selectedBefore.length) {
-                    const shareMap = {};
-                    energySources.forEach(source => {
-                        shareMap[source.id] = source.id === sourceId ? 100 : 0;
-                    });
-                    applyEnergyShareMap(shareMap);
-                    return;
-                }
-
-                if (selectedBefore.length === 1) {
-                    const shareMap = {};
-                    energySources.forEach(source => {
-                        shareMap[source.id] = (source.id === sourceId || selectedBefore.includes(source.id)) ? 50 : 0;
-                    });
-                    applyEnergyShareMap(shareMap);
-                    return;
-                }
-
-                const existingTotal = selectedBefore.reduce((sum, id) => sum + currentShares[id], 0);
-
-                if (existingTotal < 99.99) {
-                    const shareMap = {};
-                    energySources.forEach(source => {
-                        if (selectedBefore.includes(source.id)) {
-                            shareMap[source.id] = currentShares[source.id];
-                        } else if (source.id === sourceId) {
-                            shareMap[source.id] = 100 - existingTotal;
-                        } else {
-                            shareMap[source.id] = 0;
-                        }
-                    });
-                    applyEnergyShareMap(shareMap);
-                    return;
-                }
-
-                if (selectedBefore.length === 2) {
-                    const shareMap = {};
-                    const equalShare = 100 / 3;
-                    energySources.forEach(source => {
-                        shareMap[source.id] = (source.id === sourceId || selectedBefore.includes(source.id)) ? equalShare : 0;
-                    });
-                    applyEnergyShareMap(shareMap);
-                    return;
-                }
-
-                const shareMap = {};
-                let contributed = 0;
-                energySources.forEach(source => {
-                    if (selectedBefore.includes(source.id)) {
-                        const contribution = currentShares[source.id] > 1 ? 1 : 0;
-                        shareMap[source.id] = Math.max(0, currentShares[source.id] - contribution);
-                        contributed += contribution;
-                    } else {
-                        shareMap[source.id] = 0;
-                    }
-                });
-                shareMap[sourceId] = contributed > 0 ? contributed : 1;
-                applyEnergyShareMap(shareMap);
-                return;
-            }
-
-            energyMix.forEach(source => {
-                if (source.id !== sourceId && source.mw > 0.01) selectedAfter.push(source.id);
-            });
-
-            if (!selectedAfter.length) {
-                const shareMap = {};
-                energySources.forEach(source => {
-                    shareMap[source.id] = 0;
-                });
-                applyEnergyShareMap(shareMap);
-                return;
-            }
-
-            const remainingTotal = selectedAfter.reduce((sum, id) => sum + currentShares[id], 0);
-            const shareMap = {};
-            energySources.forEach(source => {
-                if (selectedAfter.includes(source.id)) {
-                    const baseShare = remainingTotal > 0 ? (currentShares[source.id] / remainingTotal) * 100 : (100 / selectedAfter.length);
-                    shareMap[source.id] = baseShare;
-                } else {
-                    shareMap[source.id] = 0;
-                }
-            });
-            applyEnergyShareMap(shareMap);
-        }
-
         function renderCorporateNarrative(data) {
             const dominantSources = data.energyMix
                 .filter(source => source.annualMwh > 0)
@@ -3051,11 +3409,11 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
 
             setHtml('corporateNarrative', `
                 <div class="metric-row">
-                    <span class="label">Blended project capex</span>
+                    <span class="label">Blended project capital expenditure (capex)</span>
                     <span class="value">${formatCurrency(data.projectCapex)}</span>
                 </div>
                 <div class="metric-row">
-                    <span class="label">Sponsor share of modeled capex</span>
+                    <span class="label">Sponsor share of modeled capital expenditure (capex)</span>
                     <span class="value">${formatPercent(data.sponsorShareOfCapex * 100)}</span>
                 </div>
                 <div class="metric-row">
@@ -3068,20 +3426,14 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
                 </div>
                 <div class="metric-row">
                     <span class="label">Placeholder assumptions used</span>
-                    <span class="value">Sector lift coefficients, capex defaults, carbon value, and brand-trust values are placeholders.</span>
+                    <span class="value">Sector lift coefficients, capital expenditure (capex) defaults, carbon value, and brand-trust values are placeholders.</span>
                 </div>
             `);
         }
 
         function renderEnergyMixShares(energyMix) {
             const totalMw = energyMix.reduce((sum, source) => sum + source.mw, 0);
-
-            energyMix.forEach(source => {
-                const sharePercent = totalMw > 0 ? (source.mw / totalMw) * 100 : 0;
-                setText(source.inputId + 'Share', formatPercent(sharePercent));
-            });
-
-            renderEnergySimple(energyMix);
+            refreshEnergyMixUi();
 
             const topSource = energyMix
                 .filter(source => source.mw > 0)
@@ -3148,13 +3500,14 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             const deploymentGap = netDeploymentBudget - (deployGov + deployNpo + deployCorp);
             const totalGap = planningGap + deploymentGap;
             const catalyticRatio = planningGov > 0 ? deployableBudget / planningGov : 0;
+            fundingCatalyticRatioValue = catalyticRatio.toFixed(2) + 'x';
 
             setText('fundingPlanningLead', formatCurrency(planningGov));
             setText('fundingPlanningLeadDetail', 'Government covers ' + formatPercent(governmentPlanningShare) + ' of planning-stage spend.');
             setText('fundingDeploymentMix', Math.round(corporateDeploymentShare) + '/' + Math.round(nonprofitDeploymentShare) + '/' + Math.round(governmentDeploymentShare));
             setText('fundingDeploymentMixDetail', 'Corporate / nonprofit / government deployment split.');
-            setText('fundingCatalyticRatio', catalyticRatio.toFixed(2) + 'x');
-            setText('fundingCatalyticRatioDetail', 'Deployable capex unlocked per public planning dollar.');
+            setText('fundingCatalyticRatio', fundingCatalyticRatioValue);
+            setText('fundingCatalyticRatioDetail', 'Deployable capital expenditure (capex) unlocked per public planning dollar.');
             setText('fundingGap', formatCurrency(totalGap));
             setText('fundingGapDetail', totalGap >= 0 ? 'Positive means more money is still needed to close the model.' : 'Negative means modeled contributions exceed the budget and create reserve headroom.');
 
@@ -3173,6 +3526,8 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
                 concessionalRateReduction,
                 communityReserveAmount
             });
+
+            renderEnergySimple();
         }
 
         function calculateCorporateBenefits() {
@@ -3202,7 +3557,7 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             const serviceRatio = clamp(litersPerPersonProvided / Math.max(targetLitersPerPerson, 1), 0, 1.35);
             const waterQualityIndex = clamp((pureWaterCoverage / 100) * serviceRatio * (0.55 + (hardnessReduction / 100) * 0.45), 0, 1.3);
 
-            const energyMix = getEnergyMixFromInputs();
+            const energyMix = getEnergyMixForCalculations();
 
             const annualEnergyMwh = energyMix.reduce((sum, source) => sum + source.annualMwh, 0);
             const lowCarbonMwh = energyMix.filter(source => source.lowCarbon).reduce((sum, source) => sum + source.annualMwh, 0);
@@ -4045,7 +4400,7 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             const panels = [
                 { id: 'benefits', label: 'Corporate Benefits', collapsed: false },
                 { id: 'fundingPanel', label: 'Blended Contributions', collapsed: false },
-                { id: 'governancePanel', label: 'Mayor Incentives', collapsed: false },
+                { id: 'scorcard', label: 'Mayor Incentives', collapsed: false },
                 { id: 'DeepNuclear', label: 'Deep Nuclear', collapsed: false },
                 { id: 'waterPanel', label: 'Water Output Calculator', collapsed: true }
             ];
@@ -4088,6 +4443,7 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             const clearSectors = document.getElementById('clearSectors');
             const energySimpleList = document.getElementById('energySimpleList');
             const energySimpleActions = document.getElementById('energySimpleActions');
+            const energyGrid = document.getElementById('energyGrid');
 
             if (corporateBtn) corporateBtn.addEventListener('click', calculateCorporateBenefits);
             if (fundingBtn) fundingBtn.addEventListener('click', calculateFundingMix);
@@ -4157,29 +4513,56 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
                 });
             }
 
-            energySources.forEach(source => {
-                const input = document.getElementById(source.inputId);
-                if (!input) return;
-                input.addEventListener('input', calculateCorporateBenefits);
-                input.addEventListener('change', calculateCorporateBenefits);
-            });
-
             if (energySimpleList) {
                 energySimpleList.addEventListener('change', function(event) {
-                    const checkbox = event.target.closest('input[type="checkbox"][data-energy-simple-source]');
+                    const checkbox = event.target.closest('input[type="checkbox"][data-energy-checkbox-id]');
                     if (!checkbox) return;
-                    updateEnergySimpleSelection(checkbox.getAttribute('data-energy-simple-source'), checkbox.checked);
+                    updateEnergyRowChecked(checkbox.getAttribute('data-energy-checkbox-id'), checkbox.checked);
                 });
             }
 
-            if (energySimpleActions) {
-                energySimpleActions.addEventListener('click', function(event) {
-                    const moreButton = event.target.closest('#energySimpleMoreBtn');
-                    if (!moreButton) return;
-                    energySimpleExpanded = !energySimpleExpanded;
-                    renderEnergySimple(getEnergyMixFromInputs());
+            document.addEventListener('click', function(event) {
+                const formulaToggle = event.target.closest('#waterProductionFormulaToggle');
+                if (!formulaToggle) return;
+                const formulaBox = document.getElementById('waterProductionFormula');
+                if (!formulaBox) return;
+                const nextExpanded = formulaBox.hasAttribute('hidden');
+                formulaBox.toggleAttribute('hidden', !nextExpanded);
+                formulaToggle.setAttribute('aria-expanded', nextExpanded ? 'true' : 'false');
+            });
+
+            if (energyGrid) {
+                energyGrid.addEventListener('change', function(event) {
+                    const checkbox = event.target.closest('input[type="checkbox"][data-energy-checkbox-id]');
+                    if (checkbox) {
+                        updateEnergyRowChecked(checkbox.getAttribute('data-energy-checkbox-id'), checkbox.checked);
+                        return;
+                    }
+
+                    const numberInput = event.target.closest('input[type="number"][data-energy-mw-id]');
+                    if (numberInput) {
+                        updateEnergyRowMw(numberInput.getAttribute('data-energy-mw-id'), numberInput.value);
+                    }
+                });
+
+                energyGrid.addEventListener('keydown', function(event) {
+                    const editor = event.target.closest('[contenteditable="true"][data-energy-name-id]');
+                    if (!editor) return;
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                        editor.blur();
+                    }
+                });
+
+                energyGrid.addEventListener('focusout', function(event) {
+                    const editor = event.target.closest('[contenteditable="true"][data-energy-name-id]');
+                    if (!editor) return;
+                    updateEnergyRowName(editor.getAttribute('data-energy-name-id'), editor.textContent);
                 });
             }
+
+            setupEnergyDragSurface(energySimpleList);
+            setupEnergyDragSurface(energyGrid);
 
             const performanceHolder = document.getElementById('performanceIndicatorGrid');
             if (performanceHolder) {
@@ -4193,8 +4576,10 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
 
         function initializeDashboard() {
             loadPerformanceScorecard();
+            loadEnergyMixObject();
             renderSectorOptions();
             renderPerformanceIndicators();
+            refreshEnergyMixUi();
             setupEventHandlers();
             setupPanelMenus();
             setupLeftRail();
