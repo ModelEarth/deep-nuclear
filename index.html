@@ -525,6 +525,92 @@
             letter-spacing: 0.01em;
         }
 
+        .studio-toast {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            width: min(380px, calc(100vw - 28px));
+            padding: 16px 18px;
+            border-radius: 24px;
+            border: 1px solid rgba(14, 55, 58, 0.16);
+            background:
+                linear-gradient(135deg, rgba(12, 86, 91, 0.96), rgba(19, 42, 43, 0.96)),
+                rgba(13, 92, 99, 0.94);
+            box-shadow: 0 22px 42px rgba(5, 22, 24, 0.28);
+            backdrop-filter: blur(18px);
+            color: #fff;
+            opacity: 0;
+            transform: translateY(18px);
+            pointer-events: none;
+            transition: opacity 0.22s ease, transform 0.22s ease;
+            z-index: 10002;
+        }
+
+        .studio-toast.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .studio-toast-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .studio-toast-kicker .material-icons {
+            font-size: 17px;
+        }
+
+        .studio-toast-head {
+            display: grid;
+            gap: 3px;
+            margin-bottom: 14px;
+        }
+
+        .studio-toast-head strong {
+            font-size: 1.24rem;
+            line-height: 1.1;
+        }
+
+        .studio-toast-head span {
+            color: rgba(255, 255, 255, 0.76);
+            font-size: 0.88rem;
+        }
+
+        .studio-toast-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .studio-toast-stat {
+            display: grid;
+            gap: 4px;
+            padding: 10px 12px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .studio-toast-stat .label {
+            color: rgba(255, 255, 255, 0.68);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .studio-toast-stat .value {
+            font-size: 0.95rem;
+            font-weight: 700;
+            line-height: 1.25;
+        }
+
         .energy-simple-item.dragging,
         .energy-row.dragging {
             opacity: 0.5;
@@ -556,7 +642,7 @@
             font-size: clamp(2.1rem, 4.8cqw, 34px);
             color: #fff;
             font-color: #fff;
-            line-height: 1.02;
+            line-height: 1.15;
             letter-spacing: -0.03em;
         }
 
@@ -1690,6 +1776,14 @@
             color: #7ed9d3;
         }
 
+        .dark .studio-toast {
+            border-color: rgba(115, 226, 223, 0.14);
+            background:
+                linear-gradient(135deg, rgba(9, 45, 48, 0.96), rgba(16, 26, 32, 0.96)),
+                rgba(12, 38, 40, 0.96);
+            box-shadow: 0 22px 42px rgba(0, 0, 0, 0.42);
+        }
+
         .dark .outline-btn {
             background: rgba(9, 18, 23, 0.88);
             color: #eef9fa;
@@ -1765,6 +1859,10 @@
                 width: 100%;
             }
 
+            .studio-toast-grid {
+                grid-template-columns: 1fr;
+            }
+
             .collapse-teaser {
                 flex-direction: column;
                 align-items: stretch;
@@ -1817,6 +1915,10 @@
                 display: none !important;
             }
         }
+
+        .mobile-nav-mode .studio-toast {
+            bottom: 88px;
+        }
     </style>
 </head>
 <body>
@@ -1850,14 +1952,22 @@
 
         <div class="dashboard-shell contentpadding">
         <div id="studio" class="hero nav-target">
-            <div class="hero-topbar">
-                <div class="eyebrow">
-                    <span class="eyebrow-main"><span class="material-icons">water_drop</span><span>Water + energy sponsor studio</span></span>
-                </div>
-            </div>
+            
             <div class="studio-main">
                 <div id="studioLeft">
-                    <h1>Corporate upside from financing&nbsp;pure&nbsp;water and resilient&nbsp;community&nbsp;energy</h1>
+                    <div class="hero-topbar">
+                        <div class="eyebrow">
+                            <span class="eyebrow-main"><span class="material-icons">water_drop</span><span>Water + energy sponsor studio</span></span>
+                        </div>
+                    </div>
+                    <h2 class="large-h2" style="color:#fff">Sponsoring Abundance</h2>
+                    <p>
+                        <h1>Corporate upsides from water and&nbsp;energy&nbsp;financing</h1>
+
+                        <!--
+                        <h1>Corporate upside from financing&nbsp;pure&nbsp;water and resilient&nbsp;community&nbsp;energy</h1>
+                        -->
+                    </p>
                     <p>
                         Model how water replenishment, robust energy grids, and fast reliable infrastructure can expand product demand,
                         cut operating risk, and improve sponsor returns across categories from soaps and shampoos to food, pharma, and packaged goods.
@@ -1884,7 +1994,7 @@
                 <div id="energySimple">
                     <div class="energy-simple-panel">
                         <div class="energy-simple-topline">
-                            <a id="heroEnergyMixLink" class="eyebrow-link" href="#energyMix">Energy Mix</a>
+                            <a id="heroEnergyMixLink" class="eyebrow-link" href="#energyMix">Energy Finance Mix</a>
                         </div>
                         <div id="energySimpleList" class="energy-simple-list"></div>
                         <div id="energySimpleActions" class="energy-simple-actions"></div>
@@ -2148,7 +2258,7 @@
 	                        <div class="energy-grid" id="energyGrid"></div>
 
                         <div class="action-row">
-                            <button type="button" class="btn" id="calculateCorporateBtn"><span class="material-icons">calculate</span>Calculate corporate benefits</button>
+                            <button type="button" class="btn" id="calculateCorporateBtn"><span class="material-icons">autorenew</span>Clear Changes</button>
                         </div>
                     </div>
                 </div>
@@ -2264,7 +2374,7 @@
                                 </div>
 
                                 <div class="action-row">
-                                    <button type="button" class="btn" id="calculateFundingBtn"><span class="material-icons">stacked_bar_chart</span>Calculate blended contributions</button>
+                            <button type="button" class="btn" id="calculateFundingBtn"><span class="material-icons">autorenew</span>Clear Changes</button>
                                 </div>
                             </section>
                         </div>
@@ -2598,6 +2708,7 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             <strong>Desalination Economic Evaluation Program (DEEP)</strong><br>
             International Atomic Energy Agency (IAEA)
         </div>
+        <div id="studioUpdateToast" class="studio-toast" hidden aria-live="polite"></div>
     </div>
     </div>
 
@@ -2644,6 +2755,8 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
         const SECONDS_PER_HOUR = 3600;
         const HOURS_PER_YEAR = HOURS_PER_DAY * DAYS_PER_YEAR;
         const PERFORMANCE_SCORECARD_STORAGE_KEY = 'deepNuclearPerformanceScorecardV1';
+        const CORPORATE_FORM_STORAGE_KEY = 'corporateBenefitsFormV1';
+        const FUNDING_FORM_STORAGE_KEY = 'blendedFundingFormV1';
         const LEFT_RAIL_STORAGE_KEY = 'deepNuclearRailCompactV1';
         const HEADER_FILTER_TOGGLE_BREAKPOINT = 600;
         const MOBILE_LEFT_RAIL_BREAKPOINT = 800;
@@ -2707,6 +2820,12 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
         let energyMixObject1 = {};
         let draggedEnergyRowId = null;
         let fundingCatalyticRatioValue = '0.0x';
+        let benefitsFormDefaults = {};
+        let fundingFormDefaults = {};
+        let liveCorporateUpdateTimer = null;
+        let studioToastTimer = null;
+        let studioToastHideTimer = null;
+        let suppressStudioToast = true;
 
         function getNumber(id, fallback) {
             const element = document.getElementById(id);
@@ -2812,6 +2931,96 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             }
         }
 
+        function getSectionFormFields(sectionSelector) {
+            return Array.from(document.querySelectorAll(
+                sectionSelector + ' input[id], ' + sectionSelector + ' select[id]'
+            )).filter(function(field) {
+                return field.type !== 'button' && field.type !== 'submit' && field.type !== 'reset';
+            });
+        }
+
+        function getBenefitsFormFields() {
+            return getSectionFormFields('#benefits');
+        }
+
+        function getFundingFormFields() {
+            return getSectionFormFields('#fundingPanel');
+        }
+
+        function readCorporateFieldValue(field) {
+            return field.type === 'checkbox' ? !!field.checked : String(field.value ?? '');
+        }
+
+        function writeCorporateFieldValue(field, value) {
+            if (field.type === 'checkbox') {
+                field.checked = !!value;
+                return;
+            }
+            field.value = value === null || value === undefined ? '' : String(value);
+        }
+
+        function captureSectionFormDefaults(fields, targetDefaults) {
+            Object.keys(targetDefaults).forEach(function(key) {
+                delete targetDefaults[key];
+            });
+            fields.forEach(function(field) {
+                targetDefaults[field.id] = readCorporateFieldValue(field);
+            });
+        }
+
+        function getSectionFormDiff(fields, defaults) {
+            const diff = {};
+            fields.forEach(function(field) {
+                const currentValue = readCorporateFieldValue(field);
+                if (currentValue !== defaults[field.id]) {
+                    diff[field.id] = currentValue;
+                }
+            });
+            return diff;
+        }
+
+        function loadSectionFormCache(fields, storageKey) {
+            let cached = {};
+            try {
+                cached = JSON.parse(window.localStorage?.getItem(storageKey) || '{}') || {};
+            } catch (error) {
+                cached = {};
+            }
+
+            fields.forEach(function(field) {
+                if (Object.prototype.hasOwnProperty.call(cached, field.id)) {
+                    writeCorporateFieldValue(field, cached[field.id]);
+                }
+            });
+        }
+
+        function loadCorporateFormCache() {
+            loadSectionFormCache(getBenefitsFormFields(), CORPORATE_FORM_STORAGE_KEY);
+            loadSectionFormCache(getFundingFormFields(), FUNDING_FORM_STORAGE_KEY);
+            updateSectorTriggerLabel();
+        }
+
+        function saveSectionFormCache(fields, defaults, storageKey) {
+            const diff = getSectionFormDiff(fields, defaults);
+            try {
+                if (Object.keys(diff).length) {
+                    window.localStorage?.setItem(storageKey, JSON.stringify(diff));
+                } else {
+                    window.localStorage?.removeItem(storageKey);
+                }
+            } catch (error) {
+                // Ignore storage failures and keep the UI responsive.
+            }
+            return diff;
+        }
+
+        function saveCorporateFormCache() {
+            return {
+                benefits: saveSectionFormCache(getBenefitsFormFields(), benefitsFormDefaults, CORPORATE_FORM_STORAGE_KEY),
+                funding: saveSectionFormCache(getFundingFormFields(), fundingFormDefaults, FUNDING_FORM_STORAGE_KEY)
+            };
+        }
+
         function renderPerformanceIndicators() {
             const holder = document.getElementById('performanceIndicatorGrid');
             if (!holder) return;
@@ -2864,6 +3073,183 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
                 lowCarbon: false,
                 isOther: true
             }]);
+        }
+
+        function isEnergyRowsDirty(rows) {
+            const defaultRows = createDefaultEnergyRows();
+            if (rows.length !== defaultRows.length) return true;
+
+            return rows.some(function(row, index) {
+                const defaultRow = defaultRows[index];
+                return !defaultRow ||
+                    row.id !== defaultRow.id ||
+                    String(row.name || '').trim() !== defaultRow.label ||
+                    sanitizeEnergyMw(row.mw) !== sanitizeEnergyMw(defaultRow.mw) ||
+                    !!row.checked !== !!defaultRow.checked;
+            });
+        }
+
+        function isEnergyMixDirty() {
+            return isEnergyRowsDirty(energyMixRows);
+        }
+
+        function hasStudioChanges() {
+            return Object.keys(getSectionFormDiff(getBenefitsFormFields(), benefitsFormDefaults)).length > 0 || isEnergyMixDirty();
+        }
+
+        function hasFundingChanges() {
+            return Object.keys(getSectionFormDiff(getFundingFormFields(), fundingFormDefaults)).length > 0;
+        }
+
+        function updateClearChangesButtons() {
+            const benefitsButton = document.getElementById('calculateCorporateBtn');
+            if (benefitsButton) {
+                const hasBenefitsChanges = hasStudioChanges();
+                benefitsButton.hidden = !hasBenefitsChanges;
+                benefitsButton.disabled = !hasBenefitsChanges;
+            }
+
+            const fundingButton = document.getElementById('calculateFundingBtn');
+            if (fundingButton) {
+                const hasFundingSectionChanges = hasFundingChanges();
+                fundingButton.hidden = !hasFundingSectionChanges;
+                fundingButton.disabled = !hasFundingSectionChanges;
+            }
+        }
+
+        function hideStudioUpdateToast(immediate) {
+            const toast = document.getElementById('studioUpdateToast');
+            if (!toast) return;
+
+            window.clearTimeout(studioToastTimer);
+            window.clearTimeout(studioToastHideTimer);
+
+            toast.classList.remove('visible');
+            if (immediate) {
+                toast.hidden = true;
+                return;
+            }
+
+            studioToastHideTimer = window.setTimeout(function() {
+                if (!toast.classList.contains('visible')) {
+                    toast.hidden = true;
+                }
+            }, 220);
+        }
+
+        function showStudioUpdateToast() {
+            if (suppressStudioToast || !corporateResults) return;
+            const toast = document.getElementById('studioUpdateToast');
+            if (!toast) return;
+
+            toast.innerHTML = `
+                <div class="studio-toast-kicker"><span class="material-icons">auto_awesome</span><span>Scenario refreshed and saved locally</span></div>
+                <div class="studio-toast-head">
+                    <strong>${formatCurrency(corporateResults.totalAnnualBenefit)}</strong>
+                    <span>Annual sponsor value with the current water, energy, and funding mix.</span>
+                </div>
+                <div class="studio-toast-grid">
+                    <div class="studio-toast-stat">
+                        <span class="label">10-year NPV</span>
+                        <span class="value">${formatCurrency(corporateResults.npv)}</span>
+                    </div>
+                    <div class="studio-toast-stat">
+                        <span class="label">Unlocked capital expenditure</span>
+                        <span class="value">${escapeHtml(fundingCatalyticRatioValue)}</span>
+                    </div>
+                    <div class="studio-toast-stat">
+                        <span class="label">Households upgraded</span>
+                        <span class="value">${formatWhole(corporateResults.coveredHouseholds)}</span>
+                    </div>
+                    <div class="studio-toast-stat">
+                        <span class="label">Energy platform</span>
+                        <span class="value">${formatNumber(corporateResults.annualEnergyMwh)} MWh/yr</span>
+                    </div>
+                </div>
+            `;
+
+            window.clearTimeout(studioToastTimer);
+            window.clearTimeout(studioToastHideTimer);
+            toast.hidden = false;
+            requestAnimationFrame(function() {
+                toast.classList.add('visible');
+            });
+
+            studioToastTimer = window.setTimeout(function() {
+                hideStudioUpdateToast(false);
+            }, 8000);
+        }
+
+        function finalizeStudioChange(options) {
+            const settings = options || {};
+            if (settings.saveCorporateCache) {
+                saveCorporateFormCache();
+            }
+            updateClearChangesButtons();
+            if (settings.showToast) {
+                showStudioUpdateToast();
+            }
+        }
+
+        function runStudioScenarioUpdate(options) {
+            const settings = options || {};
+            calculateCorporateBenefits();
+            finalizeStudioChange({
+                saveCorporateCache: settings.saveCorporateCache !== false,
+                showToast: settings.showToast !== false
+            });
+        }
+
+        function scheduleStudioScenarioUpdate(options) {
+            const settings = options || {};
+            window.clearTimeout(liveCorporateUpdateTimer);
+            liveCorporateUpdateTimer = window.setTimeout(function() {
+                runStudioScenarioUpdate(settings);
+            }, settings.delay ?? 180);
+        }
+
+        function clearStudioChanges() {
+            window.clearTimeout(liveCorporateUpdateTimer);
+            hideStudioUpdateToast(true);
+
+            getBenefitsFormFields().forEach(function(field) {
+                writeCorporateFieldValue(field, benefitsFormDefaults[field.id]);
+            });
+            updateSectorTriggerLabel();
+
+            energyMixRows = createDefaultEnergyRows();
+            energySimpleExpanded = false;
+
+            try {
+                window.localStorage?.removeItem(CORPORATE_FORM_STORAGE_KEY);
+                window.localStorage?.removeItem(ENERGY_MIX_STORAGE_KEY);
+            } catch (error) {
+                // Ignore storage failures and keep the UI responsive.
+            }
+
+            refreshEnergyMixUi();
+            calculateCorporateBenefits();
+            saveCorporateFormCache();
+            updateClearChangesButtons();
+        }
+
+        function clearFundingChanges() {
+            window.clearTimeout(liveCorporateUpdateTimer);
+            hideStudioUpdateToast(true);
+
+            getFundingFormFields().forEach(function(field) {
+                writeCorporateFieldValue(field, fundingFormDefaults[field.id]);
+            });
+
+            try {
+                window.localStorage?.removeItem(FUNDING_FORM_STORAGE_KEY);
+            } catch (error) {
+                // Ignore storage failures and keep the UI responsive.
+            }
+
+            calculateCorporateBenefits();
+            saveCorporateFormCache();
+            updateClearChangesButtons();
         }
 
         function sanitizeEnergyMw(value) {
@@ -2983,7 +3369,11 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
 
             energyMixObject1 = nextObject;
             try {
-                window.localStorage?.setItem(ENERGY_MIX_STORAGE_KEY, JSON.stringify(nextObject));
+                if (isEnergyRowsDirty(energyMixRows)) {
+                    window.localStorage?.setItem(ENERGY_MIX_STORAGE_KEY, JSON.stringify(nextObject));
+                } else {
+                    window.localStorage?.removeItem(ENERGY_MIX_STORAGE_KEY);
+                }
             } catch (error) {
                 // Ignore storage failures and keep the UI responsive.
             }
@@ -3125,6 +3515,7 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
 
             refreshEnergyMixUi();
             calculateCorporateBenefits();
+            finalizeStudioChange({ showToast: true });
         }
 
         function updateEnergyRowChecked(rowId, isChecked) {
@@ -3138,6 +3529,7 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
                     });
                     refreshEnergyMixUi();
                     calculateCorporateBenefits();
+                    finalizeStudioChange({ showToast: true });
                     return;
                 }
 
@@ -3157,6 +3549,7 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
                 });
                 refreshEnergyMixUi();
                 calculateCorporateBenefits();
+                finalizeStudioChange({ showToast: true });
                 return;
             }
 
@@ -3210,6 +3603,7 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             });
             refreshEnergyMixUi();
             calculateCorporateBenefits();
+            finalizeStudioChange({ showToast: true });
         }
 
         function updateEnergyRowName(rowId, value) {
@@ -3219,6 +3613,7 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             });
             refreshEnergyMixUi();
             calculateCorporateBenefits();
+            finalizeStudioChange({ showToast: true });
         }
 
         function moveEnergyRow(rowId, targetRowId) {
@@ -3233,6 +3628,7 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             energyMixRows = nextRows;
             refreshEnergyMixUi();
             calculateCorporateBenefits();
+            finalizeStudioChange({ showToast: true });
         }
 
         function getEnergyMixForCalculations() {
@@ -4444,9 +4840,11 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             const energySimpleList = document.getElementById('energySimpleList');
             const energySimpleActions = document.getElementById('energySimpleActions');
             const energyGrid = document.getElementById('energyGrid');
+            const benefitsPanel = document.getElementById('benefits');
+            const fundingPanel = document.getElementById('fundingPanel');
 
-            if (corporateBtn) corporateBtn.addEventListener('click', calculateCorporateBenefits);
-            if (fundingBtn) fundingBtn.addEventListener('click', calculateFundingMix);
+            if (corporateBtn) corporateBtn.addEventListener('click', clearStudioChanges);
+            if (fundingBtn) fundingBtn.addEventListener('click', clearFundingChanges);
             if (nuclearBtn) nuclearBtn.addEventListener('click', calculateNuclear);
             if (exportBtn) exportBtn.addEventListener('click', exportToCSV);
             if (sectorLayoutToggle) sectorLayoutToggle.addEventListener('click', function(event) {
@@ -4490,7 +4888,7 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
                         if (checkbox) checkbox.checked = true;
                     });
                     updateSectorTriggerLabel();
-                    calculateCorporateBenefits();
+                    runStudioScenarioUpdate();
                 });
             }
 
@@ -4501,7 +4899,7 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
                         if (checkbox) checkbox.checked = false;
                     });
                     updateSectorTriggerLabel();
-                    calculateCorporateBenefits();
+                    runStudioScenarioUpdate();
                 });
             }
 
@@ -4509,8 +4907,25 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             if (sectorHolder) {
                 sectorHolder.addEventListener('change', function() {
                     updateSectorTriggerLabel();
-                    calculateCorporateBenefits();
+                    runStudioScenarioUpdate();
                 });
+            }
+
+            function handleLiveScenarioField(event) {
+                const field = event.target.closest('input[id], select[id]');
+                if (!field) return;
+                if (field.closest('#sectorOptions') || field.closest('#energyGrid') || field.closest('#energySimpleList')) return;
+                scheduleStudioScenarioUpdate();
+            }
+
+            if (benefitsPanel) {
+                benefitsPanel.addEventListener('input', handleLiveScenarioField);
+                benefitsPanel.addEventListener('change', handleLiveScenarioField);
+            }
+
+            if (fundingPanel) {
+                fundingPanel.addEventListener('input', handleLiveScenarioField);
+                fundingPanel.addEventListener('change', handleLiveScenarioField);
             }
 
             if (energySimpleList) {
@@ -4578,6 +4993,9 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             loadPerformanceScorecard();
             loadEnergyMixObject();
             renderSectorOptions();
+            captureSectionFormDefaults(getBenefitsFormFields(), benefitsFormDefaults);
+            captureSectionFormDefaults(getFundingFormFields(), fundingFormDefaults);
+            loadCorporateFormCache();
             renderPerformanceIndicators();
             refreshEnergyMixUi();
             setupEventHandlers();
@@ -4588,6 +5006,8 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             calculateFundingMix();
             calculateNuclear();
             renderRestoreChips();
+            updateClearChangesButtons();
+            suppressStudioToast = false;
         }
 
         if (typeof waitForElm === 'function') {
