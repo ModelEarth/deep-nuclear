@@ -44,7 +44,6 @@
             gap: 24px;
             max-width: 1760px;
             margin: 0 auto;
-            padding: 20px 18px 34px;
             align-items: start;
         }
 
@@ -56,7 +55,8 @@
             transition: width 0.24s ease;
         }
 
-        .left-rail.compact {
+        .left-rail.compact,
+        .left-rail.auto-compact {
             width: 94px;
         }
 
@@ -73,10 +73,38 @@
 
         .rail-shell.rail-fixed {
             position: fixed;
-            top: 18px;
+            top: var(--rail-fixed-top, 18px);
             left: var(--rail-fixed-left, 18px);
             width: var(--rail-fixed-width, 280px);
+            max-height: calc(100vh - var(--rail-fixed-top, 18px) - 16px);
+            overflow: auto;
+            overscroll-behavior: contain;
+            scrollbar-width: none;
             z-index: 30;
+        }
+
+        .rail-shell.rail-fixed::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+        }
+
+        .rail-shell.rail-fixed.rail-shell-scrollbar-visible {
+            scrollbar-width: thin;
+        }
+
+        .rail-shell.rail-fixed.rail-shell-scrollbar-visible::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        .rail-shell.rail-fixed.rail-shell-scrollbar-visible::-webkit-scrollbar-thumb {
+            background: rgba(19, 42, 43, 0.26);
+            border-radius: 999px;
+        }
+
+        .rail-shell.rail-fixed.rail-shell-without-header {
+            top: 64px;
+            max-height: calc(100vh - 64px - 16px);
         }
 
         .rail-nav {
@@ -132,15 +160,168 @@
         }
 
         .left-rail.compact .rail-label,
-        .left-rail.compact .rail-toggle-text {
+        .left-rail.compact .rail-toggle-text,
+        .left-rail.auto-compact .rail-label,
+        .left-rail.auto-compact .rail-toggle-text {
             display: none;
         }
 
         .left-rail.compact .rail-link,
-        .left-rail.compact .rail-toggle {
+        .left-rail.compact .rail-toggle,
+        .left-rail.auto-compact .rail-link,
+        .left-rail.auto-compact .rail-toggle {
             justify-content: center;
             padding-left: 12px;
             padding-right: 12px;
+        }
+
+        .mobile-rail-backdrop,
+        .mobile-rail-bar {
+            display: none;
+        }
+
+        .mobile-rail-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(6, 14, 18, 0.34);
+            backdrop-filter: blur(8px);
+            z-index: 42;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .mobile-rail-bar {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transform: none;
+            width: 100%;
+            padding: 10px;
+            border-radius: 0;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(19, 42, 43, 0.08);
+            box-shadow: 0 20px 36px rgba(9, 30, 32, 0.18);
+            backdrop-filter: blur(18px);
+            z-index: 10001;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .mobile-rail-link,
+        .mobile-rail-menu-toggle {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            min-width: 0;
+            flex: 1 1 0;
+            padding: 10px 8px;
+            border: 0;
+            border-radius: 18px;
+            background: transparent;
+            color: var(--ink-1);
+            text-decoration: none;
+            font: inherit;
+            cursor: pointer;
+            transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+        }
+
+        .mobile-rail-hidden {
+            display: none;
+        }
+
+        .mobile-rail-link:hover,
+        .mobile-rail-link:focus-visible,
+        .mobile-rail-menu-toggle:hover,
+        .mobile-rail-menu-toggle:focus-visible {
+            background: rgba(15, 113, 115, 0.1);
+            color: var(--accent-1);
+            outline: none;
+        }
+
+        .mobile-rail-link.active {
+            background: linear-gradient(135deg, rgba(15, 113, 115, 0.16), rgba(20, 91, 146, 0.12));
+            color: var(--accent-1);
+        }
+
+        .mobile-rail-link .material-icons,
+        .mobile-rail-menu-toggle .material-icons {
+            font-size: 26px;
+            line-height: 1;
+        }
+
+        .mobile-rail-label {
+            font-size: 0.74rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            white-space: nowrap;
+        }
+
+        .mobile-nav-mode .dashboard-layout {
+            grid-template-columns: minmax(0, 1fr);
+            padding-bottom: 98px;
+        }
+
+        .mobile-nav-mode .left-rail {
+            position: fixed;
+            left: 16px;
+            right: 16px;
+            bottom: calc(max(12px, env(safe-area-inset-bottom)) + 86px);
+            width: auto;
+            z-index: 44;
+            pointer-events: none;
+        }
+
+        .mobile-nav-mode .rail-shell,
+        .mobile-nav-mode .rail-shell.rail-fixed {
+            position: static;
+            width: auto;
+            left: auto;
+            top: auto;
+            display: none;
+            max-height: min(62vh, 560px);
+            overflow: auto;
+        }
+
+        .mobile-nav-mode.mobile-rail-open .left-rail {
+            top: auto;
+            pointer-events: auto;
+        }
+
+        .mobile-nav-mode.mobile-rail-open .rail-shell,
+        .mobile-nav-mode.mobile-rail-open .rail-shell.rail-fixed {
+            top: auto;
+            display: grid;
+        }
+
+        .mobile-nav-mode .mobile-rail-bar {
+            display: flex;
+        }
+
+        .mobile-nav-mode .left-rail.compact .rail-label,
+        .mobile-nav-mode .left-rail.compact .rail-toggle-text,
+        .mobile-nav-mode .left-rail.auto-compact .rail-label,
+        .mobile-nav-mode .left-rail.auto-compact .rail-toggle-text {
+            display: inline;
+        }
+
+        .mobile-nav-mode .left-rail.compact .rail-link,
+        .mobile-nav-mode .left-rail.compact .rail-toggle,
+        .mobile-nav-mode .left-rail.auto-compact .rail-link,
+        .mobile-nav-mode .left-rail.auto-compact .rail-toggle {
+            justify-content: flex-start;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .mobile-nav-mode.mobile-rail-open .mobile-rail-backdrop {
+            display: block;
+            opacity: 1;
+            pointer-events: auto;
         }
 
         .dashboard-shell {
@@ -173,11 +354,19 @@
             filter: blur(10px);
         }
 
+        .hero-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 12px;
+            margin: 0 0 14px;
+        }
+
         .eyebrow {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            margin: 0 0 14px;
+            margin: 0;
             padding: 8px 14px;
             border-radius: 999px;
             background: rgba(255, 255, 255, 0.14);
@@ -185,6 +374,128 @@
             font-weight: 700;
             letter-spacing: 0.08em;
             text-transform: uppercase;
+        }
+
+        .eyebrow-main {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+        }
+
+        .studio-main {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        #studioLeft {
+            flex: 1 1 760px;
+            min-width: 0;
+            container-type: inline-size;
+        }
+
+        #energySimple {
+            display: flex;
+            flex: 0 0 min(360px, 100%);
+            align-items: stretch;
+            justify-content: flex-end;
+            min-width: 0;
+            padding-top: 4px;
+        }
+
+        .energy-simple-panel {
+            width: min(360px, 100%);
+            padding: 16px 18px;
+            border-radius: 24px;
+            background: rgba(8, 24, 28, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            backdrop-filter: blur(14px);
+            box-shadow: 0 14px 28px rgba(6, 21, 23, 0.16);
+        }
+
+        .energy-simple-topline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .eyebrow-link {
+            color: #fff;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .energy-simple-list {
+            display: grid;
+            gap: 8px;
+        }
+
+        .energy-simple-group {
+            display: grid;
+            gap: 8px;
+        }
+
+        .energy-simple-group-label {
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin: 2px 2px 0;
+        }
+
+        .energy-simple-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 10px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .energy-simple-item input {
+            width: auto;
+            margin: 0;
+        }
+
+        .energy-simple-copy {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex: 1 1 auto;
+            min-width: 0;
+            font-size: 0.94rem;
+            font-weight: 700;
+        }
+
+        .energy-simple-copy span:first-child {
+            min-width: 0;
+        }
+
+        .energy-simple-share {
+            color: rgba(255, 255, 255, 0.84);
+            font-size: 0.86rem;
+            white-space: nowrap;
+        }
+
+        .energy-simple-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+        #heroEnergyMixLink {
+            color: #fff;
+        }
+
+        .eyebrow-link:hover,
+        .eyebrow-link:focus-visible {
+            text-decoration: underline;
         }
 
         .hero h1 {
@@ -207,7 +518,7 @@
 
         .hero-highlights {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(4, minmax(0, 1fr));
             gap: 14px;
             margin-top: 26px;
         }
@@ -295,7 +606,7 @@
         }
 
         .nav-target {
-            scroll-margin-top: 18px;
+            scroll-margin-top: 134px;
         }
 
         .panel-shell {
@@ -395,6 +706,24 @@
             align-items: center;
             gap: 12px;
             padding: 0 28px 22px;
+        }
+
+        .panel-note-actions {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex: 0 0 auto;
+        }
+
+        .panel-menu-inline-dock {
+            position: static !important;
+            right: auto !important;
+            top: auto !important;
+            z-index: auto !important;
+            display: flex !important;
+            align-items: center;
+            justify-content: flex-end;
         }
 
         .panel-note,
@@ -647,6 +976,18 @@
             font-weight: 700;
         }
 
+        .btn-sm {
+            border: 0;
+            border-radius: 999px;
+            padding: 7px 11px;
+            background: rgba(255, 255, 255, 0.14);
+            color: #fff;
+            cursor: pointer;
+            font: inherit;
+            font-size: 0.84rem;
+            font-weight: 700;
+        }
+
         .layout-toggle-btn {
             display: inline-flex;
             align-items: center;
@@ -715,7 +1056,7 @@
 
         .energy-row {
             display: grid;
-            grid-template-columns: minmax(220px, 1.2fr) 110px minmax(120px, 0.8fr);
+            grid-template-columns: minmax(220px, 1.2fr) 110px 34px minmax(120px, 0.8fr);
             gap: 12px;
             align-items: center;
             padding: 12px 14px;
@@ -725,11 +1066,33 @@
         }
 
         .energy-row label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             font-size: 0.98rem;
+        }
+
+        .energy-share {
+            min-width: 52px;
+            font-size: 0.84rem;
+            font-weight: 700;
+            color: var(--accent-1);
+        }
+
+        .energy-label-name {
+            min-width: 0;
         }
 
         .energy-row input {
             margin: 0;
+            width: 100%;
+            text-align: right;
+        }
+
+        .energy-unit {
+            color: var(--ink-2);
+            font-size: 0.88rem;
+            font-weight: 700;
         }
 
         .energy-meta {
@@ -1022,6 +1385,7 @@
         }
 
         .dark .rail-shell,
+        .dark .mobile-rail-bar,
         .dark .page-links a,
         .dark .restore-chip,
         .dark .panel-shell,
@@ -1048,7 +1412,9 @@
         }
 
         .dark .rail-link,
-        .dark .rail-toggle {
+        .dark .rail-toggle,
+        .dark .mobile-rail-link,
+        .dark .mobile-rail-menu-toggle {
             color: #edf6f7;
         }
 
@@ -1056,7 +1422,12 @@
         .dark .rail-toggle:hover,
         .dark .rail-link:focus-visible,
         .dark .rail-toggle:focus-visible,
-        .dark .rail-link.active {
+        .dark .rail-link.active,
+        .dark .mobile-rail-link:hover,
+        .dark .mobile-rail-link:focus-visible,
+        .dark .mobile-rail-menu-toggle:hover,
+        .dark .mobile-rail-menu-toggle:focus-visible,
+        .dark .mobile-rail-link.active {
             background: rgba(90, 190, 182, 0.14);
             color: #7ed9d3;
         }
@@ -1193,7 +1564,28 @@
             }
         }
 
+        @container (max-width: 920px) {
+            .studio-main {
+                flex-direction: column;
+                gap: 14px;
+            }
+
+            #energySimple {
+                width: 100%;
+                justify-content: flex-start;
+                padding-top: 0;
+            }
+
+            .energy-simple-panel {
+                width: 100%;
+            }
+        }
+
         @container (max-width: 780px) {
+            .hero-highlights {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
             .panel-summary-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
@@ -1201,9 +1593,18 @@
             .energy-row {
                 grid-template-columns: 1fr;
             }
+
+            .panel-note-actions {
+                flex-basis: 100%;
+                margin-left: 0;
+            }
         }
 
         @container (max-width: 500px) {
+            .hero-highlights {
+                grid-template-columns: 1fr;
+            }
+
             .panel-summary-grid {
                 grid-template-columns: 1fr;
             }
@@ -1228,12 +1629,57 @@
                 padding: 24px 20px 22px;
             }
         }
+
+        #filterFieldToggleInHeader {
+            display: none !important;
+        }
+
+        #filterFieldToggleIconInBar {
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            min-width: 44px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        #filterFieldToggleIconInBar i {
+            font-size: 32px;
+            color: #888;
+            cursor: pointer;
+        }
+
+        #filterFieldToggleIconInBar .filter-toggle-circle {
+            font-size: 32px;
+        }
+
+        #geoviewSelectHolder {
+            align-items: center;
+            gap: 8px;
+        }
+
+        @media (min-width: 601px) {
+            #filterFieldToggleIconInBar {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 600px) {
+            #geoview_select {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body>
     <link type="text/css" rel="stylesheet" href="/localsite/css/base.css" id="/localsite/css/base.css" />
     <script type="text/javascript" src="/localsite/js/localsite.js?showheader=true&showsearch=true"></script>
-
+    <!--
+    Join in creating a Abundance Engine for RFP generation. 
+    Sponsor projects using your private equipment for abundant energy and water replenishment.
+    Sponsor soldiers using your private equipment with targets approved by the DOW.
+    -->
     <div class="dashboard-layout">
         <aside id="leftRail" class="left-rail">
             <div class="rail-shell">
@@ -1258,33 +1704,50 @@
 
         <div class="dashboard-shell contentpadding">
         <div id="studio" class="hero nav-target">
-            <div class="eyebrow"><span class="material-icons">water_drop</span>Water + energy sponsor studio</div>
-            <h1>Corporate upside from financing&nbsp;pure&nbsp;water and resilient&nbsp;community&nbsp;energy</h1>
-            <p>
-                Model how cleaner water, robust energy grids, and fast reliable infrastructure can expand product demand,
-                cut operating risk, and improve sponsor returns across categories from soaps and shampoos to food, pharma, and packaged goods.
-            </p>
-            <div class="hero-highlights">
-                <div class="hero-chip">
-                    <span class="label">Sponsor annual value</span>
-                    <span class="value" id="heroSponsorValue">$0</span>
+            <div class="hero-topbar">
+                <div class="eyebrow">
+                    <span class="eyebrow-main"><span class="material-icons">water_drop</span><span>Water + energy sponsor studio</span></span>
                 </div>
-                <div class="hero-chip">
-                    <span class="label">Pure water reach</span>
-                    <span class="value" id="heroWaterReach">0 households</span>
+            </div>
+            <div class="studio-main">
+                <div id="studioLeft">
+                    <h1>Corporate upside from financing&nbsp;pure&nbsp;water and resilient&nbsp;community&nbsp;energy</h1>
+                    <p>
+                        Model how water replenishment, robust energy grids, and fast reliable infrastructure can expand product demand,
+                        cut operating risk, and improve sponsor returns across categories from soaps and shampoos to food, pharma, and packaged goods.
+                    </p>
+                    <div class="hero-highlights">
+                        <div class="hero-chip">
+                            <span class="label">Sponsor annual value</span>
+                            <span class="value" id="heroSponsorValue">$0</span>
+                        </div>
+                        <div class="hero-chip">
+                            <span class="label">Pure water reach</span>
+                            <span class="value" id="heroWaterReach">0 households</span>
+                        </div>
+                        <div class="hero-chip">
+                            <span class="label">Energy portfolio</span>
+                            <span class="value" id="heroEnergyMix">0 MWh/yr</span>
+                        </div>
+                        <div class="hero-chip">
+                            <span class="label">Annual water revenue</span>
+                            <span class="value" id="heroNuclearRef">$0 annually</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="hero-chip">
-                    <span class="label">Energy portfolio</span>
-                    <span class="value" id="heroEnergyMix">0 MWh/yr</span>
-                </div>
-                <div class="hero-chip">
-                    <span class="label">Annual water revenue</span>
-                    <span class="value" id="heroNuclearRef">$0 annually</span>
+                <div id="energySimple">
+                    <div class="energy-simple-panel">
+                        <div class="energy-simple-topline">
+                            <a id="heroEnergyMixLink" class="eyebrow-link" href="#energyMix">Energy Mix</a>
+                        </div>
+                        <div id="energySimpleList" class="energy-simple-list"></div>
+                        <div id="energySimpleActions" class="energy-simple-actions"></div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="page-links">
+        <div class="page-links local" style="display:none">
             <a href="projects"><span class="material-icons">timeline</span>Project timelines</a>
             <a href="../grid/nuclear/"><span class="material-icons">bolt</span>Underground SMRs</a>
         </div>
@@ -1328,6 +1791,7 @@
                 <div class="panel-note-row">
                     <div class="panel-note"><span class="material-icons">tips_and_updates</span>Pick multiple product families in the popup to see which categories benefit most from cleaner water access.</div>
                     <div class="placeholder-pill"><span class="material-icons">science</span>Placeholder market-lift and energy coefficients are preloaded so results appear immediately.</div>
+                    <div id="benefitsMenuDock" class="panel-note-actions"></div>
                 </div>
 
                 <div class="panel-body stack">
@@ -1524,54 +1988,63 @@
                         </div>
                     </div>
 
-                    <div id="energyMix" class="subpanel nav-target">
-                        <h3>Blended energy portfolio</h3>
-                        <p class="section-copy">
-                            Go broader than nuclear: mix renewables, thermal recovery, flexible backup, and advanced generation to see how resilient energy changes corporate value.
+	                    <div id="energyMix" class="subpanel nav-target">
+	                        <h2 class="section-title">Energy Mix</h2>
+	                        <h3>Blended energy portfolio</h3>
+	                        <p class="section-copy">
+	                            Renewables, thermal recovery, flexible backup, and advanced generation to see how resilient energy changes corporate value.
                         </p>
 
-                        <div class="energy-grid">
-                            <div class="energy-row">
-                                <label for="energySolar">Solar PV <span class="unit">(MW)</span></label>
-                                <input type="number" id="energySolar" value="120" min="0" step="5">
-                                <div class="energy-meta">Capacity factor 24%<br>Capex $0.95M/MW</div>
-                            </div>
-                            <div class="energy-row">
-                                <label for="energyWind">Onshore wind <span class="unit">(MW)</span></label>
-                                <input type="number" id="energyWind" value="95" min="0" step="5">
-                                <div class="energy-meta">Capacity factor 37%<br>Capex $1.45M/MW</div>
-                            </div>
-                            <div class="energy-row">
-                                <label for="energyGeothermal">Geothermal <span class="unit">(MW)</span></label>
-                                <input type="number" id="energyGeothermal" value="35" min="0" step="5">
-                                <div class="energy-meta">Capacity factor 90%<br>Capex $4.8M/MW</div>
-                            </div>
-                            <div class="energy-row">
-                                <label for="energyHydro">Small hydro <span class="unit">(MW)</span></label>
-                                <input type="number" id="energyHydro" value="25" min="0" step="5">
-                                <div class="energy-meta">Capacity factor 52%<br>Capex $3.4M/MW</div>
-                            </div>
-                            <div class="energy-row">
-                                <label for="energyNuclear">SMR / nuclear retrofit <span class="unit">(MW)</span></label>
-                                <input type="number" id="energyNuclear" value="40" min="0" step="5">
-                                <div class="energy-meta">Capacity factor 92%<br>Capex $6.8M/MW</div>
-                            </div>
-                            <div class="energy-row">
-                                <label for="energyWasteHeat">Industrial waste-heat recovery <span class="unit">(MW)</span></label>
-                                <input type="number" id="energyWasteHeat" value="28" min="0" step="2">
-                                <div class="energy-meta">Capacity factor 61%<br>Capex $1.2M/MW</div>
-                            </div>
-                            <div class="energy-row">
-                                <label for="energyWasteToEnergy">Waste-to-energy / biogas <span class="unit">(MW)</span></label>
-                                <input type="number" id="energyWasteToEnergy" value="18" min="0" step="2">
-                                <div class="energy-meta">Capacity factor 74%<br>Capex $5.0M/MW</div>
-                            </div>
-                            <div class="energy-row">
-                                <label for="energyGasBackup">Flexible gas backup <span class="unit">(MW)</span></label>
-                                <input type="number" id="energyGasBackup" value="22" min="0" step="2">
-                                <div class="energy-meta">Capacity factor 18%<br>Capex $1.1M/MW</div>
-                            </div>
-                        </div>
+	                        <div class="energy-grid">
+	                            <div class="energy-row">
+	                                <label for="energySolar"><span class="energy-share" id="energySolarShare">0%</span><span class="energy-label-name">Solar PV</span></label>
+	                                <input type="number" id="energySolar" value="120" min="0" step="5">
+	                                <span class="energy-unit">MW</span>
+	                                <div class="energy-meta">Capacity factor 24%<br>Capex $0.95M/MW</div>
+	                            </div>
+	                            <div class="energy-row">
+	                                <label for="energyWind"><span class="energy-share" id="energyWindShare">0%</span><span class="energy-label-name">Onshore wind</span></label>
+	                                <input type="number" id="energyWind" value="95" min="0" step="5">
+	                                <span class="energy-unit">MW</span>
+	                                <div class="energy-meta">Capacity factor 37%<br>Capex $1.45M/MW</div>
+	                            </div>
+	                            <div class="energy-row">
+	                                <label for="energyGeothermal"><span class="energy-share" id="energyGeothermalShare">0%</span><span class="energy-label-name">Geothermal</span></label>
+	                                <input type="number" id="energyGeothermal" value="35" min="0" step="5">
+	                                <span class="energy-unit">MW</span>
+	                                <div class="energy-meta">Capacity factor 90%<br>Capex $4.8M/MW</div>
+	                            </div>
+	                            <div class="energy-row">
+	                                <label for="energyHydro"><span class="energy-share" id="energyHydroShare">0%</span><span class="energy-label-name">Small hydro</span></label>
+	                                <input type="number" id="energyHydro" value="25" min="0" step="5">
+	                                <span class="energy-unit">MW</span>
+	                                <div class="energy-meta">Capacity factor 52%<br>Capex $3.4M/MW</div>
+	                            </div>
+	                            <div class="energy-row">
+	                                <label for="energyNuclear"><span class="energy-share" id="energyNuclearShare">0%</span><span class="energy-label-name">SMR / nuclear retrofit</span></label>
+	                                <input type="number" id="energyNuclear" value="40" min="0" step="5">
+	                                <span class="energy-unit">MW</span>
+	                                <div class="energy-meta">Capacity factor 92%<br>Capex $6.8M/MW</div>
+	                            </div>
+	                            <div class="energy-row">
+	                                <label for="energyWasteHeat"><span class="energy-share" id="energyWasteHeatShare">0%</span><span class="energy-label-name">Industrial waste-heat recovery</span></label>
+	                                <input type="number" id="energyWasteHeat" value="28" min="0" step="2">
+	                                <span class="energy-unit">MW</span>
+	                                <div class="energy-meta">Capacity factor 61%<br>Capex $1.2M/MW</div>
+	                            </div>
+	                            <div class="energy-row">
+	                                <label for="energyWasteToEnergy"><span class="energy-share" id="energyWasteToEnergyShare">0%</span><span class="energy-label-name">Waste-to-energy / biogas</span></label>
+	                                <input type="number" id="energyWasteToEnergy" value="18" min="0" step="2">
+	                                <span class="energy-unit">MW</span>
+	                                <div class="energy-meta">Capacity factor 74%<br>Capex $5.0M/MW</div>
+	                            </div>
+	                            <div class="energy-row">
+	                                <label for="energyGasBackup"><span class="energy-share" id="energyGasBackupShare">0%</span><span class="energy-label-name">Flexible gas backup</span></label>
+	                                <input type="number" id="energyGasBackup" value="22" min="0" step="2">
+	                                <span class="energy-unit">MW</span>
+	                                <div class="energy-meta">Capacity factor 18%<br>Capex $1.1M/MW</div>
+	                            </div>
+	                        </div>
 
                         <div class="action-row">
                             <button type="button" class="btn" id="calculateCorporateBtn"><span class="material-icons">calculate</span>Calculate corporate benefits</button>
@@ -2020,6 +2493,42 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
     </div>
     </div>
 
+    <div id="mobileRailBackdrop" class="mobile-rail-backdrop"></div>
+    <div id="mobileRailBar" class="mobile-rail-bar" aria-label="Quick navigation">
+        <a class="mobile-rail-link" href="#studio" data-nav-target="studio">
+            <span class="material-icons">auto_awesome</span>
+            <span class="mobile-rail-label">Studio</span>
+        </a>
+        <a class="mobile-rail-link" href="#benefits" data-nav-target="benefits">
+            <span class="material-icons">business_center</span>
+            <span class="mobile-rail-label">Benefits</span>
+        </a>
+        <a class="mobile-rail-link" href="#scorecard" data-nav-target="scorecard">
+            <span class="material-icons">leaderboard</span>
+            <span class="mobile-rail-label">Scorecard</span>
+        </a>
+        <a class="mobile-rail-link mobile-rail-hidden" href="#products" data-nav-target="products" data-mobile-min-width="550">
+            <span class="material-icons">inventory_2</span>
+            <span class="mobile-rail-label">Products</span>
+        </a>
+        <a class="mobile-rail-link mobile-rail-hidden" href="#energyMix" data-nav-target="energyMix" data-mobile-min-width="600">
+            <span class="material-icons">bolt</span>
+            <span class="mobile-rail-label">Energy Mix</span>
+        </a>
+        <a class="mobile-rail-link mobile-rail-hidden" href="#DeepNuclear" data-nav-target="DeepNuclear" data-mobile-min-width="700">
+            <span class="material-icons">view_in_ar</span>
+            <span class="mobile-rail-label">Deep Nuclear</span>
+        </a>
+        <a class="mobile-rail-link mobile-rail-hidden" href="#waterPanel" data-nav-target="waterPanel" data-mobile-min-width="801">
+            <span class="material-icons">water_drop</span>
+            <span class="mobile-rail-label">Water Output</span>
+        </a>
+        <button type="button" id="mobileRailMenuToggle" class="mobile-rail-menu-toggle" aria-label="Open section menu" aria-expanded="false">
+            <span class="material-icons">splitscreen</span>
+            <span class="mobile-rail-label">Sections</span>
+        </button>
+    </div>
+
     <script>
         const LATENT_HEAT_KJ_KG = 2326;
         const HOURS_PER_DAY = 24;
@@ -2028,6 +2537,9 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
         const HOURS_PER_YEAR = HOURS_PER_DAY * DAYS_PER_YEAR;
         const PERFORMANCE_SCORECARD_STORAGE_KEY = 'deepNuclearPerformanceScorecardV1';
         const LEFT_RAIL_STORAGE_KEY = 'deepNuclearRailCompactV1';
+        const HEADER_FILTER_TOGGLE_BREAKPOINT = 600;
+        const MOBILE_LEFT_RAIL_BREAKPOINT = 800;
+        const AUTO_COMPACT_LEFT_RAIL_BREAKPOINT = 1000;
         let lastLeftRailScrollY = 0;
         let leftRailClickPinUntil = 0;
 
@@ -2079,6 +2591,7 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
         let corporateResults = null;
         let sectorLayoutMode = 'rows';
         let performanceScorecard = {};
+        let energySimpleExpanded = false;
 
         function getNumber(id, fallback) {
             const element = document.getElementById(id);
@@ -2118,9 +2631,25 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             return Math.min(Math.max(value, min), max);
         }
 
+        function roundTo(value, decimals) {
+            const factor = Math.pow(10, decimals);
+            return Math.round(value * factor) / factor;
+        }
+
         function setText(id, value) {
             const element = document.getElementById(id);
             if (element) element.textContent = value;
+        }
+
+        function setAttribute(id, name, value) {
+            const element = document.getElementById(id);
+            if (element) {
+                if (value === null || value === undefined || value === '') {
+                    element.removeAttribute(name);
+                } else {
+                    element.setAttribute(name, value);
+                }
+            }
         }
 
         function setHtml(id, value) {
@@ -2276,6 +2805,236 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
                 `).join('');
         }
 
+        function getEnergyMixFromInputs() {
+            return energySources.map(source => {
+                const mw = Math.max(0, getNumber(source.inputId, 0));
+                const annualMwh = mw * HOURS_PER_YEAR * source.capacityFactor;
+                const capex = mw * source.capexPerMwMillion * 1000000;
+                return {
+                    ...source,
+                    mw,
+                    annualMwh,
+                    capex
+                };
+            });
+        }
+
+        function getEnergyBaselineTotalMw() {
+            const currentTotal = getEnergyMixFromInputs().reduce((sum, source) => sum + source.mw, 0);
+            if (currentTotal > 0) return currentTotal;
+
+            return energySources.reduce((sum, source) => {
+                const input = document.getElementById(source.inputId);
+                const fallbackValue = parseFloat(input?.defaultValue || input?.getAttribute('value') || '0');
+                return sum + (Number.isFinite(fallbackValue) ? Math.max(0, fallbackValue) : 0);
+            }, 0);
+        }
+
+        function normalizeEnergyShareMap(shareMap) {
+            const normalized = {};
+            let total = 0;
+
+            energySources.forEach(source => {
+                const nextValue = Math.max(0, Number(shareMap[source.id]) || 0);
+                normalized[source.id] = nextValue;
+                total += nextValue;
+            });
+
+            if (total <= 0) {
+                return normalized;
+            }
+
+            if (Math.abs(total - 100) > 0.001) {
+                energySources.forEach(source => {
+                    normalized[source.id] = (normalized[source.id] / total) * 100;
+                });
+            }
+
+            let runningTotal = 0;
+            energySources.forEach((source, index) => {
+                if (index === energySources.length - 1) {
+                    normalized[source.id] = Math.max(0, 100 - runningTotal);
+                } else {
+                    normalized[source.id] = roundTo(normalized[source.id], 2);
+                    runningTotal += normalized[source.id];
+                }
+            });
+
+            return normalized;
+        }
+
+        function applyEnergyShareMap(shareMap) {
+            const normalized = normalizeEnergyShareMap(shareMap);
+            const totalMw = getEnergyBaselineTotalMw();
+
+            energySources.forEach(source => {
+                const input = document.getElementById(source.inputId);
+                if (!input) return;
+                const targetShare = Math.max(0, Number(normalized[source.id]) || 0);
+                const targetMw = totalMw > 0 ? roundTo((totalMw * targetShare) / 100, 2) : 0;
+                input.value = targetMw > 0 ? String(targetMw) : '0';
+            });
+
+            calculateCorporateBenefits();
+        }
+
+        function renderEnergySimple(energyMix) {
+            const holder = document.getElementById('energySimpleList');
+            const actions = document.getElementById('energySimpleActions');
+            if (!holder || !actions) return;
+
+            const totalMw = energyMix.reduce((sum, source) => sum + source.mw, 0);
+            const selectedSources = energyMix.filter(source => source.mw > 0.01);
+            const unselectedSources = energyMix.filter(source => source.mw <= 0.01);
+
+            function renderEnergyItems(sources) {
+                return sources.map(source => {
+                    const sharePercent = totalMw > 0 ? (source.mw / totalMw) * 100 : 0;
+                    const isChecked = source.mw > 0.01;
+                    return `
+                        <label class="energy-simple-item" for="energySimple-${source.id}">
+                            <input type="checkbox" id="energySimple-${source.id}" data-energy-simple-source="${source.id}" ${isChecked ? 'checked' : ''}>
+                            <span class="energy-simple-copy">
+                                <span>${source.label}</span>
+                                <span class="energy-simple-share">${formatPercent(sharePercent)}</span>
+                            </span>
+                        </label>
+                    `;
+                }).join('');
+            }
+
+            let listMarkup = '';
+            if (selectedSources.length) {
+                listMarkup += `<div class="energy-simple-group">${renderEnergyItems(selectedSources)}</div>`;
+            }
+
+            if (energySimpleExpanded && unselectedSources.length) {
+                listMarkup += `
+                    <div class="energy-simple-group">
+                        <div class="energy-simple-group-label">Available to add</div>
+                        ${renderEnergyItems(unselectedSources)}
+                    </div>
+                `;
+            }
+
+            if (!listMarkup) {
+                listMarkup = `
+                    <div class="energy-simple-group">
+                        <div class="energy-simple-group-label">Available to add</div>
+                        ${renderEnergyItems(unselectedSources)}
+                    </div>
+                `;
+            }
+
+            holder.innerHTML = listMarkup;
+
+            if (unselectedSources.length) {
+                actions.innerHTML = `<button type="button" class="btn-sm" id="energySimpleMoreBtn">${energySimpleExpanded ? 'Less' : 'More'}</button>`;
+            } else {
+                actions.innerHTML = '';
+            }
+        }
+
+        function updateEnergySimpleSelection(sourceId, isChecked) {
+            const energyMix = getEnergyMixFromInputs();
+            const currentShares = {};
+            const selectedBefore = [];
+            const selectedAfter = [];
+            const totalMw = energyMix.reduce((sum, source) => sum + source.mw, 0);
+
+            energyMix.forEach(source => {
+                currentShares[source.id] = totalMw > 0 ? (source.mw / totalMw) * 100 : 0;
+                if (source.id !== sourceId && source.mw > 0.01) selectedBefore.push(source.id);
+            });
+
+            if (isChecked) {
+                if (!selectedBefore.length) {
+                    const shareMap = {};
+                    energySources.forEach(source => {
+                        shareMap[source.id] = source.id === sourceId ? 100 : 0;
+                    });
+                    applyEnergyShareMap(shareMap);
+                    return;
+                }
+
+                if (selectedBefore.length === 1) {
+                    const shareMap = {};
+                    energySources.forEach(source => {
+                        shareMap[source.id] = (source.id === sourceId || selectedBefore.includes(source.id)) ? 50 : 0;
+                    });
+                    applyEnergyShareMap(shareMap);
+                    return;
+                }
+
+                const existingTotal = selectedBefore.reduce((sum, id) => sum + currentShares[id], 0);
+
+                if (existingTotal < 99.99) {
+                    const shareMap = {};
+                    energySources.forEach(source => {
+                        if (selectedBefore.includes(source.id)) {
+                            shareMap[source.id] = currentShares[source.id];
+                        } else if (source.id === sourceId) {
+                            shareMap[source.id] = 100 - existingTotal;
+                        } else {
+                            shareMap[source.id] = 0;
+                        }
+                    });
+                    applyEnergyShareMap(shareMap);
+                    return;
+                }
+
+                if (selectedBefore.length === 2) {
+                    const shareMap = {};
+                    const equalShare = 100 / 3;
+                    energySources.forEach(source => {
+                        shareMap[source.id] = (source.id === sourceId || selectedBefore.includes(source.id)) ? equalShare : 0;
+                    });
+                    applyEnergyShareMap(shareMap);
+                    return;
+                }
+
+                const shareMap = {};
+                let contributed = 0;
+                energySources.forEach(source => {
+                    if (selectedBefore.includes(source.id)) {
+                        const contribution = currentShares[source.id] > 1 ? 1 : 0;
+                        shareMap[source.id] = Math.max(0, currentShares[source.id] - contribution);
+                        contributed += contribution;
+                    } else {
+                        shareMap[source.id] = 0;
+                    }
+                });
+                shareMap[sourceId] = contributed > 0 ? contributed : 1;
+                applyEnergyShareMap(shareMap);
+                return;
+            }
+
+            energyMix.forEach(source => {
+                if (source.id !== sourceId && source.mw > 0.01) selectedAfter.push(source.id);
+            });
+
+            if (!selectedAfter.length) {
+                const shareMap = {};
+                energySources.forEach(source => {
+                    shareMap[source.id] = 0;
+                });
+                applyEnergyShareMap(shareMap);
+                return;
+            }
+
+            const remainingTotal = selectedAfter.reduce((sum, id) => sum + currentShares[id], 0);
+            const shareMap = {};
+            energySources.forEach(source => {
+                if (selectedAfter.includes(source.id)) {
+                    const baseShare = remainingTotal > 0 ? (currentShares[source.id] / remainingTotal) * 100 : (100 / selectedAfter.length);
+                    shareMap[source.id] = baseShare;
+                } else {
+                    shareMap[source.id] = 0;
+                }
+            });
+            applyEnergyShareMap(shareMap);
+        }
+
         function renderCorporateNarrative(data) {
             const dominantSources = data.energyMix
                 .filter(source => source.annualMwh > 0)
@@ -2312,6 +3071,28 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
                     <span class="value">Sector lift coefficients, capex defaults, carbon value, and brand-trust values are placeholders.</span>
                 </div>
             `);
+        }
+
+        function renderEnergyMixShares(energyMix) {
+            const totalMw = energyMix.reduce((sum, source) => sum + source.mw, 0);
+
+            energyMix.forEach(source => {
+                const sharePercent = totalMw > 0 ? (source.mw / totalMw) * 100 : 0;
+                setText(source.inputId + 'Share', formatPercent(sharePercent));
+            });
+
+            renderEnergySimple(energyMix);
+
+            const topSource = energyMix
+                .filter(source => source.mw > 0)
+                .sort((a, b) => b.mw - a.mw)[0];
+
+            if (topSource) {
+                const topSharePercent = totalMw > 0 ? (topSource.mw / totalMw) * 100 : 0;
+                setAttribute('heroEnergyMixLink', 'title', topSource.label + ' ' + formatPercent(topSharePercent));
+            } else {
+                setAttribute('heroEnergyMixLink', 'title', 'No mix selected');
+            }
         }
 
         function renderFundingNarrative(data) {
@@ -2421,17 +3202,7 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             const serviceRatio = clamp(litersPerPersonProvided / Math.max(targetLitersPerPerson, 1), 0, 1.35);
             const waterQualityIndex = clamp((pureWaterCoverage / 100) * serviceRatio * (0.55 + (hardnessReduction / 100) * 0.45), 0, 1.3);
 
-            const energyMix = energySources.map(source => {
-                const mw = getNumber(source.inputId, 0);
-                const annualMwh = mw * HOURS_PER_YEAR * source.capacityFactor;
-                const capex = mw * source.capexPerMwMillion * 1000000;
-                return {
-                    ...source,
-                    mw,
-                    annualMwh,
-                    capex
-                };
-            });
+            const energyMix = getEnergyMixFromInputs();
 
             const annualEnergyMwh = energyMix.reduce((sum, source) => sum + source.annualMwh, 0);
             const lowCarbonMwh = energyMix.filter(source => source.lowCarbon).reduce((sum, source) => sum + source.annualMwh, 0);
@@ -2530,6 +3301,7 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             setText('heroSponsorValue', formatCurrency(totalAnnualBenefit));
             setText('heroWaterReach', formatWhole(coveredHouseholds) + ' households');
             setText('heroEnergyMix', formatNumber(annualEnergyMwh) + ' MWh/yr');
+            renderEnergyMixShares(energyMix);
 
             renderSectorBreakdown(sectorImpacts);
             renderCorporateNarrative(corporateResults);
@@ -2808,8 +3580,170 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             syncLeftRailShellPosition();
         }
 
+        function setMobileRailOpen(open) {
+            const toggle = document.getElementById('mobileRailMenuToggle');
+            const isOpen = !!open && document.body.classList.contains('mobile-nav-mode');
+            document.body.classList.toggle('mobile-rail-open', isOpen);
+            if (toggle) {
+                toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                toggle.setAttribute('aria-label', isOpen ? 'Close section menu' : 'Open section menu');
+            }
+        }
+
+        function updateMobileRailBarShortcuts() {
+            const bar = document.getElementById('mobileRailBar');
+            if (!bar) return;
+
+            const barWidth = Math.round(bar.getBoundingClientRect().width || 0);
+            const isMobileMode = document.body.classList.contains('mobile-nav-mode');
+
+            bar.querySelectorAll('[data-mobile-min-width]').forEach(link => {
+                const minWidth = Number(link.getAttribute('data-mobile-min-width') || 0);
+                link.classList.toggle('mobile-rail-hidden', !isMobileMode || barWidth < minWidth);
+            });
+        }
+
+        function updateMobileNavMode() {
+            const layout = document.querySelector('.dashboard-layout');
+            const rail = document.getElementById('leftRail');
+            if (!layout) return;
+            const layoutWidth = layout.getBoundingClientRect().width;
+            const isNarrow = layoutWidth <= MOBILE_LEFT_RAIL_BREAKPOINT;
+            const isAutoCompact = layoutWidth <= AUTO_COMPACT_LEFT_RAIL_BREAKPOINT && layoutWidth > MOBILE_LEFT_RAIL_BREAKPOINT;
+            document.body.classList.toggle('mobile-nav-mode', isNarrow);
+            if (rail) {
+                rail.classList.toggle('auto-compact', isAutoCompact && !isNarrow);
+            }
+            if (!isNarrow) {
+                setMobileRailOpen(false);
+            }
+            syncLeftRailShellPosition();
+            updateLeftRailActive();
+            updateMobileRailBarShortcuts();
+        }
+
+        function handleSectionNav(targetId) {
+            if (!targetId) return;
+            const target = document.getElementById(targetId);
+            if (target && target.classList.contains('panel-shell') && target.classList.contains('collapsed')) {
+                setPanelCollapsed(targetId, false);
+            }
+            leftRailClickPinUntil = Date.now() + 1200;
+            setLeftRailFixed(true);
+            queueLeftRailSync();
+            requestAnimationFrame(updateLeftRailActive);
+            if (document.body.classList.contains('mobile-nav-mode')) {
+                setMobileRailOpen(false);
+            }
+        }
+
+        function flattenFilterFieldToggle(toggle) {
+            if (!toggle) return;
+
+            toggle.classList.remove('filterTopIconHolder');
+            Array.from(toggle.querySelectorAll('.filterTopIconHolder')).forEach(function(holder) {
+                while (holder.firstChild) {
+                    holder.parentNode.insertBefore(holder.firstChild, holder);
+                }
+                holder.remove();
+            });
+
+            const innerBarIcon = toggle.querySelector('#filterFieldToggleIconInBar, #filterFieldToggleIconInHeader, #filterFieldToggleIcon');
+            if (innerBarIcon) {
+                innerBarIcon.removeAttribute('id');
+                innerBarIcon.classList.add('filter-field-toggle-icon');
+            }
+        }
+
+        function syncHeaderFilterToggleNarrowMode() {
+            const isNarrow = window.innerWidth <= HEADER_FILTER_TOGGLE_BREAKPOINT;
+            const geoviewHolder = document.getElementById('geoviewSelectHolder');
+            const geoviewSelect = document.getElementById('geoview_select');
+            let toggle = document.getElementById('filterFieldToggleIconInBar');
+
+            if (isNarrow) {
+                if (!toggle) {
+                    const sourceToggle = document.getElementById('filterFieldToggleHolder') || document.getElementById('filterFieldToggleInHeader');
+                    if (sourceToggle) {
+                        toggle = sourceToggle.cloneNode(true);
+                    }
+                }
+            } else if (!toggle) {
+                toggle = document.getElementById('filterFieldToggleHolder');
+            }
+
+            if (toggle) {
+                toggle.id = 'filterFieldToggleIconInBar';
+                flattenFilterFieldToggle(toggle);
+                if (geoviewHolder && toggle.parentElement !== geoviewHolder) {
+                    geoviewHolder.prepend(toggle);
+                }
+            }
+
+            document.querySelectorAll('#filterFieldToggleInHeader').forEach(function(headerToggle) {
+                headerToggle.remove();
+            });
+
+            if (geoviewSelect) {
+                if (isNarrow) {
+                    geoviewSelect.style.setProperty('display', 'none', 'important');
+                } else {
+                    geoviewSelect.style.removeProperty('display');
+                }
+            }
+
+            if (typeof refreshFilterToggleIcon === 'function') {
+                refreshFilterToggleIcon();
+            }
+        }
+
+        function setupHeaderFilterToggleNarrowMode() {
+            document.addEventListener('click', function(event) {
+                const toggle = event.target.closest('#filterFieldToggleIconInBar');
+                if (!toggle) return;
+
+                const filterMenu = document.getElementById('filterFieldMenu');
+                if (filterMenu) {
+                    filterMenu.style.display = 'block';
+                }
+                if (typeof updateFilterMenuState === 'function') {
+                    updateFilterMenuState();
+                }
+                if (typeof refreshFilterToggleIcon === 'function') {
+                    refreshFilterToggleIcon();
+                }
+                event.stopPropagation();
+            });
+
+            window.addEventListener('resize', syncHeaderFilterToggleNarrowMode);
+
+            if (typeof waitForElm === 'function') {
+                [
+                    '#geoviewSelectHolder',
+                    '#geoview_select',
+                    '#filterFieldToggleHolder',
+                    '#filterFieldToggleInHeader'
+                ].forEach(function(selector) {
+                    waitForElm(selector).then(function() {
+                        syncHeaderFilterToggleNarrowMode();
+                    });
+                });
+            }
+
+            if (typeof waitForElm === 'function') {
+                waitForElm('#headerIcons').then(function(headerIcons) {
+                    const headerObserver = new MutationObserver(function() {
+                        syncHeaderFilterToggleNarrowMode();
+                    });
+                    headerObserver.observe(headerIcons, { childList: true, subtree: true });
+                });
+            }
+
+            syncHeaderFilterToggleNarrowMode();
+        }
+
         function updateLeftRailActive() {
-            const links = Array.from(document.querySelectorAll('.rail-link[data-nav-target]'));
+            const links = Array.from(document.querySelectorAll('.rail-link[data-nav-target], .mobile-rail-link[data-nav-target]'));
             if (!links.length) return;
 
             let activeId = links[0].getAttribute('data-nav-target');
@@ -2832,22 +3766,59 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             });
         }
 
+        function getLeftRailTopOffset() {
+            return Math.max(18, Math.round(document.querySelector('.dashboard-layout')?.getBoundingClientRect().top || 0));
+        }
+
+        function syncLeftRailHeaderState() {
+            const shell = document.querySelector('#leftRail .rail-shell');
+            if (!shell) return;
+            const headerbar = document.getElementById('headerbar');
+            const withoutHeader = !!headerbar && headerbar.classList.contains('headerbarhide');
+            shell.classList.toggle('rail-shell-without-header', withoutHeader);
+        }
+
         function syncLeftRailShellPosition() {
             const rail = document.getElementById('leftRail');
             const shell = rail?.querySelector('.rail-shell');
             if (!rail || !shell) return;
 
+            syncLeftRailHeaderState();
             rail.style.minHeight = shell.offsetHeight + 'px';
+            const shellRect = shell.getBoundingClientRect();
             const railRect = rail.getBoundingClientRect();
-            shell.style.setProperty('--rail-fixed-left', railRect.left + 'px');
+            const appliedTop = Math.max(getLeftRailTopOffset(), shellRect.top);
+            shell.style.setProperty('--rail-fixed-top', appliedTop + 'px');
+            shell.style.setProperty('--rail-fixed-left', (railRect.left + 15) + 'px');
             shell.style.setProperty('--rail-fixed-width', railRect.width + 'px');
+            return appliedTop;
         }
 
         function queueLeftRailSync() {
             syncLeftRailShellPosition();
-            requestAnimationFrame(function() {
-                syncLeftRailShellPosition();
-            });
+        }
+
+        function syncLeftRailForWaitTarget() {
+            return syncLeftRailShellPosition();
+        }
+
+        function observeLeftRailSource(element) {
+            if (typeof ResizeObserver === 'function') {
+                const resizeObserver = new ResizeObserver(function() {
+                    syncLeftRailShellPosition();
+                });
+                resizeObserver.observe(element);
+            }
+
+            if (typeof MutationObserver === 'function') {
+                const mutationObserver = new MutationObserver(function() {
+                    syncLeftRailShellPosition();
+                });
+                mutationObserver.observe(element, {
+                    attributes: true,
+                    attributeFilter: ['style', 'class', 'hidden']
+                });
+            }
         }
 
         function setLeftRailFixed(fixed) {
@@ -2855,24 +3826,35 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             const shell = rail?.querySelector('.rail-shell');
             if (!rail || !shell) return;
 
-            if (fixed) {
+            if (!fixed) {
                 syncLeftRailShellPosition();
                 shell.classList.add('rail-fixed');
-            } else {
-                shell.classList.remove('rail-fixed');
+                return;
             }
+
+            syncLeftRailShellPosition();
+            shell.classList.add('rail-fixed');
         }
 
         function updateLeftRailPosition() {
-            const currentScrollY = window.scrollY || window.pageYOffset || 0;
-            const scrollingUp = currentScrollY < lastLeftRailScrollY - 1;
-            const scrollingDown = currentScrollY > lastLeftRailScrollY + 1;
-            const pinnedByClick = currentScrollY > 120 && Date.now() < leftRailClickPinUntil;
+            const rail = document.getElementById('leftRail');
+            const shell = rail?.querySelector('.rail-shell');
+            if (!rail || !shell) return;
 
-            if ((scrollingUp || pinnedByClick) && currentScrollY > 120) {
-                setLeftRailFixed(true);
-            } else if ((scrollingDown && !pinnedByClick) || currentScrollY <= 120) {
+            const currentScrollY = window.scrollY || window.pageYOffset || 0;
+            if (document.body.classList.contains('mobile-nav-mode')) {
+                shell.classList.remove('rail-fixed');
+                lastLeftRailScrollY = currentScrollY;
+                return;
+            }
+            const scrollingUp = currentScrollY < lastLeftRailScrollY - 1;
+            const pinnedByClick = currentScrollY > 120 && Date.now() < leftRailClickPinUntil;
+            const isFixed = shell.classList.contains('rail-fixed');
+
+            if (currentScrollY <= 120) {
                 setLeftRailFixed(false);
+            } else if (scrollingUp || pinnedByClick || isFixed) {
+                setLeftRailFixed(true);
             }
 
             lastLeftRailScrollY = currentScrollY;
@@ -2881,7 +3863,23 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
         function setupLeftRail() {
             const rail = document.getElementById('leftRail');
             const toggle = document.getElementById('leftRailToggle');
+            const mobileRailToggle = document.getElementById('mobileRailMenuToggle');
+            const mobileRailBackdrop = document.getElementById('mobileRailBackdrop');
+            const mobileRailBar = document.getElementById('mobileRailBar');
+            const dashboardLayout = document.querySelector('.dashboard-layout');
             if (!rail || !toggle) return;
+            const shell = rail.querySelector('.rail-shell');
+            if (!shell) return;
+
+            if (shell.classList.contains('rail-fixed')) {
+                shell.dataset.fixedPreset = 'true';
+            }
+
+            shell.addEventListener('scroll', function() {
+                if (shell.scrollTop > 0) {
+                    shell.classList.add('rail-shell-scrollbar-visible');
+                }
+            }, { passive: true });
 
             let compact = false;
             try {
@@ -2892,32 +3890,51 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             setLeftRailCompact(compact);
             syncLeftRailShellPosition();
             lastLeftRailScrollY = window.scrollY || window.pageYOffset || 0;
+            setLeftRailFixed(true);
 
             toggle.addEventListener('click', function() {
                 setLeftRailCompact(!rail.classList.contains('compact'));
                 leftRailClickPinUntil = Date.now() + 1200;
-                if ((window.scrollY || window.pageYOffset || 0) > 120) {
-                    setLeftRailFixed(true);
-                }
+                setLeftRailFixed(true);
                 queueLeftRailSync();
             });
 
             rail.querySelectorAll('.rail-link[data-nav-target]').forEach(link => {
                 link.addEventListener('click', function() {
-                    const targetId = this.getAttribute('data-nav-target');
-                    const target = document.getElementById(targetId);
-                    if (target && target.classList.contains('panel-shell') && target.classList.contains('collapsed')) {
-                        setPanelCollapsed(targetId, false);
-                    }
-                    leftRailClickPinUntil = Date.now() + 1200;
-                    setLeftRailFixed(true);
-                    queueLeftRailSync();
-                    requestAnimationFrame(updateLeftRailActive);
+                    handleSectionNav(this.getAttribute('data-nav-target'));
                 });
             });
 
-            rail.addEventListener('transitionrun', queueLeftRailSync);
-            rail.addEventListener('transitionend', queueLeftRailSync);
+            document.querySelectorAll('.mobile-rail-link[data-nav-target]').forEach(link => {
+                link.addEventListener('click', function() {
+                    handleSectionNav(this.getAttribute('data-nav-target'));
+                });
+            });
+
+            if (mobileRailToggle) {
+                mobileRailToggle.addEventListener('click', function() {
+                    setMobileRailOpen(!document.body.classList.contains('mobile-rail-open'));
+                });
+            }
+
+            if (mobileRailBackdrop) {
+                mobileRailBackdrop.addEventListener('click', function() {
+                    setMobileRailOpen(false);
+                });
+            }
+
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    setMobileRailOpen(false);
+                }
+            });
+
+            rail.addEventListener('transitionrun', function() {
+                queueLeftRailSync();
+            });
+            rail.addEventListener('transitionend', function() {
+                queueLeftRailSync();
+            });
 
             if (typeof ResizeObserver === 'function') {
                 const leftRailObserver = new ResizeObserver(function() {
@@ -2926,6 +3943,56 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
                 leftRailObserver.observe(rail);
                 const shell = rail.querySelector('.rail-shell');
                 if (shell) leftRailObserver.observe(shell);
+            }
+
+            if (typeof waitForElm === 'function') {
+                waitForElm('#main-header').then(function(headerElm) {
+                    syncLeftRailForWaitTarget();
+                    observeLeftRailSource(headerElm);
+                });
+
+                waitForElm('#headerbar').then(function(headerbarElm) {
+                    syncLeftRailForWaitTarget();
+                    observeLeftRailSource(headerbarElm);
+                });
+
+                waitForElm('#local-header').then(function(localHeaderElm) {
+                    syncLeftRailForWaitTarget();
+                    observeLeftRailSource(localHeaderElm);
+                });
+
+                waitForElm('#datascape').then(function(datascapeElm) {
+                    syncLeftRailForWaitTarget();
+                    observeLeftRailSource(datascapeElm);
+                });
+
+                waitForElm('#filterFieldsHolder').then(function(filterHolderElm) {
+                    syncLeftRailForWaitTarget();
+                    observeLeftRailSource(filterHolderElm);
+                });
+
+                waitForElm('#filterFieldContent').then(function(filterContentElm) {
+                    syncLeftRailShellPosition();
+                    observeLeftRailSource(filterContentElm);
+                });
+            }
+
+            if (dashboardLayout) {
+                if (typeof ResizeObserver === 'function') {
+                    const mobileModeObserver = new ResizeObserver(function() {
+                        updateMobileNavMode();
+                    });
+                    mobileModeObserver.observe(dashboardLayout);
+                } else {
+                    window.addEventListener('resize', updateMobileNavMode);
+                }
+            }
+
+            if (mobileRailBar && typeof ResizeObserver === 'function') {
+                const mobileRailBarObserver = new ResizeObserver(function() {
+                    updateMobileRailBarShortcuts();
+                });
+                mobileRailBarObserver.observe(mobileRailBar);
             }
 
             window.addEventListener('scroll', function() {
@@ -2937,6 +4004,7 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
                 updateLeftRailActive();
                 updateLeftRailPosition();
             });
+            updateMobileNavMode();
             updateLeftRailActive();
             updateLeftRailPosition();
         }
@@ -3018,6 +4086,8 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             const sectorLayoutToggle = document.getElementById('sectorLayoutToggle');
             const selectAllSectors = document.getElementById('selectAllSectors');
             const clearSectors = document.getElementById('clearSectors');
+            const energySimpleList = document.getElementById('energySimpleList');
+            const energySimpleActions = document.getElementById('energySimpleActions');
 
             if (corporateBtn) corporateBtn.addEventListener('click', calculateCorporateBenefits);
             if (fundingBtn) fundingBtn.addEventListener('click', calculateFundingMix);
@@ -3087,6 +4157,30 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
                 });
             }
 
+            energySources.forEach(source => {
+                const input = document.getElementById(source.inputId);
+                if (!input) return;
+                input.addEventListener('input', calculateCorporateBenefits);
+                input.addEventListener('change', calculateCorporateBenefits);
+            });
+
+            if (energySimpleList) {
+                energySimpleList.addEventListener('change', function(event) {
+                    const checkbox = event.target.closest('input[type="checkbox"][data-energy-simple-source]');
+                    if (!checkbox) return;
+                    updateEnergySimpleSelection(checkbox.getAttribute('data-energy-simple-source'), checkbox.checked);
+                });
+            }
+
+            if (energySimpleActions) {
+                energySimpleActions.addEventListener('click', function(event) {
+                    const moreButton = event.target.closest('#energySimpleMoreBtn');
+                    if (!moreButton) return;
+                    energySimpleExpanded = !energySimpleExpanded;
+                    renderEnergySimple(getEnergyMixFromInputs());
+                });
+            }
+
             const performanceHolder = document.getElementById('performanceIndicatorGrid');
             if (performanceHolder) {
                 performanceHolder.addEventListener('input', function(event) {
@@ -3104,6 +4198,7 @@ Latent Heat = 2326 kJ/kg at about 70 C</code>
             setupEventHandlers();
             setupPanelMenus();
             setupLeftRail();
+            setupHeaderFilterToggleNarrowMode();
             calculateCorporateBenefits();
             calculateFundingMix();
             calculateNuclear();
